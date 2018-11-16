@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SlidingTiles</string>
+    <string name="slidingtiles">Slidingtiles</string>
+    <string name="title_activity_game_choice">GameChoiceActivity</string>
+    <string name="title_activity_game_complexity">GameComplexityActivity</string>
+    <string name="easy">Easy</string>
+    <string name="hard">Hard</string>
+    <string name="medium">Medium</string>
+    <string name="rule">Game \n Rules</string>
+</resources>

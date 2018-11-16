@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    tools:context=".GestureDetectGridView">
+
+    <group_0617.csc207.gamecentre.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        android:layout_weight="0"
+        tools:context="group_0617.csc207.gamecentre.GameActivity" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="30">
+
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="104dp"
+            android:layout_height="113dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:contentDescription="Small Picture"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/UploadButton"
+            android:layout_width="83dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="0"
+            android:background="@drawable/buttonshape"
+            android:fontFamily="sans-serif-smallcaps"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Upload"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgView"
+            app:layout_constraintStart_toEndOf="@+id/btnundo"
+            app:layout_constraintTop_toBottomOf="@+id/Score" />
+
+        <Button
+            android:id="@+id/btnundo"
+            android:layout_width="71dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/buttonshape"
+            android:fontFamily="sans-serif-smallcaps"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Undo"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.984" />
+
+        <TextView
+            android:id="@+id/Score"
+            android:layout_width="162dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="68dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Time: "
+            android:textColor="@color/white"
+            android:textSize="27dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_weight="2" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
