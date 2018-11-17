@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 /**
@@ -38,7 +39,8 @@ public class GameChoiceActivity extends AppCompatActivity {
         slidingtilesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToComplexity();
+                Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivity.class);
+                startActivity(startingScreen);
             }
         });
     }
@@ -88,7 +90,7 @@ public class GameChoiceActivity extends AppCompatActivity {
      * Activate the rules Button.
      */
     private void addruleButtonListener() {
-        Button ruleButton = findViewById(R.id.ruleButton);
+        ImageButton ruleButton = findViewById(R.id.ruleButton);
         ruleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +107,7 @@ public class GameChoiceActivity extends AppCompatActivity {
      * Activate the scoreBoard Button.
      */
     private void addscoreBoardButtonListener() {
-        Button btnscoreBoard = findViewById(R.id.btnscoreboard);
+        ImageButton btnscoreBoard = findViewById(R.id.btnscoreboard);
         btnscoreBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,14 +120,6 @@ public class GameChoiceActivity extends AppCompatActivity {
 
     }
 
-
-    /**
-     * Switch the screen to choose game complexity.
-     */
-    private void switchToComplexity() {
-        Intent complexityScreen = new Intent(this, GameComplexityActivity.class);
-        startActivity(complexityScreen);
-    }
 
 
     private void logout(){

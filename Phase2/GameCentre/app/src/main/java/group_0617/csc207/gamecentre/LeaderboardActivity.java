@@ -20,7 +20,7 @@ public class LeaderboardActivity extends Activity {
         setContentView(R.layout.avtivity_game_leaderboard);
 
         db = new DatabaseHelper(this);
-        leaderBoardData = db.getSTLeaderboardData(GameComplexityActivity.gameComplexity);
+        leaderBoardData = db.getSTLeaderboardData(StartingActivity.gameComplexity);
         StringBuilder stData = new StringBuilder();
         ListView lstview = (ListView) findViewById(R.id.listview);
         // Inflate header view

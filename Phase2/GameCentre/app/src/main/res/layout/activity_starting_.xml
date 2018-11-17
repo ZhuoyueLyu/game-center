@@ -134,7 +134,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GameText"
-        app:srcCompat="@drawable/leftArrow" />
+        app:srcCompat="@drawable/leftarrow" />
 
 
     <ImageButton
@@ -147,25 +147,24 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GameText"
-        app:srcCompat="@drawable/rightArrow" />
+        app:srcCompat="@drawable/rightarrow" />
 
 
     <TextView
         android:id="@+id/Complexity"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="113dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Welcome To"
+        android:text="Medium (4x4)"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintEnd_toStartOf="@+id/rightArrow"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/leftArrow"
         app:layout_constraintTop_toBottomOf="@+id/GameText" />
 

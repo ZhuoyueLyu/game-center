@@ -48,7 +48,7 @@ public class ResultBoardActivity extends AppCompatActivity {
             highScoreLabel.setText("High Score: " + highScore);
         }
 
-        db.addSTdata(LoginActivity.currentUser, GameComplexityActivity.gameComplexity, score);
+        db.addSTdata(LoginActivity.currentUser, StartingActivity.gameComplexity, score);
     }
 
     /**

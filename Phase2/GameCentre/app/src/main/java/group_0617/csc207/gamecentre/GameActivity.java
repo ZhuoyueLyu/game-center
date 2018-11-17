@@ -101,7 +101,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                     public void run() {
                         counts++;
                         TextView score = (TextView) findViewById(R.id.Score);
-                        score.setText("Time: "+counts);
+                        score.setText("Time: "+ counts + " s");
                         boardManager.setLastTime(counts);
                         saveToFile("save_file_" +
                                 Board.NUM_COLS + "_" + LoginActivity.currentUser);
