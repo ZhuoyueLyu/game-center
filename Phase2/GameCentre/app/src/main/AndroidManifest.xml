@@ -21,7 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".StartingActivity" />
-        <activity android:name=".GameComplexityActivity" />
         <activity android:name=".GameChoiceActivity" />
         <activity android:name=".ResultBoardActivity" />
         <activity android:name=".UserScoreboardActivity" />
