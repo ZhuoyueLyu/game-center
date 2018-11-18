@@ -94,10 +94,12 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         int posToCompare = pos+1;
         Tile currentTile = getTile(row, col);
         Tile tileToCompare;
-        while (posToCompare <= numTiles()) {
+        while (posToCompare < numTiles()) {
             tileToCompare = getTile(posToCompare/NUM_COLS, posToCompare%NUM_COLS);
-            if (currentTile.getId() > tileToCompare.getId()) {
-                inv++;
+            if (tileToCompare.getId() != numTiles()) {
+                if (currentTile.getId() > tileToCompare.getId()) {
+                    inv++;
+                }
             }
             posToCompare++;
         }
@@ -115,7 +117,9 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         int totInv = 0;
         for (int i = 0; i < NUM_COLS; i++) {
             for (int j = 0; j < NUM_ROWS; j++) {
-                totInv = totInv + countInversion(i, j);
+                if (getTile(i, j).getId() != numTiles()) {
+                    totInv = totInv + countInversion(i, j);
+                }
             }
         }
         return totInv;
@@ -125,9 +129,9 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * Check if the board is solvable
      * @return if the board is solvable
      */
-    private boolean isSolvable() {
-        boolean isEvenPol = sumOverPolarity()/2 == 0;
-        return NUM_COLS/2 == 1 && isEvenPol || NUM_COLS/2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
+    public boolean isSolvable() {
+        boolean isEvenPol = sumOverPolarity()%2 == 0;
+        return NUM_COLS%2 == 1 && isEvenPol || NUM_COLS%2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
     }
 
     /**
@@ -149,8 +153,8 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     private boolean blankOnOddRowFromBottom() {
         boolean re = false;
-        for (int row = this.NUM_ROWS; row >= 0; row++) {
-            if ((this.NUM_ROWS - row) / 2 == 1) {
+        for (int row = this.NUM_ROWS -1; row >= 0; row++) {
+            if ((this.NUM_ROWS - row) % 2 == 1) {
                 for (int col = 0; col < this.NUM_COLS; col++) {
                     if (getTile(row, col).getId() == numTiles()) {
                         re = true;
