@@ -26,7 +26,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     static int NUM_COLS = 4;
 
     /**
-     * l
      * The tiles on the board in row-major order.
      */
     private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
@@ -81,6 +80,85 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         tiles[row2][col2] = original_tile;
         setChanged();
         notifyObservers();
+    }
+
+    /**
+     * Count the number of inversion for current tile specified by row and column number
+     * @param row the row of current tile
+     * @param col the column of current tile
+     * @return the number of inversion for current tile
+     */
+    private int countInversion(int row, int col){
+        int inv = 0;
+        int pos = row * NUM_COLS + col;
+        int posToCompare = pos+1;
+        Tile currentTile = getTile(row, col);
+        Tile tileToCompare;
+        while (posToCompare <= numTiles()) {
+            tileToCompare = getTile(posToCompare/NUM_COLS, posToCompare%NUM_COLS);
+            if (currentTile.getId() > tileToCompare.getId()) {
+                inv++;
+            }
+            posToCompare++;
+        }
+
+        return inv;
+    }
+
+    /**
+     * Return the sum of polarity over all tiles in the blank.
+     *
+     * @return the sum of polarity over all tiles in the blank.
+     */
+    private int sumOverPolarity() {
+
+        int totInv = 0;
+        for (int i = 0; i < NUM_COLS; i++) {
+            for (int j = 0; j < NUM_ROWS; j++) {
+                totInv = totInv + countInversion(i, j);
+            }
+        }
+        return totInv;
+    }
+
+    /**
+     * Check if the board is solvable
+     * @return if the board is solvable
+     */
+    private boolean isSolvable() {
+        boolean isEvenPol = sumOverPolarity()/2 == 0;
+        return NUM_COLS/2 == 1 && isEvenPol || NUM_COLS/2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
+    }
+
+    /**
+     * This method check if the board is solvable. If not, it makes the board solvable
+     */
+    public void makeSolvable() {
+        if (!isSolvable()) {
+            if (getTile(0, 0).getId() == numTiles() || getTile(1, 0).getId() == numTiles()) {
+                swapTiles(NUM_ROWS-1, NUM_COLS-1, NUM_ROWS-1, NUM_COLS-2);
+            } else {
+                swapTiles(0, 0, 1, 0);
+            }
+        }
+    }
+
+    /**
+     * Check if blank tile is on odd row counting from bottom
+     * @return if blank tile is on odd row counting from bottom
+     */
+    private boolean blankOnOddRowFromBottom() {
+        boolean re = false;
+        for (int row = this.NUM_ROWS; row >= 0; row++) {
+            if ((this.NUM_ROWS - row) / 2 == 1) {
+                for (int col = 0; col < this.NUM_COLS; col++) {
+                    if (getTile(row, col).getId() == numTiles()) {
+                        re = true;
+                    }
+                }
+            }
+        }
+        return re;
     }
 
     @Override
