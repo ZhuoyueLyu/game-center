@@ -104,7 +104,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         score.setText("Time: "+ counts + " s");
                         boardManager.setLastTime(counts);
                         saveToFile("save_file_" +
-                                Board.NUM_COLS + "_" + LoginActivity.currentUser);
+                                boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
                     }
                 });
             }
@@ -143,7 +143,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         addUploadButtonListener();
 
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(Board.NUM_COLS);
+        gridView.setNumColumns(boardManager.getBoard().getComplexity());
         gridView.setBoardManager(boardManager);
         boardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
@@ -156,8 +156,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / Board.NUM_COLS;
-                        columnHeight = displayHeight / Board.NUM_ROWS;
+                        columnWidth = displayWidth / boardManager.getBoard().getComplexity();
+                        columnHeight = displayHeight / boardManager.getBoard().getComplexity();
 
                         display();
                     }
@@ -172,12 +172,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void createTileButtons(Context context) {
         Board board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != boardManager.getBoard().getComplexity(); row++) {
+            for (int col = 0; col != boardManager.getBoard().getComplexity(); col++) {
                 Button tmp = new Button(context);
                 if (bitmapList == null) {
                     tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-                } else if (board.getTile(row, col).getId() != Board.NUM_COLS * Board.NUM_ROWS) {
+                } else if (board.getTile(row, col).getId() != boardManager.getBoard().getComplexity() * boardManager.getBoard().getComplexity()) {
                     BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(board.getTile(row, col).getId()));
                     tmp.setBackground(d);
                 } else {
@@ -195,11 +195,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
         Board board = boardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / Board.NUM_ROWS;
-            int col = nextPos % Board.NUM_COLS;
+            int row = nextPos / boardManager.getBoard().getComplexity();
+            int col = nextPos % boardManager.getBoard().getComplexity();
             if (bitmapList == null) {
                 b.setBackgroundResource(board.getTile(row, col).getBackground());
-            } else if (board.getTile(row, col).getId() != Board.NUM_COLS * Board.NUM_ROWS) {
+            } else if (board.getTile(row, col).getId() != boardManager.getBoard().getComplexity() * boardManager.getBoard().getComplexity()) {
                 BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(board.getTile(row, col).getId()));
                 b.setBackground(d);
             } else {
@@ -369,10 +369,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
         List<Bitmap> newPieces = new ArrayList<Bitmap>();
         int w = picture.getWidth();
         int h = picture.getHeight();
-        int boxWidth = w / Board.NUM_COLS;
-        int boxHeight = h / Board.NUM_ROWS;
-        for (int i = 0; i < Board.NUM_ROWS; i++) {
-            for (int j = 0; j < Board.NUM_ROWS; j++) {
+        int boxWidth = w / boardManager.getBoard().getComplexity();
+        int boxHeight = h / boardManager.getBoard().getComplexity();
+        for (int i = 0; i < boardManager.getBoard().getComplexity(); i++) {
+            for (int j = 0; j < boardManager.getBoard().getComplexity(); j++) {
                 Bitmap pictureFragment = Bitmap.createBitmap(picture, j * boxWidth, i * boxHeight, boxWidth, boxHeight);
                 newPieces.add(pictureFragment);
             }
