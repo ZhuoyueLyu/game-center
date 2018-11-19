@@ -47,17 +47,20 @@ public class Tile implements Comparable<Tile>, Serializable {
      * @param id         the id
      * @param background the background
      */
-    public Tile(int id, int background) {
-        this.id = id;
-        this.background = background;
-    }
+    // public Tile(int id, int background) {
+    //    this.id = id;
+    //    this.background = background;
+    //}
+    // The signature conflicts with new signature needed to make board's complexity non-static
+    // do we need this constructor?
 
     /**
      * A tile with a background id; look up and set the id.
      *
-     * @param backgroundId
+     * @param backgroundId the background
+     * @param currentBoardComplexity the complexity of current board
      */
-    public Tile(int backgroundId) {
+    public Tile(int backgroundId, int currentBoardComplexity) {
         id = backgroundId + 1;
         // This looks so ugly.
         switch (backgroundId + 1) {
@@ -86,7 +89,7 @@ public class Tile implements Comparable<Tile>, Serializable {
                 background = R.drawable.tile_8;
                 break;
             case 9:
-                if (Board.NUM_COLS == 3){
+                if (currentBoardComplexity == 3){
                     background = R.drawable.tile_0;
                 }
                 else {
@@ -112,7 +115,7 @@ public class Tile implements Comparable<Tile>, Serializable {
                 background = R.drawable.tile_15;
                 break;
             case 16:
-                if (Board.NUM_COLS == 4){
+                if (currentBoardComplexity == 4){
                     background = R.drawable.tile_0;
                 }
                 else {
