@@ -18,22 +18,24 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The number of rows and columns.
      */
-    private int complexity = 4;
+    private int complexity;
 
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles = new Tile[complexity][complexity];
+    private Tile[][] tiles;
 
     /**
      * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == this.complexity * this.complexity
+     * Precondition: len(tiles) is a perfect square
      *
      * @param tiles the tiles for the board
      */
     Board(List<Tile> tiles) {
         Iterator<Tile> iter = tiles.iterator();
 
+        this.complexity = (int) Math.sqrt((double)tiles.size());
+        this.tiles = new Tile[complexity][complexity];
         for (int row = 0; row != this.complexity; row++) {
             for (int col = 0; col != this.complexity; col++) {
                 this.tiles[row][col] = iter.next();
