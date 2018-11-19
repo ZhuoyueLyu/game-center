@@ -59,6 +59,12 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
+     * Set the complexity of the board given new complexity
+     * @param inComplexity the new complexity
+     */
+    void setComplexity(int inComplexity) { this.complexity = inComplexity; }
+
+    /**
      * Return the tile at (row, col)
      *
      * @param row the tile row
