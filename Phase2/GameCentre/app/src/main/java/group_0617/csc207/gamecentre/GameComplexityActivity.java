@@ -29,8 +29,8 @@ public class GameComplexityActivity extends AppCompatActivity {
         easyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Board.NUM_COLS = 3;
-                Board.NUM_ROWS = 3;
+                //Board.NUM_COLS = 3;
+                //Board.NUM_ROWS = 3;
                 switchToStartingActivity();
                 gameComplexity = "easy";
             }
@@ -45,8 +45,8 @@ public class GameComplexityActivity extends AppCompatActivity {
         mediumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Board.NUM_COLS = 4;
-                Board.NUM_ROWS = 4;
+                //Board.NUM_COLS = 4;
+                //Board.NUM_ROWS = 4;
                 switchToStartingActivity();
                 gameComplexity = "medium";
             }
@@ -61,8 +61,8 @@ public class GameComplexityActivity extends AppCompatActivity {
         hardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Board.NUM_COLS = 5;
-                Board.NUM_ROWS = 5;
+                //Board.NUM_COLS = 5;
+                //Board.NUM_ROWS = 5;
                 switchToStartingActivity();
                 gameComplexity = "hard";
             }
