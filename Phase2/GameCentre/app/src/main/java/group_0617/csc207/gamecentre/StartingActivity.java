@@ -38,13 +38,11 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
-    private String SAVE_FILENAME = "save_file_" +
-            Board.NUM_COLS + "_" + LoginActivity.currentUser;
+    private String save_file_name;
     /**
      * A temporary save file.
      */
-    public static String TEMP_SAVE_FILENAME = "save_file_tmp_" +
-            Board.NUM_COLS + "_" + LoginActivity.currentUser;
+    public static String TEMP_SAVE_FILENAME;
     /**
      * The board manager.
      */
@@ -55,6 +53,8 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         boardManager = new BoardManager();
+        this.save_file_name = "save_file_" + boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser;
+        TEMP_SAVE_FILENAME = "save_file_tmp_" + boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser;
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
@@ -116,24 +116,20 @@ public class StartingActivity extends AppCompatActivity {
     private void ChooseComplexity(TextView complexity) {
         switch (positionOfChoice){
             case 0:
-                Board.NUM_COLS = 3;
-                Board.NUM_ROWS = 3;
+                boardManager.getBoard().setComplexity(3);
                 gameComplexity = "easy";
                 complexity.setText("Easy (3x3)");break;
 
             case 1:
-                Board.NUM_COLS = 4;
-                Board.NUM_ROWS = 4;
+                boardManager.getBoard().setComplexity(4);
                 gameComplexity = "medium";
                 complexity.setText("Medium (4x4)");break;
             case 2:
-                Board.NUM_COLS = 5;
-                Board.NUM_ROWS = 5;
+                boardManager.getBoard().setComplexity(5);
                 gameComplexity = "hard";
                 complexity.setText("Hard (5x5)");break;
             default:
-                Board.NUM_COLS = 4;
-                Board.NUM_ROWS = 4;
+                boardManager.getBoard().setComplexity(4);
                 gameComplexity = "medium";
                 complexity.setText("Medium (4x4)");
 
@@ -162,7 +158,7 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(SAVE_FILENAME);
+                loadFromFile(save_file_name);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
                 switchToGame();
@@ -185,7 +181,7 @@ public class StartingActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToFile(SAVE_FILENAME);
+                saveToFile(save_file_name);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastSavedText();
             }
