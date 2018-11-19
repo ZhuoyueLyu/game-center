@@ -30,6 +30,12 @@ import java.util.List;
 public class StartingActivity extends AppCompatActivity {
 
     public static String gameComplexity = "medium";
+
+    /**
+     * Complexity of choice
+     */
+    private int complexity = 4;
+
     /**
      * counting the times user click the arrow, start with medium which is index 1
      */
@@ -52,7 +58,7 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = new BoardManager();
+        boardManager = new BoardManager(complexity);
         this.save_file_name = "save_file_" + boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser;
         TEMP_SAVE_FILENAME = "save_file_tmp_" + boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser;
         saveToFile(TEMP_SAVE_FILENAME);
@@ -118,19 +124,23 @@ public class StartingActivity extends AppCompatActivity {
             case 0:
                 boardManager.getBoard().setComplexity(3);
                 gameComplexity = "easy";
+                this.complexity = 3;
                 complexity.setText("Easy (3x3)");break;
 
             case 1:
                 boardManager.getBoard().setComplexity(4);
                 gameComplexity = "medium";
+                this.complexity = 4;
                 complexity.setText("Medium (4x4)");break;
             case 2:
                 boardManager.getBoard().setComplexity(5);
                 gameComplexity = "hard";
+                this.complexity = 5;
                 complexity.setText("Hard (5x5)");break;
             default:
                 boardManager.getBoard().setComplexity(4);
                 gameComplexity = "medium";
+                this.complexity = 4;
                 complexity.setText("Medium (4x4)");
 
         }
@@ -144,7 +154,7 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager();
+                boardManager = new BoardManager(complexity);
                 switchToGame();
             }
         });
