@@ -66,15 +66,29 @@ class BoardManager implements Serializable {
      */
     BoardManager() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = board.getComplexity() * board.getComplexity();
+        final int numTiles = 16;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
+            tiles.add(new Tile(tileNum, getBoard().getComplexity()));
         }
 
         Collections.shuffle(tiles);
         this.board = new Board(tiles);
     }
 
+    /**
+     * Manage a new shuffled board specifying desired complexity
+     * @param complexity the complexity of board to manage
+     */
+    BoardManager(int complexity) {
+        List<Tile> tiles = new ArrayList<>();
+        int numTiles = complexity * complexity;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            tiles.add(new Tile(tileNum, complexity));
+        }
+
+        Collections.shuffle(tiles);
+        this.board = new Board(tiles);
+    }
     /**
      * Return whether the tiles are in row-major order.
      *
