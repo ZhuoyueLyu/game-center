@@ -66,7 +66,7 @@ class BoardManager implements Serializable {
      */
     BoardManager() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = board.getComplexity() * board.getComplexity();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum));
         }
@@ -109,14 +109,14 @@ class BoardManager implements Serializable {
      */
     boolean isValidTap(int position) {
 
-        int row = position / Board.NUM_COLS;
-        int col = position % Board.NUM_COLS;
+        int row = position / board.getComplexity();
+        int col = position % board.getComplexity();
         int blankId = board.numTiles();
         // Are any of the 4 the blank tile?
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == Board.NUM_ROWS - 1 ? null : board.getTile(row + 1, col);
+        Tile below = row == board.getComplexity() - 1 ? null : board.getTile(row + 1, col);
         Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == Board.NUM_COLS - 1 ? null : board.getTile(row, col + 1);
+        Tile right = col == board.getComplexity() - 1 ? null : board.getTile(row, col + 1);
 
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
@@ -132,19 +132,19 @@ class BoardManager implements Serializable {
      */
     void touchMove(int position) {
 
-        int row = position / Board.NUM_ROWS;
-        int col = position % Board.NUM_COLS;
+        int row = position / board.getComplexity();
+        int col = position % board.getComplexity();
         int blankId = board.numTiles();
 
         if (getId(row + 1, col) == blankId) {
             getBoard().swapTiles(row, col, row + 1, col);
-            moveStack.add(position + Board.NUM_COLS);
+            moveStack.add(position + board.getComplexity());
         } else if (getId(row, col + 1) == blankId) {
             getBoard().swapTiles(row, col, row, col + 1);
             moveStack.add(position + 1);
         } else if (getId(row - 1, col) == blankId) {
             getBoard().swapTiles(row, col, row - 1, col);
-            moveStack.add(position - Board.NUM_COLS);
+            moveStack.add(position - board.getComplexity());
         } else if (getId(row, col - 1) == blankId) {
             getBoard().swapTiles(row, col, row, col - 1);
             moveStack.add(position - 1);
@@ -163,9 +163,9 @@ class BoardManager implements Serializable {
      */
     private int getId(int row, int col) {
 
-        if (row <= Board.NUM_ROWS - 1
+        if (row <= board.getComplexity() - 1
                 && row >= 0
-                && col <= Board.NUM_COLS - 1
+                && col <= board.getComplexity() - 1
                 && col >= 0) {
             return getBoard().getTile(row, col).getId();
         }
@@ -197,8 +197,8 @@ class BoardManager implements Serializable {
      */
     private void touchUndo(int position) {
 
-        int row = position / Board.NUM_ROWS;
-        int col = position % Board.NUM_COLS;
+        int row = position / board.getComplexity();
+        int col = position % board.getComplexity();
         int blankId = board.numTiles();
 
         if (getId(row + 1, col) == blankId) {
