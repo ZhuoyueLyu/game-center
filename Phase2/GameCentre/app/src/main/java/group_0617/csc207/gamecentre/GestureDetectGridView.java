@@ -8,23 +8,28 @@ This extension of GridView contains built in logic for handling swipes between b
  */
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.GridView;
 
 public class GestureDetectGridView extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
     public static final int SWIPE_MAX_OFF_PATH = 100;
-    public static final int SWIPE_THRESHOLD_VELOCITY = 100;
+    public static final int SWIPE_THRESHOLD_VELOCITY = 25;
+
     private GestureDetector gDetector;
     private MovementController mController;
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
     private BoardManager boardManager;
+    private BoardManager2048 boardManager2048;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -62,6 +67,45 @@ public class GestureDetectGridView extends GridView {
             }
 
             @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                                   float velocityY) {
+                //final int position = GestureDetectGridView.this.pointToPosition
+                //(Math.round(e1.getX()), Math.round(e1.getY()));
+                int direction = 0;
+
+                if (Math.abs(e1.getY() - e2.getY()) > Math.abs(e1.getX() - e2.getX())) {
+                    if (Math.abs(velocityY) < SWIPE_THRESHOLD_VELOCITY) {
+                        return false;
+                    }
+                    if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
+                        //MainActivity.moveTiles(context, MainActivity.up, position);
+                        System.out.println("Up!");
+                        direction = Game2048Activity.UP;
+                    } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
+                        //MainActivity.moveTiles(context, MainActivity.down, position);
+                        System.out.println("Down!");
+                        direction = Game2048Activity.DOWN;
+                    }
+                } else {
+                    if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
+                        return false;
+                    }
+                    if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
+                        //MainActivity.moveTiles(context, MainActivity.left, position);
+                        System.out.println("Left!");
+                        direction = Game2048Activity.LEFT;
+                    } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
+                        //MainActivity.moveTiles(context, MainActivity.right, position);
+                        System.out.println("Right!");
+                        direction = Game2048Activity.RIGHT;
+                    }
+                }
+                mController.processTapMovement(context, direction, true);
+
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+
+            @Override
             public boolean onDown(MotionEvent event) {
                 return true;
             }
@@ -73,28 +117,25 @@ public class GestureDetectGridView extends GridView {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
         gDetector.onTouchEvent(ev);
-
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             mFlingConfirmed = false;
         } else if (action == MotionEvent.ACTION_DOWN) {
             mTouchX = ev.getX();
             mTouchY = ev.getY();
-        } else {
-
+        } else if (action == MotionEvent.ACTION_MOVE) {
             if (mFlingConfirmed) {
                 return true;
             }
-
-            float dX = (Math.abs(ev.getX() - mTouchX));
-            float dY = (Math.abs(ev.getY() - mTouchY));
+            float dX = ev.getX() - mTouchX;
+            float dY = ev.getY() - mTouchY;
             if ((dX > SWIPE_MIN_DISTANCE) || (dY > SWIPE_MIN_DISTANCE)) {
                 mFlingConfirmed = true;
                 return true;
             }
         }
-
         return super.onInterceptTouchEvent(ev);
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
@@ -105,4 +146,11 @@ public class GestureDetectGridView extends GridView {
         this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
     }
+
+    public void setBoardManager2048(BoardManager2048 boardManager2048) {
+        this.boardManager2048 = boardManager2048;
+        mController.setBoardManager2048(boardManager2048);
+    }
+
+
 }
