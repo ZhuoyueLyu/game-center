@@ -16,32 +16,28 @@ import java.util.List;
 public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     /**
-     * The number of rows.
+     * The number of rows and columns.
      */
-    static int NUM_ROWS = 4;
+    private int complexity;
 
     /**
-     * The number of rows.
-     */
-    static int NUM_COLS = 4;
-
-    /**
-     * l
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
+    private Tile[][] tiles;
 
     /**
      * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
+     * Precondition: len(tiles) is a perfect square
      *
      * @param tiles the tiles for the board
      */
     Board(List<Tile> tiles) {
         Iterator<Tile> iter = tiles.iterator();
 
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        this.complexity = (int) Math.sqrt((double)tiles.size());
+        this.tiles = new Tile[complexity][complexity];
+        for (int row = 0; row != this.complexity; row++) {
+            for (int col = 0; col != this.complexity; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -53,8 +49,22 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @return the number of tiles on the board
      */
     int numTiles() {
-        return NUM_ROWS * NUM_COLS;
+        return this.complexity * this.complexity;
     }
+
+    /**
+     * Return the complexity of the board
+     * @return the complexity of the board
+     */
+    int getComplexity() {
+        return this.complexity;
+    }
+
+    /**
+     * Set the complexity of the board given new complexity
+     * @param inComplexity the new complexity
+     */
+    void setComplexity(int inComplexity) { this.complexity = inComplexity; }
 
     /**
      * Return the tile at (row, col)
@@ -83,6 +93,89 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         notifyObservers();
     }
 
+    /**
+     * Count the number of inversion for current tile specified by row and column number
+     * @param row the row of current tile
+     * @param col the column of current tile
+     * @return the number of inversion for current tile
+     */
+    private int countInversion(int row, int col){
+        int inv = 0;
+        int pos = row * this.complexity + col;
+        int posToCompare = pos+1;
+        Tile currentTile = getTile(row, col);
+        Tile tileToCompare;
+        while (posToCompare < numTiles()) {
+            tileToCompare = getTile(posToCompare/this.complexity, posToCompare%this.complexity);
+            if (tileToCompare.getId() != numTiles()) {
+                if (currentTile.getId() > tileToCompare.getId()) {
+                    inv++;
+                }
+            }
+            posToCompare++;
+        }
+
+        return inv;
+    }
+
+    /**
+     * Return the sum of polarity over all tiles in the blank.
+     *
+     * @return the sum of polarity over all tiles in the blank.
+     */
+    private int sumOverPolarity() {
+
+        int totInv = 0;
+        for (int i = 0; i < this.complexity; i++) {
+            for (int j = 0; j < this.complexity; j++) {
+                if (getTile(i, j).getId() != numTiles()) {
+                    totInv = totInv + countInversion(i, j);
+                }
+            }
+        }
+        return totInv;
+    }
+
+    /**
+     * Check if the board is solvable
+     * @return if the board is solvable
+     */
+    public boolean isSolvable() {
+        boolean isEvenPol = sumOverPolarity()%2 == 0;
+        return this.complexity%2 == 1 && isEvenPol || this.complexity%2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
+    }
+
+    /**
+     * This method check if the board is solvable. If not, it makes the board solvable
+     */
+    public void makeSolvable() {
+        if (!isSolvable()) {
+            if (getTile(0, 0).getId() == numTiles() || getTile(1, 0).getId() == numTiles()) {
+                swapTiles(this.complexity-1, this.complexity-1, this.complexity-1, this.complexity-2);
+            } else {
+                swapTiles(0, 0, 1, 0);
+            }
+        }
+    }
+
+    /**
+     * Check if blank tile is on odd row counting from bottom
+     * @return if blank tile is on odd row counting from bottom
+     */
+    private boolean blankOnOddRowFromBottom() {
+        boolean re = false;
+        for (int row = this.complexity -1; row >= 0; row++) {
+            if ((this.complexity - row) % 2 == 1) {
+                for (int col = 0; col < this.complexity; col++) {
+                    if (getTile(row, col).getId() == numTiles()) {
+                        re = true;
+                    }
+                }
+            }
+        }
+        return re;
+    }
+
     @Override
     public String toString() {
         return "Board{" +
@@ -102,22 +195,22 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
 
         @Override
         public boolean hasNext() {
-            return rowIndex != NUM_ROWS - 1 ||
-                    columnIndex != NUM_COLS - 1;
+            return rowIndex != complexity - 1 ||
+                    columnIndex != complexity - 1;
         }
 
         @Override
         public Tile next() {
             Tile result = tiles[rowIndex][columnIndex];
-            if (rowIndex != Board.NUM_ROWS - 1) {
-                if (columnIndex != Board.NUM_COLS - 1) {
+            if (rowIndex != complexity - 1) {
+                if (columnIndex != complexity - 1) {
                     columnIndex++;
                 } else {
                     rowIndex++;
                     columnIndex = 0;
                 }
             } else {
-                if (columnIndex != Board.NUM_COLS - 1) {
+                if (columnIndex != complexity - 1) {
                     columnIndex++;
                 }
             }
