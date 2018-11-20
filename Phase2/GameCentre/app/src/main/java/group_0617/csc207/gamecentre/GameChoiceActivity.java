@@ -15,6 +15,8 @@ public class GameChoiceActivity extends AppCompatActivity {
 
     private Session session;
 
+    public static String currentGame = "Slidingtiles";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class GameChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivity.class);
+                currentGame = "Slidingtiles";
                 startActivity(startingScreen);
             }
         });
@@ -53,7 +56,9 @@ public class GameChoiceActivity extends AppCompatActivity {
         otherGame1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayToast("Sorry, this game is not available~");
+                Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivity.class);
+                currentGame = "2048";
+                startActivity(startingScreen);
             }
         });
     }
