@@ -20,6 +20,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * We tried to avoid using static variable here,
      * but it seems that the SQlite can only use static final variable?
+     *
+     *
+
      */
     private static final String TAG = DatabaseHelper.class.getSimpleName();
     private static final String DB_NAME = "gameCentre.db";
@@ -91,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *
      * @param username
      * @param password
-     * @return boolean, whether this user exist or not
+     * @return boolean, whether this user and password combination exist or not
      */
     boolean getUser(String username, String password) {
         String selectQuery = "select * from  " + USER_TABLE + " where " +
@@ -114,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * This method is used to check whether a given username exist or not
      *
      * @param username
-     * @return boolean
+     * @return boolean whether this username exist or not
      */
     boolean checkUserExist(String username) {
         //HashMap<String, String> user = new HashMap<String, String>();
