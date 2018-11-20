@@ -120,19 +120,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //HashMap<String, String> user = new HashMap<String, String>();
         String selectQuery = "select * from  " + USER_TABLE + " where " +
                 COLUMN_USERNAME + " = " + "'" + username + "'";
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        //cursor is used to read from the database
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        // Move to first row
-//        cursor.moveToFirst();
-//        if (cursor.getCount() > 0) {
-//            return true;
-//        }
-//        cursor.close();
-
-//        db.close();
-
-        return true;
+        SQLiteDatabase db = this.getReadableDatabase();
+        //cursor is used to read from the database
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            return true;
+        }
+        cursor.close();
+        db.close();
+        return false;
     }
 
     /**
