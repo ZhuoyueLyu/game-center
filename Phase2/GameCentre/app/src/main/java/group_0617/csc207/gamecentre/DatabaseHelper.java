@@ -129,6 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //            return true;
 //        }
 //        cursor.close();
+
 //        db.close();
 
         return true;
