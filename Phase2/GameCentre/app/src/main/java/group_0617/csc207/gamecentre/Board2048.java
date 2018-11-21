@@ -1,18 +1,7 @@
 package group_0617.csc207.gamecentre;
 
-import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
-import android.widget.Switch;
-
 import java.util.ArrayList;
 import java.util.Observable;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -41,8 +30,6 @@ public class Board2048 extends Observable implements Serializable {
      */
     private Tile2048[][] tiles = new Tile2048[NUM_ROWS][NUM_COLS];
 
-    private Tile2048[][] lastTiles = new Tile2048[NUM_ROWS][NUM_COLS];
-
 
     /**
      * A new board of tiles in row-major order.
@@ -51,21 +38,11 @@ public class Board2048 extends Observable implements Serializable {
      * @param tiles the tiles for the board
      */
     Board2048(List<Tile2048> tiles) {
-
         for (int row = 0; row != Board.NUM_ROWS; row++) {
             for (int col = 0; col != Board.NUM_COLS; col++) {
                 this.tiles[row][col] = tiles.get(row * Board.NUM_COLS + col);
             }
         }
-    }
-
-    /**
-     * Return the number of tiles on the board.
-     *
-     * @return the number of tiles on the board
-     */
-    int numTiles() {
-        return NUM_ROWS * NUM_COLS;
     }
 
     /**
@@ -110,22 +87,18 @@ public class Board2048 extends Observable implements Serializable {
     }
 
     public void rightCombine(Tile2048[] line) {
-        for (int j = 0; j <= line.length/2; j++) {
-            Tile2048 t = line[j];
-            line[j] = line[line.length - 1 - j];
-            line[line.length - 1 - j] = t;
+        Tile2048[] reverseLine = new Tile2048[line.length];
+        for (int j = 0; j < line.length; j++) {
+            reverseLine[j] = line[line.length - 1 - j];
         }
-        leftCombine(line);
-        for (int j = 0; j <= line.length/2; j++) {
-            Tile2048 t = line[j];
-            line[j] = line[line.length - 1 - j];
-            line[line.length - 1 - j] = t;
+        leftCombine(reverseLine);
+        for (int k = 0; k < line.length; k++) {
+            line[k] = reverseLine[line.length - 1 - k];
         }
     }
 
 
     void swipeMove(int dir) {
-        lastTiles = tiles.clone();
         Tile2048[][] columnTiles = new Tile2048[NUM_ROWS][NUM_COLS];
         for (int row = 0; row != Board.NUM_ROWS; row++) {
             for (int col = 0; col != Board.NUM_COLS; col++) {
@@ -207,6 +180,15 @@ public class Board2048 extends Observable implements Serializable {
 
     public Tile2048[][] getTiles() {
         return tiles;
+    }
+
+    /**
+     * Return the number of tiles on the board.
+     *
+     * @return the number of tiles on the board
+     */
+    int numTiles() {
+        return NUM_ROWS * NUM_COLS;
     }
 
     @Override

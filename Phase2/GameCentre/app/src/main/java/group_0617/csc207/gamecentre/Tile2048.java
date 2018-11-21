@@ -11,7 +11,7 @@ import group_0617.csc207.gamecentre.R;
 /**
  * A Tile in a 2048 puzzle.
  */
-public class Tile2048 implements Comparable<Tile2048>, Serializable {
+public class Tile2048 implements Serializable {
 
     /**
      * The background id to find the tile image.
@@ -24,36 +24,13 @@ public class Tile2048 implements Comparable<Tile2048>, Serializable {
     private int id;
 
     /**
-     * Return the background id.
-     *
-     * @return the background id
-     */
-    public int getBackground() {
-        return background;
-    }
-
-    /**
-     * Return the tile id.
-     *
-     * @return the tile id
-     */
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
      * A Tile with id and background. The background may not have a corresponding image.
      *
      * @param id         the id
      * @param background the background
      */
     public Tile2048(int id, int background) {
-        this.id = id;
-        this.background = background;
+        //super(id, background);
     }
 
     /**
@@ -62,6 +39,7 @@ public class Tile2048 implements Comparable<Tile2048>, Serializable {
      * @param backgroundId
      */
     public Tile2048(int backgroundId) {
+        //super(backgroundId);
         // This looks so ugly.
         this.id = backgroundId;
         switch (backgroundId) {
@@ -115,8 +93,30 @@ public class Tile2048 implements Comparable<Tile2048>, Serializable {
         }
     }
 
-    @Override
-    public int compareTo(@NonNull Tile2048 o) {
-        return o.id - this.id;
+    /**
+     * Return the background id.
+     *
+     * @return the background id
+     */
+    public int getBackground() {
+        return background;
     }
+
+    /**
+     * Return the tile id.
+     *
+     * @return the tile id
+     */
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+//    @Override
+//    public int compareTo(@NonNull Tile2048 o) {
+//        return o.id - this.id;
+//    }
 }

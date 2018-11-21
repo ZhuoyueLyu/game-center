@@ -2,10 +2,7 @@ package group_0617.csc207.gamecentre;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.Stack;
 
 /**
@@ -41,7 +38,7 @@ class BoardManager2048 implements Serializable {
     /**
      * The stack of all previous reversed moves.
      */
-    private Stack<Integer> moveStack = new Stack<Integer>();
+    private Stack<Board2048> boardStack = new Stack<>();
 
     //private boolean hasEmptyTile = true;
 
@@ -58,7 +55,7 @@ class BoardManager2048 implements Serializable {
     /**
      * Return the current board.
      */
-    Board2048 getBoard2048() {
+    Board2048 getBoard() {
         return board2048;
     }
 
@@ -71,7 +68,6 @@ class BoardManager2048 implements Serializable {
         for (int tileNum = 0; tileNum < numTiles; tileNum++) {
             tiles.add(new Tile2048(0));
         }
-        //Collections.shuffle(tiles);
         this.board2048 = new Board2048(tiles);
         board2048.addRandomTile();
         board2048.addRandomTile();
@@ -137,8 +133,10 @@ class BoardManager2048 implements Serializable {
                 for (Tile2048[] line : tiles) {
                     Tile2048[] lineCopy = line.clone();
                     board2048.rightCombine(line);
-                    if (!Arrays.equals(line, lineCopy)) {
-                        return true;
+                    for (int i = 0; i < line.length; i++){
+                        if (line[i].getId() != lineCopy[i].getId()){
+                            return true;
+                        }
                     }
                 }
                 break;
@@ -146,8 +144,10 @@ class BoardManager2048 implements Serializable {
                 for (Tile2048[] line : columnTiles) {
                     Tile2048[] lineCopy = line.clone();
                     board2048.leftCombine(line);
-                    if (!Arrays.equals(line, lineCopy)) {
-                        return true;
+                    for (int i = 0; i < line.length; i++){
+                        if (line[i].getId() != lineCopy[i].getId()){
+                            return true;
+                        }
                     }
                 }
                 break;
@@ -155,8 +155,10 @@ class BoardManager2048 implements Serializable {
                 for (Tile2048[] line : columnTiles) {
                     Tile2048[] lineCopy = line.clone();
                     board2048.rightCombine(line);
-                    if (!Arrays.equals(line, lineCopy)) {
-                        return true;
+                    for (int i = 0; i < line.length; i++){
+                        if (line[i].getId() != lineCopy[i].getId()){
+                            return true;
+                        }
                     }
                 }
                 break;
@@ -165,11 +167,6 @@ class BoardManager2048 implements Serializable {
     }
 
     void touchMove(int move) {
-//        for (int position = 0; position < board2048.numTiles(); position++) {
-//            int x = position / Board2048.NUM_ROWS;
-//            int y = position % Board2048.NUM_ROWS;
-//            board2048.setTileId(position, board2048.swipeMove(move)[x][y].getId());
-//        }
         board2048.swipeMove(move);
         board2048.addRandomTile();
         stepCounter++;
@@ -190,7 +187,7 @@ class BoardManager2048 implements Serializable {
                 && row >= 0
                 && col <= Board2048.NUM_COLS - 1
                 && col >= 0) {
-            return getBoard2048().getTile(row, col).getId();
+            return getBoard().getTile(row, col).getId();
         }
 //        this -1 means the row and col is out of bound;
         return -1;
@@ -202,9 +199,13 @@ class BoardManager2048 implements Serializable {
      * @return whether the current can be undoed.
      */
     boolean undo() {
-        timesOfUndo++;
-        return true;
-
+        if (boardStack.isEmpty()) {
+            return false;
+        } else {
+            board2048 = boardStack.pop();
+            timesOfUndo++;
+            return true;
+        }
     }
 
     /**
