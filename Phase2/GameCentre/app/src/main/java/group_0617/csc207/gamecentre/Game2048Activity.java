@@ -134,8 +134,9 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
 
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(Board.NUM_COLS);
+        gridView.setAbleToFling(false);
         gridView.setBoardManager2048(boardManager2048);
-        boardManager2048.getBoard2048().addObserver(this);
+        boardManager2048.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -179,7 +180,7 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board2048 board2048 = boardManager2048.getBoard2048();
+        Board2048 board2048 = boardManager2048.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != Board.NUM_ROWS; row++) {
             for (int col = 0; col != Board.NUM_COLS; col++) {
@@ -195,7 +196,7 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
      */
     private void updateTileButtons() {
         //System.out.println("1: " + boardManager2048.getHa());
-        Board2048 board2048 = boardManager2048.getBoard2048();
+        Board2048 board2048 = boardManager2048.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / Board.NUM_ROWS;
