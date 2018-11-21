@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-public class BoardManagerSlidingtiles extends BoardManager implements Serializable {
+public class BoardManagerSlidingtiles implements Serializable {
+
     /**
      * The board being managed.
      */
@@ -16,6 +17,26 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
      * The stack of all previous reversed moves.
      */
     private Stack<BoardSlidingtiles> boardStack = new Stack<>();
+
+    /**
+     * The number of steps.
+     */
+    private int stepCounter = 0;
+
+    /**
+     * The number of undos.
+     */
+    private int timesOfUndo = 0;
+
+    /**
+     * The time of last game's timer counts..
+     */
+    private int lastTime = 0;
+
+    /**
+     * The score which outputs after solving game.
+     */
+    private int score = 0;
 
 //    /**
 //     * Manage a board that has been pre-populated.
@@ -39,7 +60,7 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
         this.boardSlidingtiles = new BoardSlidingtiles(tiles);
     }
 
-    @Override
+//    @Override
     boolean puzzleSolved() {
 
         for (int row = 0; row != Board.NUM_ROWS; row++) {
@@ -50,15 +71,15 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
                 }
             }
         }
-        setScore(10000 / getLastTime() / (getStepCounter() + getTimesOfUndo()));
-        setStepCounter(0);
-        setLastTime(0);
-        setTimesOfUndo(0);
+        score = 10000 / lastTime / stepCounter + timesOfUndo;
+        stepCounter = 0;
+        lastTime = 0;
+        timesOfUndo = 0;
         return true;
     }
 
 
-    @Override
+//    @Override
     boolean isValidTap(int position) {
         int row = position / Board.NUM_COLS;
         int col = position % Board.NUM_COLS;
@@ -73,7 +94,7 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
                 || (right != null && right.getId() == blankId);
     }
 
-    @Override
+    //@Override
     void touchMove(int position) {
 
         int row = position / Board.NUM_ROWS;
@@ -91,7 +112,8 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
             getBoard().swapTiles(row, col, row, col - 1);
         }
         //addBoard(boardSlidingtiles);
-        setStepCounter(getStepCounter() + 1);
+        //setStepCounter(getStepCounter() + 1);
+        stepCounter++;
     }
 
     /**
@@ -126,7 +148,8 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
 //            boardSlidingtiles = boardStack.pop();
 //            boardSlidingtiles.notifyObservers();
             boardSlidingtiles.changeTo(boardStack.pop());
-            setTimesOfUndo(getTimesOfUndo() + 1);
+            //setTimesOfUndo(getTimesOfUndo() + 1);
+            timesOfUndo++;
             return true;
         }
     }
@@ -136,6 +159,53 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
      */
     BoardSlidingtiles getBoard() {
         return boardSlidingtiles;
+    }
+
+    /**
+     * Return the last timer counts.
+     */
+    public int getLastTime() {
+        return lastTime;
+    }
+
+    /**
+     * Set lastTime at lastTime.
+     */
+    public void setLastTime(int lastTime) {
+        this.lastTime = lastTime;
+    }
+
+    /**
+     * Return the times of undos.
+     */
+    public int getTimesOfUndo() {
+        return this.timesOfUndo;
+    }
+
+    public void setTimesOfUndo(int timesOfUndo) {
+        this.timesOfUndo = timesOfUndo;
+    }
+
+    /**
+     * Return the score.
+     */
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * Return the number of steps.
+     */
+    public int getStepCounter() {
+        return stepCounter;
+    }
+
+    public void setStepCounter(int stepCounter) {
+        this.stepCounter = stepCounter;
     }
 
 }

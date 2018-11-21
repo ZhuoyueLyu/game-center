@@ -60,12 +60,20 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (GameChoiceActivity.currentGame == "2048"){
-            boardManager2048 = new BoardManager2048();
+        switch (GameChoiceActivity.currentGame) {
+            case "Slidingtiles":
+                boardManagerSlidingtiles = new BoardManagerSlidingtiles();
+                break;
+            case "2048":
+                boardManager2048 = new BoardManager2048();
+                break;
         }
-        else if (GameChoiceActivity.currentGame == "Slidingtiles") {
-            boardManagerSlidingtiles = new BoardManagerSlidingtiles();
-        }
+//        if (GameChoiceActivity.currentGame.equals("2048")){
+//            boardManager2048 = new BoardManager2048();
+//        }
+//        else if (GameChoiceActivity.currentGame.equals("Slidingtiles")) {
+//            boardManagerSlidingtiles = new BoardManagerSlidingtiles();
+//        }
         //boardManager = new BoardManager();
         saveToFile(TEMP_SAVE_FILENAME);
 
