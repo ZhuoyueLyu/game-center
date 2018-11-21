@@ -40,7 +40,7 @@ public class Tile implements Comparable<Tile>, Serializable {
      * @param backgroundId
      */
     public Tile(int backgroundId) {
-        id = backgroundId + 1;
+        id = backgroundId;
     }
 
     /**
@@ -50,6 +50,10 @@ public class Tile implements Comparable<Tile>, Serializable {
      */
     public int getBackground() {
         return background;
+    }
+
+    public void setBackground(int background) {
+        this.background = background;
     }
 
     /**
