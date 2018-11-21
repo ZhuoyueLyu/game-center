@@ -42,7 +42,7 @@ class BoardManager implements Serializable {
     /**
      * The stack of all previous reversed moves.
      */
-    private Stack<Integer> moveStack = new Stack<Integer>();
+    private Stack<Board> boardStack = new Stack<>();
 
 
     /**
@@ -65,14 +65,6 @@ class BoardManager implements Serializable {
      * Manage a new shuffled board.
      */
     BoardManager() {
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
-        }
-
-        Collections.shuffle(tiles);
-        this.board = new Board(tiles);
     }
 
     /**
@@ -128,26 +120,7 @@ class BoardManager implements Serializable {
      * @param position the position of a touch
      */
     void touchMove(int position) {
-
-        int row = position / Board.NUM_ROWS;
-        int col = position % Board.NUM_COLS;
-        int blankId = board.numTiles();
-
-        if (getId(row + 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row + 1, col);
-            moveStack.add(position + Board.NUM_COLS);
-        } else if (getId(row, col + 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col + 1);
-            moveStack.add(position + 1);
-        } else if (getId(row - 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row - 1, col);
-            moveStack.add(position - Board.NUM_COLS);
-        } else if (getId(row, col - 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col - 1);
-            moveStack.add(position - 1);
-        }
         stepCounter++;
-        System.out.println("Step: " + stepCounter);
     }
 
     /**
@@ -176,11 +149,10 @@ class BoardManager implements Serializable {
      * @return whether the current can be undoed.
      */
     boolean undo() {
-        if (moveStack.isEmpty()) {
+        if (boardStack.isEmpty()) {
             return false;
         } else {
-            int lastInverseMove = moveStack.pop();
-            touchUndo(lastInverseMove);
+            board = boardStack.pop();
             timesOfUndo++;
             return true;
         }
@@ -193,20 +165,6 @@ class BoardManager implements Serializable {
      * @param position the reverse move to be made for undo
      */
     private void touchUndo(int position) {
-
-        int row = position / Board.NUM_ROWS;
-        int col = position % Board.NUM_COLS;
-        int blankId = board.numTiles();
-
-        if (getId(row + 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row + 1, col);
-        } else if (getId(row, col + 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col + 1);
-        } else if (getId(row - 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row - 1, col);
-        } else if (getId(row, col - 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col - 1);
-        }
     }
 
     /**
