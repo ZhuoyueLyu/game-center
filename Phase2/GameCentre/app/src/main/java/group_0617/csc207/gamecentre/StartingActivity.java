@@ -66,7 +66,7 @@ public class StartingActivity extends AppCompatActivity {
         else if (GameChoiceActivity.currentGame == "Slidingtiles") {
             boardManagerSlidingtiles = new BoardManagerSlidingtiles();
         }
-        boardManager = new BoardManager();
+        //boardManager = new BoardManager();
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);

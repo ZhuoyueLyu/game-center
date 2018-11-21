@@ -75,4 +75,14 @@ public class Board extends Observable implements Serializable{
                 '}';
     }
 
+    void changeTo(Board board){
+        for (int row = 0; row != NUM_ROWS; row++) {
+            for (int col = 0; col != NUM_COLS; col++) {
+                tiles[row][col] = board.getTile(row, col);
+            }
+        }
+        setChanged();
+        notifyObservers();
+    }
+
 }

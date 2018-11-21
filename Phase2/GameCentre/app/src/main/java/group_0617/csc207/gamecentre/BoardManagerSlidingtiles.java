@@ -13,39 +13,18 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
     private BoardSlidingtiles boardSlidingtiles;
 
     /**
-     * The number of steps.
-     */
-    private int stepCounter = 0;
-
-    /**
-     * The number of undos.
-     */
-    private int timesOfUndo = 0;
-
-    /**
-     * The time of last game's timer counts..
-     */
-    private int lastTime = 0;
-
-    /**
-     * The score which outputs after solving game.
-     */
-    private int score = 0;
-
-    /**
      * The stack of all previous reversed moves.
      */
-    private Stack<Integer> moveStack = new Stack<>();
+    private Stack<BoardSlidingtiles> boardStack = new Stack<>();
 
-
-    /**
-     * Manage a board that has been pre-populated.
-     *
-     * @param boardSlidingtiles the board
-     */
-    BoardManagerSlidingtiles(BoardSlidingtiles boardSlidingtiles) {
-        this.boardSlidingtiles = boardSlidingtiles;
-    }
+//    /**
+//     * Manage a board that has been pre-populated.
+//     *
+//     * @param boardSlidingtiles the board
+//     */
+//    BoardManagerSlidingtiles(BoardSlidingtiles boardSlidingtiles) {
+//        this.boardSlidingtiles = boardSlidingtiles;
+//    }
 
     /**
      * Manage a new shuffled board.
@@ -60,11 +39,7 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
         this.boardSlidingtiles = new BoardSlidingtiles(tiles);
     }
 
-    /**
-     * Return whether the tiles are in row-major order.
-     *
-     * @return whether the tiles are in row-major order
-     */
+    @Override
     boolean puzzleSolved() {
 
         for (int row = 0; row != Board.NUM_ROWS; row++) {
@@ -75,20 +50,15 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
                 }
             }
         }
-        score = 10000 / lastTime / (stepCounter + timesOfUndo);
-        stepCounter = 0;
-        lastTime = 0;
-        timesOfUndo = 0;
+        setScore(10000 / getLastTime() / (getStepCounter() + getTimesOfUndo()));
+        setStepCounter(0);
+        setLastTime(0);
+        setTimesOfUndo(0);
         return true;
     }
 
 
-    /**
-     * Return whether any of the four surrounding tiles is the blank tile.
-     *
-     * @param position the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
-     */
+    @Override
     boolean isValidTap(int position) {
         int row = position / Board.NUM_COLS;
         int col = position % Board.NUM_COLS;
@@ -103,33 +73,25 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
                 || (right != null && right.getId() == blankId);
     }
 
-    /**
-     * Process a touch at position in the boardSlidingtiles, swapping tiles if any of the neighbouring
-     * tiles is the blank tile.
-     *
-     * @param position the position of a touch
-     */
+    @Override
     void touchMove(int position) {
 
         int row = position / Board.NUM_ROWS;
         int col = position % Board.NUM_COLS;
         int blankId = boardSlidingtiles.numTiles();
+        boardStack.add(getBoard());
 
         if (getId(row + 1, col) == blankId) {
             getBoard().swapTiles(row, col, row + 1, col);
-            moveStack.add(position + Board.NUM_COLS);
         } else if (getId(row, col + 1) == blankId) {
             getBoard().swapTiles(row, col, row, col + 1);
-            moveStack.add(position + 1);
         } else if (getId(row - 1, col) == blankId) {
             getBoard().swapTiles(row, col, row - 1, col);
-            moveStack.add(position - Board.NUM_COLS);
         } else if (getId(row, col - 1) == blankId) {
             getBoard().swapTiles(row, col, row, col - 1);
-            moveStack.add(position - 1);
         }
-        stepCounter++;
-        System.out.println("Step: " + stepCounter);
+        //addBoard(boardSlidingtiles);
+        setStepCounter(getStepCounter() + 1);
     }
 
     /**
@@ -155,39 +117,17 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
     /**
      * Undo last move and return true if undo successfully, false if it has been initial states.
      *
-     * @return whether the current can be undoed.
+     * @return whether the current state can make undo.
      */
     boolean undo() {
-        if (moveStack.isEmpty()) {
+        if (boardStack.isEmpty()) {
             return false;
         } else {
-            int lastInverseMove = moveStack.pop();
-            touchUndo(lastInverseMove);
-            timesOfUndo++;
+//            boardSlidingtiles = boardStack.pop();
+//            boardSlidingtiles.notifyObservers();
+            boardSlidingtiles.changeTo(boardStack.pop());
+            setTimesOfUndo(getTimesOfUndo() + 1);
             return true;
-        }
-    }
-
-    /**
-     * Similar to touchMove(). However, when do the undo, the reverse move won't
-     * be saved in the moveStack.
-     *
-     * @param position the reverse move to be made for undo
-     */
-    private void touchUndo(int position) {
-
-        int row = position / Board.NUM_ROWS;
-        int col = position % Board.NUM_COLS;
-        int blankId = boardSlidingtiles.numTiles();
-
-        if (getId(row + 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row + 1, col);
-        } else if (getId(row, col + 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col + 1);
-        } else if (getId(row - 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row - 1, col);
-        } else if (getId(row, col - 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col - 1);
         }
     }
 
@@ -198,39 +138,4 @@ public class BoardManagerSlidingtiles extends BoardManager implements Serializab
         return boardSlidingtiles;
     }
 
-    /**
-     * Return the last timer counts.
-     */
-    int getLastTime() {
-        return lastTime;
-    }
-
-    /**
-     * Set lastTime at lastTime.
-     */
-    void setLastTime(int lastTime) {
-        this.lastTime = lastTime;
-    }
-
-    /**
-     * Return the times of undos.
-     */
-    int getTimesOfUndo() {
-        return this.timesOfUndo;
-    }
-
-    /**
-     * Return the score.
-     */
-    public int getScore() {
-        return score;
-    }
-
-
-    /**
-     * Return the number of steps.
-     */
-    public int getStepCounter() {
-        return stepCounter;
-    }
 }
