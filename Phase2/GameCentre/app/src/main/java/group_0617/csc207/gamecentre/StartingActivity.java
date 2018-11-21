@@ -85,7 +85,6 @@ public class StartingActivity extends AppCompatActivity {
 
     private void addLeftArrowButtonListener() {
 
-
         ImageButton Button = findViewById(R.id.leftArrow);
         Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +116,6 @@ public class StartingActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
 /**
@@ -150,6 +147,7 @@ public class StartingActivity extends AppCompatActivity {
                 complexity.setText("Medium (4x4)");
 
         }
+        System.out.println("Complexity: " + Board.NUM_ROWS);
     }
 
     /**
@@ -161,8 +159,15 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //boardManager = new BoardManager();
-                boardManager = new BoardManager();
-                switchToGame(GameChoiceActivity.currentGame);
+                switch (GameChoiceActivity.currentGame) {
+                    case "Slidingtiles":
+                        boardManagerSlidingtiles = new BoardManagerSlidingtiles();
+                        break;
+                    case "2048":
+                        boardManager2048 = new BoardManager2048();
+                        break;
+                }
+                switchToGame();
             }
         });
     }
@@ -178,7 +183,7 @@ public class StartingActivity extends AppCompatActivity {
                 loadFromFile(SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
-                switchToGame(GameChoiceActivity.currentGame);
+                switchToGame();
             }
         });
     }
@@ -255,9 +260,9 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * Switch to the GameActivity view to play the game.
      */
-    private void switchToGame(String currentGame) {
+    private void switchToGame() {
         Intent tmp = null;
-        switch (currentGame) {
+        switch (GameChoiceActivity.currentGame) {
             case "Slidingtiles":
                 tmp = new Intent(this,GameActivity.class);
                 break;
@@ -281,7 +286,14 @@ public class StartingActivity extends AppCompatActivity {
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 //boardManager = (BoardManager) input.readObject();
-                boardManagerSlidingtiles = (BoardManagerSlidingtiles) input.readObject();
+                switch (GameChoiceActivity.currentGame) {
+                    case "Slidingtiles":
+                        boardManagerSlidingtiles = (BoardManagerSlidingtiles) input.readObject();
+                        break;
+                    case "2048":
+                        boardManager2048 = (BoardManager2048) input.readObject();
+                        break;
+                }
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

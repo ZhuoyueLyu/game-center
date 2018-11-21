@@ -9,22 +9,12 @@ import java.util.List;
 import java.util.Observable;
 
 
-public class BoardSlidingtiles extends Observable implements Serializable, Iterable<TileSlidingtiles>{
-
-    /**
-     * The number of rows.
-     */
-    static int NUM_ROWS = 4;
-
-    /**
-     * The number of rows.
-     */
-    static int NUM_COLS = 4;
+public class BoardSlidingtiles extends Board implements Serializable, Iterable<TileSlidingtiles> {
 
     /**
      * The tiles on the board in row-major order.
      */
-    private TileSlidingtiles[][] tiles = new TileSlidingtiles[NUM_ROWS][NUM_COLS];
+    private TileSlidingtiles[][] tiles = new TileSlidingtiles[Board.NUM_ROWS][Board.NUM_COLS];
 
     /**
      * A new board of tiles in row-major order.
@@ -34,8 +24,8 @@ public class BoardSlidingtiles extends Observable implements Serializable, Itera
      */
     BoardSlidingtiles(List<TileSlidingtiles> tiles) {
         Iterator<TileSlidingtiles> iter = tiles.iterator();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != NUM_ROWS; row++) {
+            for (int col = 0; col != NUM_COLS; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -70,18 +60,19 @@ public class BoardSlidingtiles extends Observable implements Serializable, Itera
 
     /**
      * Count the number of inversion for current tile specified by row and column number
+     *
      * @param row the row of current tile
      * @param col the column of current tile
      * @return the number of inversion for current tile
      */
-    private int countInversion(int row, int col){
+    private int countInversion(int row, int col) {
         int inv = 0;
         int pos = row * NUM_COLS + col;
-        int posToCompare = pos+1;
+        int posToCompare = pos + 1;
         TileSlidingtiles currentTile = getTile(row, col);
         TileSlidingtiles tileToCompare;
         while (posToCompare <= numTiles()) {
-            tileToCompare = getTile(posToCompare/NUM_COLS, posToCompare%NUM_COLS);
+            tileToCompare = getTile(posToCompare / NUM_COLS, posToCompare % NUM_COLS);
             if (currentTile.getId() > tileToCompare.getId()) {
                 inv++;
             }
@@ -109,11 +100,12 @@ public class BoardSlidingtiles extends Observable implements Serializable, Itera
 
     /**
      * Check if the board is solvable
+     *
      * @return if the board is solvable
      */
     private boolean isSolvable() {
-        boolean isEvenPol = sumOverPolarity()/2 == 0;
-        return NUM_COLS/2 == 1 && isEvenPol || NUM_COLS/2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
+        boolean isEvenPol = sumOverPolarity() / 2 == 0;
+        return NUM_COLS / 2 == 1 && isEvenPol || NUM_COLS / 2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
     }
 
     /**
@@ -122,7 +114,7 @@ public class BoardSlidingtiles extends Observable implements Serializable, Itera
     public void makeSolvable() {
         if (!isSolvable()) {
             if (getTile(0, 0).getId() == numTiles() || getTile(1, 0).getId() == numTiles()) {
-                swapTiles(NUM_ROWS-1, NUM_COLS-1, NUM_ROWS-1, NUM_COLS-2);
+                swapTiles(NUM_ROWS - 1, NUM_COLS - 1, NUM_ROWS - 1, NUM_COLS - 2);
             } else {
                 swapTiles(0, 0, 1, 0);
             }
@@ -131,13 +123,14 @@ public class BoardSlidingtiles extends Observable implements Serializable, Itera
 
     /**
      * Check if blank tile is on odd row counting from bottom
+     *
      * @return if blank tile is on odd row counting from bottom
      */
     private boolean blankOnOddRowFromBottom() {
         boolean re = false;
-        for (int row = Board.NUM_ROWS; row >= 0; row++) {
-            if ((Board.NUM_ROWS - row) / 2 == 1) {
-                for (int col = 0; col < Board.NUM_COLS; col++) {
+        for (int row = NUM_ROWS; row >= 0; row++) {
+            if ((NUM_ROWS - row) / 2 == 1) {
+                for (int col = 0; col < NUM_COLS; col++) {
                     if (getTile(row, col).getId() == numTiles()) {
                         re = true;
                     }
@@ -145,22 +138,6 @@ public class BoardSlidingtiles extends Observable implements Serializable, Itera
             }
         }
         return re;
-    }
-
-    /**
-     * Return the number of tiles on the board.
-     *
-     * @return the number of tiles on the board
-     */
-    int numTiles() {
-        return NUM_ROWS * NUM_COLS;
-    }
-
-    @Override
-    public String toString() {
-        return "Board{" +
-                "tiles=" + Arrays.toString(tiles) +
-                '}';
     }
 
     @NonNull
@@ -182,15 +159,15 @@ public class BoardSlidingtiles extends Observable implements Serializable, Itera
         @Override
         public TileSlidingtiles next() {
             TileSlidingtiles result = tiles[rowIndex][columnIndex];
-            if (rowIndex != Board.NUM_ROWS - 1) {
-                if (columnIndex != Board.NUM_COLS - 1) {
+            if (rowIndex != NUM_ROWS - 1) {
+                if (columnIndex != NUM_COLS - 1) {
                     columnIndex++;
                 } else {
                     rowIndex++;
                     columnIndex = 0;
                 }
             } else {
-                if (columnIndex != Board.NUM_COLS - 1) {
+                if (columnIndex != NUM_COLS - 1) {
                     columnIndex++;
                 }
             }

@@ -134,7 +134,7 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
 
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(Board.NUM_COLS);
-        gridView.setAbleToFling(false);
+        gridView.setAbleToFling(true);
         gridView.setBoardManager2048(boardManager2048);
         boardManager2048.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
