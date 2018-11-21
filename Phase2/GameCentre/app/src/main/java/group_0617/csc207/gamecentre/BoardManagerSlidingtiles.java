@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-public class BoardManagerSlidingtiles implements Serializable {
+public class BoardManagerSlidingtiles extends BoardManager implements Serializable {
     /**
      * The board being managed.
      */
