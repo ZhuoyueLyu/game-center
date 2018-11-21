@@ -26,10 +26,12 @@ public class GestureDetectGridView extends GridView {
     private GestureDetector gDetector;
     private MovementController mController;
     private boolean mFlingConfirmed = false;
+    private boolean ableToFling = false;
     private float mTouchX;
     private float mTouchY;
     private BoardManager boardManager;
     private BoardManager2048 boardManager2048;
+    private  BoardManagerSlidingtiles boardManagerSlidingtiles;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -71,36 +73,38 @@ public class GestureDetectGridView extends GridView {
                                    float velocityY) {
                 //final int position = GestureDetectGridView.this.pointToPosition
                 //(Math.round(e1.getX()), Math.round(e1.getY()));
-                int direction = 0;
+                if (ableToFling) {
+                    int direction = 0;
 
-                if (Math.abs(e1.getY() - e2.getY()) > Math.abs(e1.getX() - e2.getX())) {
-                    if (Math.abs(velocityY) < SWIPE_THRESHOLD_VELOCITY) {
-                        return false;
+                    if (Math.abs(e1.getY() - e2.getY()) > Math.abs(e1.getX() - e2.getX())) {
+                        if (Math.abs(velocityY) < SWIPE_THRESHOLD_VELOCITY) {
+                            return false;
+                        }
+                        if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
+                            //MainActivity.moveTiles(context, MainActivity.up, position);
+                            System.out.println("Up!");
+                            direction = Game2048Activity.UP;
+                        } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
+                            //MainActivity.moveTiles(context, MainActivity.down, position);
+                            System.out.println("Down!");
+                            direction = Game2048Activity.DOWN;
+                        }
+                    } else {
+                        if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
+                            return false;
+                        }
+                        if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
+                            //MainActivity.moveTiles(context, MainActivity.left, position);
+                            System.out.println("Left!");
+                            direction = Game2048Activity.LEFT;
+                        } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
+                            //MainActivity.moveTiles(context, MainActivity.right, position);
+                            System.out.println("Right!");
+                            direction = Game2048Activity.RIGHT;
+                        }
                     }
-                    if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
-                        //MainActivity.moveTiles(context, MainActivity.up, position);
-                        System.out.println("Up!");
-                        direction = Game2048Activity.UP;
-                    } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
-                        //MainActivity.moveTiles(context, MainActivity.down, position);
-                        System.out.println("Down!");
-                        direction = Game2048Activity.DOWN;
-                    }
-                } else {
-                    if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
-                        return false;
-                    }
-                    if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-                        //MainActivity.moveTiles(context, MainActivity.left, position);
-                        System.out.println("Left!");
-                        direction = Game2048Activity.LEFT;
-                    } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
-                        //MainActivity.moveTiles(context, MainActivity.right, position);
-                        System.out.println("Right!");
-                        direction = Game2048Activity.RIGHT;
-                    }
+                    mController.processTapMovement(context, direction, true);
                 }
-                mController.processTapMovement(context, direction, true);
 
                 return super.onFling(e1, e2, velocityX, velocityY);
             }
@@ -142,9 +146,16 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
-        mController.setBoardManager(boardManager);
+    public void setBoardManager(BoardManagerSlidingtiles boardManagerSlidingtiles) {
+        //this.boardManager = boardManager;
+//        switch (GameChoiceActivity.currentGame){
+//            case "Slidingtiles":
+//                this.boardManagerSlidingtiles = (BoardManagerSlidingtiles) boardManager;
+//                mController.setBoardManager(boardManagerSlidingtiles);
+//        }
+        //mController.setBoardManager(boardManager);
+        this.boardManagerSlidingtiles = boardManagerSlidingtiles;
+        mController.setBoardManager(boardManagerSlidingtiles);
     }
 
     public void setBoardManager2048(BoardManager2048 boardManager2048) {
@@ -152,5 +163,7 @@ public class GestureDetectGridView extends GridView {
         mController.setBoardManager2048(boardManager2048);
     }
 
-
+    public void setAbleToFling(boolean ableToFling) {
+        this.ableToFling = ableToFling;
+    }
 }
