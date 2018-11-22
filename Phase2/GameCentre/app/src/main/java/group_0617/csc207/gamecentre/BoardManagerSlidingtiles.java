@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-public class BoardManagerSlidingtiles implements Serializable {
+public class BoardManagerSlidingtiles extends BoardManager implements Serializable {
 
     /**
      * The board being managed.
@@ -50,11 +50,11 @@ public class BoardManagerSlidingtiles implements Serializable {
     /**
      * Manage a new shuffled board.
      */
-    BoardManagerSlidingtiles() {
+    BoardManagerSlidingtiles(int complexity) {
         List<TileSlidingtiles> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = complexity*complexity;
         for (int tileNum = 1; tileNum <= numTiles; tileNum++) {
-            tiles.add(new TileSlidingtiles(tileNum));
+            tiles.add(new TileSlidingtiles(tileNum, complexity));
         }
         Collections.shuffle(tiles);
         this.boardSlidingtiles = new BoardSlidingtiles(tiles);
@@ -63,9 +63,9 @@ public class BoardManagerSlidingtiles implements Serializable {
 //    @Override
     boolean puzzleSolved() {
 
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
-                int correct_older_id = Board.NUM_ROWS * row + col + 1;
+        for (int row = 0; row != boardSlidingtiles.getComplexity(); row++) {
+            for (int col = 0; col != boardSlidingtiles.getComplexity(); col++) {
+                int correct_older_id = boardSlidingtiles.getComplexity() * row + col + 1;
                 if (getId(row, col) != correct_older_id) {
                     return false;
                 }
@@ -81,13 +81,13 @@ public class BoardManagerSlidingtiles implements Serializable {
 
 //    @Override
     boolean isValidTap(int position) {
-        int row = position / Board.NUM_COLS;
-        int col = position % Board.NUM_COLS;
+        int row = position / boardSlidingtiles.getComplexity();
+        int col = position % boardSlidingtiles.getComplexity();
         int blankId = boardSlidingtiles.numTiles();
         TileSlidingtiles above = row == 0 ? null : boardSlidingtiles.getTile(row - 1, col);
-        TileSlidingtiles below = row == Board.NUM_ROWS - 1 ? null : boardSlidingtiles.getTile(row + 1, col);
+        TileSlidingtiles below = row == boardSlidingtiles.getComplexity() - 1 ? null : boardSlidingtiles.getTile(row + 1, col);
         TileSlidingtiles left = col == 0 ? null : boardSlidingtiles.getTile(row, col - 1);
-        TileSlidingtiles right = col == Board.NUM_COLS - 1 ? null : boardSlidingtiles.getTile(row, col + 1);
+        TileSlidingtiles right = col == boardSlidingtiles.getComplexity() - 1 ? null : boardSlidingtiles.getTile(row, col + 1);
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -97,8 +97,8 @@ public class BoardManagerSlidingtiles implements Serializable {
     //@Override
     void touchMove(int position) {
 
-        int row = position / Board.NUM_ROWS;
-        int col = position % Board.NUM_COLS;
+        int row = position / boardSlidingtiles.getComplexity();
+        int col = position % boardSlidingtiles.getComplexity();
         int blankId = boardSlidingtiles.numTiles();
         boardStack.add(getBoard());
 
@@ -126,9 +126,9 @@ public class BoardManagerSlidingtiles implements Serializable {
      */
     private int getId(int row, int col) {
 
-        if (row <= Board.NUM_ROWS - 1
+        if (row <= boardSlidingtiles.getComplexity() - 1
                 && row >= 0
-                && col <= Board.NUM_COLS - 1
+                && col <= boardSlidingtiles.getComplexity() - 1
                 && col >= 0) {
             return getBoard().getTile(row, col).getId();
         }

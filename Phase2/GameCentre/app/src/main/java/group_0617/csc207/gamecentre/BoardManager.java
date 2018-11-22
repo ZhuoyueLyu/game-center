@@ -12,7 +12,7 @@ import java.util.Stack;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-abstract class BoardManager implements Serializable {
+class BoardManager implements Serializable {
 
     /**
      * The board being managed.
@@ -54,12 +54,12 @@ abstract class BoardManager implements Serializable {
         this.board = board;
     }
 
-//    /**
-//     * Return the current board.
-//     */
-//    Board getBoard() {
-//        return board;
-//    }
+    /**
+     * Return the current board.
+     */
+    Board getBoard() {
+        return board;
+    }
 
     /**
      * Manage a new shuffled board.
@@ -72,7 +72,9 @@ abstract class BoardManager implements Serializable {
      *
      * @return whether the tiles are in row-major order
      */
-    abstract boolean puzzleSolved();
+    boolean puzzleSolved(){
+        return false;
+    }
 
     /**
      * Return whether any of the four surrounding tiles is the blank tile.
@@ -80,7 +82,9 @@ abstract class BoardManager implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    abstract boolean isValidTap(int position);
+    boolean isValidTap(int position){
+        return true;
+    }
 
     /**
      * Process a touch at position in the board, swapping tiles if any of the neighbouring
