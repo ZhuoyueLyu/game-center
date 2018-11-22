@@ -14,7 +14,7 @@ public class BoardSlidingtiles extends Board implements Serializable, Iterable<T
     /**
      * The tiles on the board in row-major order.
      */
-    private TileSlidingtiles[][] tiles = new TileSlidingtiles[Board.NUM_ROWS][Board.NUM_COLS];
+    private TileSlidingtiles[][] tiles = new TileSlidingtiles[getComplexity()][getComplexity()];
 
     /**
      * A new board of tiles in row-major order.
@@ -24,8 +24,8 @@ public class BoardSlidingtiles extends Board implements Serializable, Iterable<T
      */
     BoardSlidingtiles(List<TileSlidingtiles> tiles) {
         Iterator<TileSlidingtiles> iter = tiles.iterator();
-        for (int row = 0; row != NUM_ROWS; row++) {
-            for (int col = 0; col != NUM_COLS; col++) {
+        for (int row = 0; row != getComplexity(); row++) {
+            for (int col = 0; col != getComplexity(); col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -67,12 +67,12 @@ public class BoardSlidingtiles extends Board implements Serializable, Iterable<T
      */
     private int countInversion(int row, int col) {
         int inv = 0;
-        int pos = row * NUM_COLS + col;
+        int pos = row * getComplexity() + col;
         int posToCompare = pos + 1;
         TileSlidingtiles currentTile = getTile(row, col);
         TileSlidingtiles tileToCompare;
         while (posToCompare <= numTiles()) {
-            tileToCompare = getTile(posToCompare / NUM_COLS, posToCompare % NUM_COLS);
+            tileToCompare = getTile(posToCompare / getComplexity(), posToCompare % getComplexity());
             if (currentTile.getId() > tileToCompare.getId()) {
                 inv++;
             }
@@ -90,8 +90,8 @@ public class BoardSlidingtiles extends Board implements Serializable, Iterable<T
     private int sumOverPolarity() {
 
         int totInv = 0;
-        for (int i = 0; i < NUM_COLS; i++) {
-            for (int j = 0; j < NUM_ROWS; j++) {
+        for (int i = 0; i < getComplexity(); i++) {
+            for (int j = 0; j < getComplexity(); j++) {
                 totInv = totInv + countInversion(i, j);
             }
         }
@@ -105,7 +105,7 @@ public class BoardSlidingtiles extends Board implements Serializable, Iterable<T
      */
     private boolean isSolvable() {
         boolean isEvenPol = sumOverPolarity() / 2 == 0;
-        return NUM_COLS / 2 == 1 && isEvenPol || NUM_COLS / 2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
+        return getComplexity() / 2 == 1 && isEvenPol || getComplexity() / 2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
     }
 
     /**
@@ -114,7 +114,7 @@ public class BoardSlidingtiles extends Board implements Serializable, Iterable<T
     public void makeSolvable() {
         if (!isSolvable()) {
             if (getTile(0, 0).getId() == numTiles() || getTile(1, 0).getId() == numTiles()) {
-                swapTiles(NUM_ROWS - 1, NUM_COLS - 1, NUM_ROWS - 1, NUM_COLS - 2);
+                swapTiles(getComplexity() - 1, getComplexity() - 1, getComplexity() - 1, getComplexity() - 2);
             } else {
                 swapTiles(0, 0, 1, 0);
             }
@@ -128,9 +128,9 @@ public class BoardSlidingtiles extends Board implements Serializable, Iterable<T
      */
     private boolean blankOnOddRowFromBottom() {
         boolean re = false;
-        for (int row = NUM_ROWS; row >= 0; row++) {
-            if ((NUM_ROWS - row) / 2 == 1) {
-                for (int col = 0; col < NUM_COLS; col++) {
+        for (int row = getComplexity(); row >= 0; row++) {
+            if ((getComplexity() - row) / 2 == 1) {
+                for (int col = 0; col < getComplexity(); col++) {
                     if (getTile(row, col).getId() == numTiles()) {
                         re = true;
                     }
@@ -152,22 +152,22 @@ public class BoardSlidingtiles extends Board implements Serializable, Iterable<T
 
         @Override
         public boolean hasNext() {
-            return rowIndex != NUM_ROWS - 1 ||
-                    columnIndex != NUM_COLS - 1;
+            return rowIndex != getComplexity() - 1 ||
+                    columnIndex != getComplexity() - 1;
         }
 
         @Override
         public TileSlidingtiles next() {
             TileSlidingtiles result = tiles[rowIndex][columnIndex];
-            if (rowIndex != NUM_ROWS - 1) {
-                if (columnIndex != NUM_COLS - 1) {
+            if (rowIndex != getComplexity() - 1) {
+                if (columnIndex != getComplexity() - 1) {
                     columnIndex++;
                 } else {
                     rowIndex++;
                     columnIndex = 0;
                 }
             } else {
-                if (columnIndex != NUM_COLS - 1) {
+                if (columnIndex != getComplexity() - 1) {
                     columnIndex++;
                 }
             }

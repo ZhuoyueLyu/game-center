@@ -16,32 +16,27 @@ import java.util.List;
 public class Board extends Observable implements Serializable{
 
     /**
-     * The number of rows.
+     * The number of rows and columns.
      */
-    static int NUM_ROWS = 4;
-
-    /**
-     * The number of rows.
-     */
-    static int NUM_COLS = 4;
+    private int complexity;
 
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
+    private Tile[][] tiles = new Tile[complexity][complexity];
 
     Board(){ }
 
     /**
      * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
+     * Precondition: len(tiles) == complexity * complexity
      *
      * @param tiles the tiles for the board
      */
     Board(List<Tile> tiles) {
         Iterator<Tile> iter = tiles.iterator();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != complexity; row++) {
+            for (int col = 0; col != complexity; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -53,7 +48,7 @@ public class Board extends Observable implements Serializable{
      * @return the number of tiles on the board
      */
     int numTiles() {
-        return NUM_ROWS * NUM_COLS;
+        return complexity * complexity;
     }
 
     /**
@@ -76,13 +71,27 @@ public class Board extends Observable implements Serializable{
     }
 
     void changeTo(Board board){
-        for (int row = 0; row != NUM_ROWS; row++) {
-            for (int col = 0; col != NUM_COLS; col++) {
+        for (int row = 0; row != complexity; row++) {
+            for (int col = 0; col != complexity; col++) {
                 tiles[row][col] = board.getTile(row, col);
             }
         }
         setChanged();
         notifyObservers();
     }
+
+    /**
+     * Return the complexity of the board
+     * @return the complexity of the board
+     */
+    int getComplexity() {
+        return this.complexity;
+    }
+
+    /**
+     * Set the complexity of the board given new complexity
+     * @param inComplexity the new complexity
+     */
+    void setComplexity(int inComplexity) { this.complexity = inComplexity; }
 
 }

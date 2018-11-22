@@ -6,22 +6,22 @@ import java.io.Serializable;
 
 public class TileSlidingtiles extends Tile implements Serializable {
 
-    /**
-     * A Tile with id and background. The background may not have a corresponding image.
-     *
-     * @param id         the id
-     * @param background the background
-     */
-    public TileSlidingtiles(int id, int background) {
-        super(id, background);
-    }
+//    /**
+//     * A Tile with id and background. The background may not have a corresponding image.
+//     *
+//     * @param id         the id
+//     * @param background the background
+//     */
+//    public TileSlidingtiles(int id, int background) {
+//        super(id, background);
+//    }
 
     /**
      * A tile with a background id; look up and set the id.
      *
      * @param backgroundId
      */
-    public TileSlidingtiles(int backgroundId) {
+    public TileSlidingtiles(int backgroundId, int complexity) {
         super(backgroundId);
         // This looks so ugly.
         switch (backgroundId) {
@@ -50,7 +50,7 @@ public class TileSlidingtiles extends Tile implements Serializable {
                 setBackground(R.drawable.tile_8);
                 break;
             case 9:
-                if (Board.NUM_COLS == 3){
+                if ( complexity == 3){
                     setBackground(R.drawable.tile_0);
                 }
                 else {
@@ -76,7 +76,7 @@ public class TileSlidingtiles extends Tile implements Serializable {
                 setBackground(R.drawable.tile_15);
                 break;
             case 16:
-                if (Board.NUM_COLS == 4){
+                if (complexity == 4){
                     setBackground(R.drawable.tile_0);
                 }
                 else {

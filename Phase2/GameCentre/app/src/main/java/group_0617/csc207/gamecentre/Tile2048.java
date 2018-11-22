@@ -11,7 +11,7 @@ import group_0617.csc207.gamecentre.R;
 /**
  * A Tile in a 2048 puzzle.
  */
-public class Tile2048 implements Serializable {
+public class Tile2048 extends Tile implements Serializable {
 
     /**
      * The background id to find the tile image.
@@ -23,15 +23,15 @@ public class Tile2048 implements Serializable {
      */
     private int id;
 
-    /**
-     * A Tile with id and background. The background may not have a corresponding image.
-     *
-     * @param id         the id
-     * @param background the background
-     */
-    public Tile2048(int id, int background) {
-        //super(id, background);
-    }
+//    /**
+//     * A Tile with id and background. The background may not have a corresponding image.
+//     *
+//     * @param id         the id
+//     * @param background the background
+//     */
+//    public Tile2048(int id, int background) {
+//        //super(id, background);
+//    }
 
     /**
      * A tile with a background id; look up and set the id.
@@ -39,7 +39,7 @@ public class Tile2048 implements Serializable {
      * @param backgroundId
      */
     public Tile2048(int backgroundId) {
-        //super(backgroundId);
+        super(backgroundId);
         // This looks so ugly.
         this.id = backgroundId;
         switch (backgroundId) {
