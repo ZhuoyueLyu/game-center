@@ -146,7 +146,7 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManagerSlidingtiles boardManagerSlidingtiles) {
+    public void setBoardManagerSlidingtiles(BoardManagerSlidingtiles boardManagerSlidingtiles) {
         //this.boardManager = boardManager;
 //        switch (GameChoiceActivity.currentGame){
 //            case "Slidingtiles":
@@ -161,6 +161,11 @@ public class GestureDetectGridView extends GridView {
     public void setBoardManager2048(BoardManager2048 boardManager2048) {
         this.boardManager2048 = boardManager2048;
         mController.setBoardManager2048(boardManager2048);
+    }
+
+    public void setBoardManager(BoardManager boardManager) {
+        this.boardManager = boardManager;
+        mController.setBoardManager(boardManager);
     }
 
     public void setAbleToFling(boolean ableToFling) {

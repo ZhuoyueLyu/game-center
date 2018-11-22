@@ -64,7 +64,7 @@ class BoardManager2048 implements Serializable {
      */
     BoardManager2048() {
         List<Tile2048> tiles = new ArrayList<>();
-        final int numTiles = Board2048.NUM_ROWS * Board2048.NUM_COLS;
+        final int numTiles = board2048.getComplexity() * board2048.getComplexity();
         for (int tileNum = 0; tileNum < numTiles; tileNum++) {
             tiles.add(new Tile2048(0));
         }
@@ -80,8 +80,8 @@ class BoardManager2048 implements Serializable {
      * @return whether the tiles are in row-major order
      */
     boolean puzzleSolved() {
-        for (int i = 0; i < Board2048.NUM_ROWS; i++) {
-            for (int j = 0; j < Board2048.NUM_ROWS; j++) {
+        for (int i = 0; i < board2048.getComplexity(); i++) {
+            for (int j = 0; j < board2048.getComplexity(); j++) {
                 if (getId(i, j) == 2048) {
                     score = 10000 / (stepCounter + timesOfUndo) / lastTime;
                     return true;
@@ -111,9 +111,9 @@ class BoardManager2048 implements Serializable {
      */
     boolean isValidTap(int move) {
         Tile2048[][] tiles = board2048.getTiles();
-        Tile2048[][] columnTiles = new Tile2048[Board2048.NUM_ROWS][Board2048.NUM_COLS];
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        Tile2048[][] columnTiles = new Tile2048[board2048.getComplexity()][board2048.getComplexity()];
+        for (int row = 0; row != board2048.getComplexity(); row++) {
+            for (int col = 0; col != board2048.getComplexity(); col++) {
                 columnTiles[row][col] = tiles[col][row];
             }
         }
@@ -183,9 +183,9 @@ class BoardManager2048 implements Serializable {
      */
     private int getId(int row, int col) {
 
-        if (row <= Board2048.NUM_ROWS - 1
+        if (row <= board2048.getComplexity() - 1
                 && row >= 0
-                && col <= Board2048.NUM_COLS - 1
+                && col <= board2048.getComplexity() - 1
                 && col >= 0) {
             return getBoard().getTile(row, col).getId();
         }

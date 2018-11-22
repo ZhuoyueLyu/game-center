@@ -95,7 +95,7 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
                         score.setText("Time: "+counts);
                         boardManager2048.setLastTime(counts);
                         saveToFile("save_file_" +
-                                Board.NUM_COLS + "_" + LoginActivity.currentUser);
+                                boardManager2048.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
                     }
                 });
             }
@@ -133,7 +133,7 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
         addUndoButtonListener();
 
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(Board.NUM_COLS);
+        gridView.setNumColumns(boardManager2048.getBoard().getComplexity());
         gridView.setAbleToFling(true);
         gridView.setBoardManager2048(boardManager2048);
         boardManager2048.getBoard().addObserver(this);
@@ -147,8 +147,8 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / Board.NUM_COLS;
-                        columnHeight = displayHeight / Board.NUM_ROWS;
+                        columnWidth = displayWidth / boardManager2048.getBoard().getComplexity();
+                        columnHeight = displayHeight / boardManager2048.getBoard().getComplexity();
 
                         display();
                     }
@@ -182,8 +182,8 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
     private void createTileButtons(Context context) {
         Board2048 board2048 = boardManager2048.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != boardManager2048.getBoard().getComplexity(); row++) {
+            for (int col = 0; col != boardManager2048.getBoard().getComplexity(); col++) {
                 Button tmp = new Button(context);
                 tmp.setBackgroundResource(board2048.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
@@ -199,8 +199,8 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
         Board2048 board2048 = boardManager2048.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / Board.NUM_ROWS;
-            int col = nextPos % Board.NUM_COLS;
+            int row = nextPos / boardManager2048.getBoard().getComplexity();
+            int col = nextPos % boardManager2048.getBoard().getComplexity();
             b.setBackgroundResource(board2048.getTile(row, col).getBackground());
             nextPos++;
         }

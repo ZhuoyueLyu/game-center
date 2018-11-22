@@ -30,28 +30,32 @@ import java.util.List;
 public class StartingActivity extends AppCompatActivity {
 
     public static String gameComplexity = "medium";
+
     /**
      * counting the times user click the arrow, start with medium which is index 1
      */
     private int positionOfChoice = 1;
 
     /**
+     * Complexity of choice
+     */
+    private int complexity = 4;
+
+    /**
      * The main save file.
      */
     private String SAVE_FILENAME = "save_file_" + GameChoiceActivity.currentGame + "_" +
-            Board.NUM_COLS + "_" + LoginActivity.currentUser;
+            complexity + "_" + LoginActivity.currentUser;
     //(Change from Board)
 
     /**
      * A temporary save file.
      */
-    public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" +
-            Board.NUM_COLS + "_" + LoginActivity.currentUser;
+    public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame + "_"  + "_" + LoginActivity.currentUser;
+
     /**
      * The board manager.
      */
-    //private BoardManager boardManager;
-
     private BoardManager boardManager;
     private BoardManagerSlidingtiles boardManagerSlidingtiles;
     private BoardManager2048 boardManager2048;
@@ -60,21 +64,22 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        switch (GameChoiceActivity.currentGame) {
-            case "Slidingtiles":
-                boardManagerSlidingtiles = new BoardManagerSlidingtiles();
-                break;
-            case "2048":
-                boardManager2048 = new BoardManager2048();
-                break;
-        }
+//        switch (GameChoiceActivity.currentGame) {
+//            case "Slidingtiles":
+//                boardManagerSlidingtiles = new BoardManagerSlidingtiles(complexity);
+//                break;
+//            case "2048":
+//                boardManager2048 = new BoardManager2048();
+//                break;
+//        }
+
 //        if (GameChoiceActivity.currentGame.equals("2048")){
 //            boardManager2048 = new BoardManager2048();
 //        }
 //        else if (GameChoiceActivity.currentGame.equals("Slidingtiles")) {
 //            boardManagerSlidingtiles = new BoardManagerSlidingtiles();
 //        }
-        //boardManager = new BoardManager();
+        boardManager = new BoardManager();
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
@@ -133,29 +138,25 @@ public class StartingActivity extends AppCompatActivity {
     private void ChooseComplexity(TextView complexity) {
         switch (positionOfChoice){
             case 0:
-                Board.NUM_COLS = 3;
-                Board.NUM_ROWS = 3;
+                boardManager.getBoard().setComplexity(3);
                 gameComplexity = "easy";
                 complexity.setText("Easy (3x3)");break;
 
             case 1:
-                Board.NUM_COLS = 4;
-                Board.NUM_ROWS = 4;
+                boardManager.getBoard().setComplexity(4);
                 gameComplexity = "medium";
                 complexity.setText("Medium (4x4)");break;
             case 2:
-                Board.NUM_COLS = 5;
-                Board.NUM_ROWS = 5;
+                boardManager.getBoard().setComplexity(5);
                 gameComplexity = "hard";
                 complexity.setText("Hard (5x5)");break;
             default:
-                Board.NUM_COLS = 4;
-                Board.NUM_ROWS = 4;
+                boardManager.getBoard().setComplexity(4);
                 gameComplexity = "medium";
                 complexity.setText("Medium (4x4)");
 
         }
-        System.out.println("Complexity: " + Board.NUM_ROWS);
+        System.out.println("Complexity: " + boardManager.getBoard().getComplexity());
     }
 
     /**
@@ -166,15 +167,15 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //boardManager = new BoardManager();
-                switch (GameChoiceActivity.currentGame) {
-                    case "Slidingtiles":
-                        boardManagerSlidingtiles = new BoardManagerSlidingtiles();
-                        break;
-                    case "2048":
-                        boardManager2048 = new BoardManager2048();
-                        break;
-                }
+                boardManager = new BoardManager();
+//                switch (GameChoiceActivity.currentGame) {
+//                    case "Slidingtiles":
+//                        boardManagerSlidingtiles = new BoardManagerSlidingtiles(complexity);
+//                        break;
+//                    case "2048":
+//                        boardManager2048 = new BoardManager2048();
+//                        break;
+//                }
                 switchToGame();
             }
         });
@@ -293,15 +294,15 @@ public class StartingActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                //boardManager = (BoardManager) input.readObject();
-                switch (GameChoiceActivity.currentGame) {
-                    case "Slidingtiles":
-                        boardManagerSlidingtiles = (BoardManagerSlidingtiles) input.readObject();
-                        break;
-                    case "2048":
-                        boardManager2048 = (BoardManager2048) input.readObject();
-                        break;
-                }
+//                switch (GameChoiceActivity.currentGame) {
+//                    case "Slidingtiles":
+//                        boardManagerSlidingtiles = (BoardManagerSlidingtiles) input.readObject();
+//                        break;
+//                    case "2048":
+//                        boardManager2048 = (BoardManager2048) input.readObject();
+//                        break;
+//                }
+                boardManager = (BoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

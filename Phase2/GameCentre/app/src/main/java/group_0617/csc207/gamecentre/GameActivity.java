@@ -104,7 +104,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         score.setText("Time: "+ counts + " s");
                         boardManagerSlidingtiles.setLastTime(counts);
                         saveToFile("save_file_" + GameChoiceActivity.currentGame + "_" +
-                                Board.NUM_COLS + "_" + LoginActivity.currentUser);
+                                boardManagerSlidingtiles.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
                     }
                 });
             }
@@ -143,7 +143,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         addUploadButtonListener();
 
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(Board.NUM_COLS);
+        gridView.setNumColumns(boardManagerSlidingtiles.getBoard().getComplexity());
         gridView.setAbleToFling(false);
         gridView.setBoardManager(boardManagerSlidingtiles);
         boardManagerSlidingtiles.getBoard().addObserver(this);
@@ -157,8 +157,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / Board.NUM_COLS;
-                        columnHeight = displayHeight / Board.NUM_ROWS;
+                        columnWidth = displayWidth / boardManagerSlidingtiles.getBoard().getComplexity();
+                        columnHeight = displayHeight / boardManagerSlidingtiles.getBoard().getComplexity();
 
                         display();
                     }
@@ -173,12 +173,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void createTileButtons(Context context) {
         BoardSlidingtiles boardSlidingtiles = boardManagerSlidingtiles.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != boardManagerSlidingtiles.getBoard().getComplexity(); row++) {
+            for (int col = 0; col != boardManagerSlidingtiles.getBoard().getComplexity(); col++) {
                 Button tmp = new Button(context);
                 if (bitmapList == null) {
                     tmp.setBackgroundResource(boardSlidingtiles.getTile(row, col).getBackground());
-                } else if (boardSlidingtiles.getTile(row, col).getId() != Board.NUM_COLS * Board.NUM_ROWS) {
+                } else if (boardSlidingtiles.getTile(row, col).getId() != boardManagerSlidingtiles.getBoard().getComplexity() * boardManagerSlidingtiles.getBoard().getComplexity()) {
                     BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(boardSlidingtiles.getTile(row, col).getId()));
                     tmp.setBackground(d);
                 } else {
@@ -196,11 +196,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
         BoardSlidingtiles boardSlidingtiles = boardManagerSlidingtiles.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / Board.NUM_ROWS;
-            int col = nextPos % Board.NUM_COLS;
+            int row = nextPos / boardManagerSlidingtiles.getBoard().getComplexity();
+            int col = nextPos % boardManagerSlidingtiles.getBoard().getComplexity();
             if (bitmapList == null) {
                 b.setBackgroundResource(boardSlidingtiles.getTile(row, col).getBackground());
-            } else if (boardSlidingtiles.getTile(row, col).getId() != Board.NUM_COLS * Board.NUM_ROWS) {
+            } else if (boardSlidingtiles.getTile(row, col).getId() != boardManagerSlidingtiles.getBoard().getComplexity() * boardManagerSlidingtiles.getBoard().getComplexity()) {
                 BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(boardSlidingtiles.getTile(row, col).getId()));
                 b.setBackground(d);
             } else {
@@ -368,10 +368,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
         List<Bitmap> newPieces = new ArrayList<Bitmap>();
         int w = picture.getWidth();
         int h = picture.getHeight();
-        int boxWidth = w / Board.NUM_COLS;
-        int boxHeight = h / Board.NUM_ROWS;
-        for (int i = 0; i < Board.NUM_ROWS; i++) {
-            for (int j = 0; j < Board.NUM_ROWS; j++) {
+        int boxWidth = w / boardManagerSlidingtiles.getBoard().getComplexity();
+        int boxHeight = h / boardManagerSlidingtiles.getBoard().getComplexity();
+        for (int i = 0; i < boardManagerSlidingtiles.getBoard().getComplexity(); i++) {
+            for (int j = 0; j < boardManagerSlidingtiles.getBoard().getComplexity(); j++) {
                 Bitmap pictureFragment = Bitmap.createBitmap(picture, j * boxWidth, i * boxHeight, boxWidth, boxHeight);
                 newPieces.add(pictureFragment);
             }
