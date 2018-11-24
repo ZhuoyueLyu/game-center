@@ -25,12 +25,12 @@ public class MovementController {
     }
 
     public void processTapMovement(Context context, int position, boolean display) {
-        if (boardManager.isValidTap(position)) {
-            boardManager.touchMove(position);
-            if (boardManager.puzzleSolved()) {
+        if (genericBoardManager.isValidTap(position)) {
+            genericBoardManager.touchMove(position);
+            if (genericBoardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 Intent result = new Intent(context.getApplicationContext(), ResultBoardActivity.class);
-                result.putExtra("SCORE", boardManager.getScore());
+                result.putExtra("SCORE", genericBoardManager.getScore());
                 context.startActivity(result);
             }
         } else {
