@@ -71,7 +71,8 @@ public class GameChoiceActivity extends AppCompatActivity {
         otherGame2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayToast("Sorry, this game is not available~");
+                Intent startingScreen = new Intent(GameChoiceActivity.this, CardGameActivity.class);
+                startActivity(startingScreen);
             }
         });
     }
