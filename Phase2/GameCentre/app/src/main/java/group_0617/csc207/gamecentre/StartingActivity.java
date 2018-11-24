@@ -24,77 +24,38 @@ public class StartingActivity extends AppCompatActivity {
 
     public static String gameComplexity = "medium";
 
-<<<<<<< HEAD
     /**
      * Complexity of choice
      */
     private int complexity = 4;
 
-=======
->>>>>>> ljh
     /**
      * counting the times user click the arrow, start with medium which is index 1
      */
     private int positionOfChoice = 1;
 
-    /**
-     * Complexity of choice
-     */
-    private int complexity = 4;
 
     /**
      * The main save file.
      */
-<<<<<<< HEAD
-    private String save_file_name;
-    /**
-     * A temporary save file.
-     */
-    public static String TEMP_SAVE_FILENAME;
-=======
     private String SAVE_FILENAME = "save_file_" + GameChoiceActivity.currentGame + "_" +
             complexity + "_" + LoginActivity.currentUser;
-    //(Change from Board)
 
     /**
      * A temporary save file.
      */
     public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame + "_"  + "_" + LoginActivity.currentUser;
 
->>>>>>> ljh
     /**
      * The board manager.
      */
     private BoardManager boardManager;
-    private BoardManagerSlidingtiles boardManagerSlidingtiles;
-    private BoardManager2048 boardManager2048;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
         boardManager = new BoardManager(complexity);
-        this.save_file_name = "save_file_" + boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser;
-        TEMP_SAVE_FILENAME = "save_file_tmp_" + boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser;
-=======
-//        switch (GameChoiceActivity.currentGame) {
-//            case "Slidingtiles":
-//                boardManagerSlidingtiles = new BoardManagerSlidingtiles(complexity);
-//                break;
-//            case "2048":
-//                boardManager2048 = new BoardManager2048();
-//                break;
-//        }
-
-//        if (GameChoiceActivity.currentGame.equals("2048")){
-//            boardManager2048 = new BoardManager2048();
-//        }
-//        else if (GameChoiceActivity.currentGame.equals("Slidingtiles")) {
-//            boardManagerSlidingtiles = new BoardManagerSlidingtiles();
-//        }
-        boardManager = new BoardManager();
->>>>>>> ljh
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
@@ -187,11 +148,7 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
                 boardManager = new BoardManager(complexity);
-=======
-                boardManager = new BoardManager();
-
                 switchToGame();
             }
         });
@@ -205,7 +162,7 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(save_file_name);
+                loadFromFile(SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
                 switchToGame();
@@ -228,7 +185,7 @@ public class StartingActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToFile(save_file_name);
+                saveToFile(SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastSavedText();
             }
@@ -286,15 +243,7 @@ public class StartingActivity extends AppCompatActivity {
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
-        Intent tmp = null;
-        switch (GameChoiceActivity.currentGame) {
-            case "Slidingtiles":
-                tmp = new Intent(this,GameActivity.class);
-                break;
-            case "2048":
-                tmp = new Intent(this, Game2048Activity.class);
-                break;
-        }
+        Intent tmp = new Intent(this,GameActivity.class);
         saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
         startActivity(tmp);
     }
@@ -310,14 +259,6 @@ public class StartingActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-//                switch (GameChoiceActivity.currentGame) {
-//                    case "Slidingtiles":
-//                        boardManagerSlidingtiles = (BoardManagerSlidingtiles) input.readObject();
-//                        break;
-//                    case "2048":
-//                        boardManager2048 = (BoardManager2048) input.readObject();
-//                        break;
-//                }
                 boardManager = (BoardManager) input.readObject();
                 inputStream.close();
             }
@@ -339,14 +280,7 @@ public class StartingActivity extends AppCompatActivity {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName,MODE_PRIVATE));
-            switch (GameChoiceActivity.currentGame){
-                case "Slidingtiles":
-                    outputStream.writeObject(boardManagerSlidingtiles);
-                    break;
-                case "2048":
-                    outputStream.writeObject(boardManager2048);
-                    break;
-            }
+            outputStream.writeObject(boardManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception","File write failed: " + e.toString());
