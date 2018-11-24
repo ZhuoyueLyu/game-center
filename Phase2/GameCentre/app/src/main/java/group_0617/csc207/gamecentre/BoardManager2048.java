@@ -8,7 +8,7 @@ import java.util.Stack;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager2048 implements Serializable {
+class BoardManager2048 extends GenericBoardManager implements Serializable {
 
     /**
      * The board being managed.

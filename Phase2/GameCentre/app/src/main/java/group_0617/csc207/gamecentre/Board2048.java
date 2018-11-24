@@ -12,7 +12,7 @@ import java.util.Random;
  * The sliding tiles board.
  * Which implement Iterable<Tile> and Serializable.
  */
-public class Board2048 extends Board implements Serializable {
+public class Board2048 extends GenericBoard implements Serializable {
 
     /**
      * l
@@ -35,16 +35,16 @@ public class Board2048 extends Board implements Serializable {
         }
     }
 
-//    /**
-//     * Return the tile at (row, col)
-//     *
-//     * @param row the tile row
-//     * @param col the tile column
-//     * @return the tile at (row, col)
-//     */
-//    Tile2048 getTile(int row, int col) {
-//        return tiles[row][col];
-//    }
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+    Tile2048 getTile(int row, int col) {
+        return tiles[row][col];
+    }
 
     public void leftCombine(Tile2048[] line) {
         List<Integer> newLine = new ArrayList<>();
