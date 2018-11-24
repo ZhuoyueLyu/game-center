@@ -30,8 +30,8 @@ public class GestureDetectGridView extends GridView {
     private float mTouchX;
     private float mTouchY;
     private BoardManager boardManager;
-    private BoardManager2048 boardManager2048;
-    private  BoardManagerSlidingtiles boardManagerSlidingtiles;
+    private CardBoardManager cardBoardManager;
+    private GenericBoardManager genericBoardManager;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -146,26 +146,19 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManagerSlidingtiles(BoardManagerSlidingtiles boardManagerSlidingtiles) {
-        //this.boardManager = boardManager;
-//        switch (GameChoiceActivity.currentGame){
-//            case "Slidingtiles":
-//                this.boardManagerSlidingtiles = (BoardManagerSlidingtiles) boardManager;
-//                mController.setBoardManager(boardManagerSlidingtiles);
-//        }
-        //mController.setBoardManager(boardManager);
-        this.boardManagerSlidingtiles = boardManagerSlidingtiles;
-        mController.setBoardManager(boardManagerSlidingtiles);
-    }
-
-    public void setBoardManager2048(BoardManager2048 boardManager2048) {
-        this.boardManager2048 = boardManager2048;
-        mController.setBoardManager2048(boardManager2048);
-    }
-
     public void setBoardManager(BoardManager boardManager) {
         this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
+    }
+
+    public void setCardBoardManager(CardBoardManager cardBoardManager) {
+        this.cardBoardManager = cardBoardManager;
+        mController.setCardBoardManager(cardBoardManager);
+    }
+
+    public void setGenericBoardManager(GenericBoardManager inGenericBoardManager) {
+        this.genericBoardManager = inGenericBoardManager;
+        mController.setGenericBoardManager(inGenericBoardManager);
     }
 
     public void setAbleToFling(boolean ableToFling) {
