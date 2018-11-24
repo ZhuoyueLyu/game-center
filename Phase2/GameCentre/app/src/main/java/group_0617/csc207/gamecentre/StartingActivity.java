@@ -59,76 +59,35 @@ public class StartingActivity extends GenericStartingActivity {
         setGenericBoardManager(new BoardManager(complexity));
     }
 
-//    /**
-//     * Activate the left arrow button.
-//     */
-//
-//    private void addLeftArrowButtonListener() {
-//
-//        ImageButton Button = findViewById(R.id.leftArrow);
-//        Button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TextView complexity = (TextView) findViewById(R.id.Complexity);
-//                if (positionOfChoice - 1 >= 0) {
-//                    positionOfChoice--;
-//                    ChooseComplexity(complexity);
-//                }
-//            }
-//        });
-//
-//    }
-//
-//    /**
-//     * Activate the right arrow button.
-//     *
-//     */
-//    private void addRightArrowButtonListener() {
-//
-//        ImageButton Button = findViewById(R.id.rightArrow);
-//        Button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TextView complexity = (TextView) findViewById(R.id.Complexity);
-//                if (positionOfChoice + 1 <= 2) {
-//                    positionOfChoice++;
-//                    ChooseComplexity(complexity);
-//
-//                }
-//            }
-//        });
-//    }
-//
 ///**
 // * Choose the complexity of the game
 // */
 //    @SuppressLint("SetTextI18n")
-//    private void ChooseComplexity(TextView complexity) {
+//    public void ChooseComplexity(TextView complexity) {
 //        switch (positionOfChoice){
 //            case 0:
-//                boardManager.getBoard().setComplexity(3);
+//                getGenericBoardManager().getBoard().setComplexity(3);
 //                gameComplexity = "easy";
 //                this.complexity = 3;
 //                complexity.setText("Easy (3x3)");break;
 //
 //            case 1:
-//                boardManager.getBoard().setComplexity(4);
+//                getGenericBoardManager().getBoard().setComplexity(4);
 //                gameComplexity = "medium";
 //                this.complexity = 4;
 //                complexity.setText("Medium (4x4)");break;
 //            case 2:
-//                boardManager.getBoard().setComplexity(5);
+//                getGenericBoardManager().getBoard().setComplexity(5);
 //                gameComplexity = "hard";
 //                this.complexity = 5;
 //                complexity.setText("Hard (5x5)");break;
 //            default:
-//                boardManager.getBoard().setComplexity(4);
+//                getGenericBoardManager().getBoard().setComplexity(4);
 //                gameComplexity = "medium";
 //                this.complexity = 4;
 //                complexity.setText("Medium (4x4)");
 //
 //        }
-//        System.out.println("Complexity: " + boardManager.getBoard().getComplexity());
 //    }
 
     /**
@@ -144,91 +103,6 @@ public class StartingActivity extends GenericStartingActivity {
             }
         });
     }
-
-//    /**
-//     * Activate the load button.
-//     */
-//    private void addLoadButtonListener() {
-//        Button loadButton = findViewById(R.id.LoadButton);
-//        loadButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadFromFile(SAVE_FILENAME);
-//                saveToFile(TEMP_SAVE_FILENAME);
-//                makeToastLoadedText();
-//                switchToGame();
-//            }
-//        });
-//    }
-//
-//    /**
-//     * Display that a game was loaded successfully.
-//     */
-//    private void makeToastLoadedText() {
-//        Toast.makeText(this,"Loaded Game",Toast.LENGTH_SHORT).show();
-//    }
-//
-//    /**
-//     * Activate the save button.
-//     */
-//    private void addSaveButtonListener() {
-//        Button saveButton = findViewById(R.id.SaveButton);
-//        saveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                saveToFile(SAVE_FILENAME);
-//                saveToFile(TEMP_SAVE_FILENAME);
-//                makeToastSavedText();
-//            }
-//        });
-//    }
-//
-//    /**
-//     * Activate the Leaderboard button.
-//     */
-//    private void addLeaderBoardButtonListener() {
-//        ImageButton leaderboardButton = findViewById(R.id.leaderboard);
-//        leaderboardButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent gameScoreboardScreen =
-//                        new Intent(StartingActivity.this,LeaderboardActivity.class);
-//                startActivity(gameScoreboardScreen);
-//            }
-//        });
-//    }
-//
-//    /**
-//     * Activate the rules button.
-//     */
-//    private void addRulesButtonListener() {
-//        ImageButton Button = findViewById(R.id.gameRulesOfST);
-//        Button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent gameScoreboardScreen =
-//                        new Intent(StartingActivity.this,GameRulesActivity.class);
-//                startActivity(gameScoreboardScreen);
-//            }
-//        });
-//    }
-//
-//
-//    /**
-//     * Display that a game was saved successfully.
-//     */
-//    private void makeToastSavedText() {
-//        Toast.makeText(this,"Game Saved",Toast.LENGTH_SHORT).show();
-//    }
-//
-//    /**
-//     * Read the temporary board from disk.
-//     */
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        loadFromFile(TEMP_SAVE_FILENAME);
-//    }
 
     /**
      * Switch to the GameActivity view to play the game.
