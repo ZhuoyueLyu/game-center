@@ -102,11 +102,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
-
-            return true;
-        }
+        if (cursor.moveToFirst()){
+            if (cursor.getCount() > 0) {
+                return true;
+            }}
         cursor.close();
         db.close();
 
@@ -127,10 +126,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //cursor is used to read from the database
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
-        cursor.moveToFirst();
+        if (cursor.moveToFirst()){
         if (cursor.getCount() > 0) {
             return true;
-        }
+        }}
         cursor.close();
         db.close();
         return false;
