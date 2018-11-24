@@ -84,14 +84,15 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
 
     /**
      * Create the buttons for displaying cards
+     *
      * @param context the context
      */
     private void createTileButtons(Context context) {
         GenericBoard cardBoard = cardBoardManager.getBoard();
         this.cardButtons = new ArrayList<>();
-        Iterator<Card> iter = ((CardBoard)cardBoard).iterator();
+        Iterator<Card> iter = ((CardBoard) cardBoard).iterator();
 
-        while(iter.hasNext()) {
+        while (iter.hasNext()) {
             Card curCard = iter.next();
             Button tmp = new Button(context);
             tmp.setBackgroundResource(curCard.getBackground());
@@ -103,7 +104,7 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
      * Update the image of the buttons
      */
     private void updateTileButtons() {
-        Iterator<Card> iter = ((CardBoard)cardBoardManager.getBoard()).iterator();
+        Iterator<Card> iter = ((CardBoard) cardBoardManager.getBoard()).iterator();
         for (Button b : cardButtons) {
             Card curCard = iter.next();
             b.setBackgroundResource(curCard.getDisplay());

@@ -1,17 +1,14 @@
 package group_0617.csc207.gamecentre;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Contains card.
  */
-//public class CardBoard extends Observable implements Serializable, Iterable<Card>{
-public class CardBoard extends GenericBoard implements Iterable<Card>{
+public class CardBoard extends GenericBoard implements Iterable<Card> {
 
     private static final int DEFAULT_COMPLEXITY = 4;
 
@@ -50,7 +47,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card>{
      * @param inCards the cards to put in the newly created Cardboard
      */
     CardBoard(List<Card> inCards) {
-        setComplexity((int)Math.sqrt((double)inCards.size()));
+        setComplexity((int) Math.sqrt((double) inCards.size()));
         Card[][] cards = new Card[getComplexity()][getComplexity()];
         Iterator<Card> iter = inCards.iterator();
         for (int row = 0; row < getComplexity(); row++) {
@@ -70,7 +67,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card>{
      * @param pos the position of card to flip assuming row major numbering
      */
     void flipCard(int pos) {
-        getCard(pos/getComplexity(), pos%getComplexity()).flip();
+        getCard(pos / getComplexity(), pos % getComplexity()).flip();
         update();
     }
 
@@ -115,7 +112,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card>{
 
         @Override
         public Card next() {
-            Card re = getCard(nextIndex/getComplexity(), nextIndex%getComplexity());
+            Card re = getCard(nextIndex / getComplexity(), nextIndex % getComplexity());
             nextIndex++;
             return re;
         }

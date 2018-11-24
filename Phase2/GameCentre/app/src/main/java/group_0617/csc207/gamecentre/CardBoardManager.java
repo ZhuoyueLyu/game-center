@@ -1,6 +1,5 @@
 package group_0617.csc207.gamecentre;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +21,7 @@ class CardBoardManager extends GenericBoardManager {
 
     /**
      * Create a CardBoardManager given a new CardBoard with specified complexity
+     *
      * @param complexity the complexity desired
      */
     CardBoardManager(int complexity) {
@@ -31,6 +31,7 @@ class CardBoardManager extends GenericBoardManager {
 
     /**
      * Create a CardBoardManager given a CardBoard
+     *
      * @param inCardBoard the CardBoard given
      */
     CardBoardManager(CardBoard inCardBoard) {
@@ -40,11 +41,11 @@ class CardBoardManager extends GenericBoardManager {
 
     @Override
     boolean puzzleSolved() {
-        Iterator<Card> iter = ((CardBoard)getBoard()).iterator();
+        Iterator<Card> iter = ((CardBoard) getBoard()).iterator();
         boolean re = true;
         while (iter.hasNext()) {
             Card curCard = iter.next();
-            if (curCard.getIsCovered() == true) {
+            if (curCard.getIsCovered()) {
                 re = false;
             }
         }
@@ -60,7 +61,7 @@ class CardBoardManager extends GenericBoardManager {
     @Override
     void touchMove(int pos) {
         if (isValidTap(pos)) {
-            ((CardBoard)getBoard()).flipCard(pos);
+            ((CardBoard) getBoard()).flipCard(pos);
             chosenCards.add(getCardAtPos(pos));
             this.moves++;
         }
@@ -69,6 +70,7 @@ class CardBoardManager extends GenericBoardManager {
 
     /**
      * Check whether the two cards with same background is identified
+     *
      * @return whether the two cards with same background is identified
      */
     boolean hasIdentified() {
@@ -82,6 +84,7 @@ class CardBoardManager extends GenericBoardManager {
 
     /**
      * Return whether or not number of chosen cards is at maximum.
+     *
      * @return whether or not number of chosen cards is at maximum.
      */
     boolean isFull() {
@@ -98,7 +101,7 @@ class CardBoardManager extends GenericBoardManager {
             if (isFull()) {
                 for (Card cards : chosenCards) {
                     cards.flip();
-                    ((CardBoard)getBoard()).update();
+                    ((CardBoard) getBoard()).update();
                 }
                 this.chosenCards = new ArrayList<Card>();
             }
@@ -107,6 +110,7 @@ class CardBoardManager extends GenericBoardManager {
 
     /**
      * Return the first Card flipped
+     *
      * @return the first Card flipped
      */
     Card getFirst() {
@@ -115,6 +119,7 @@ class CardBoardManager extends GenericBoardManager {
 
     /**
      * Return the second Card flipped
+     *
      * @return the second Card flipped
      */
     Card getSecond() {
@@ -139,12 +144,13 @@ class CardBoardManager extends GenericBoardManager {
 
     /**
      * Get the Card at specified position
+     *
      * @param pos the specified position
      * @return the Card at specified position
      */
     Card getCardAtPos(int pos) {
         int complexity = getBoard().getComplexity();
-        Card re = (Card) getBoard().getGenericTile(pos/complexity, pos%complexity);
+        Card re = (Card) getBoard().getGenericTile(pos / complexity, pos % complexity);
         return re;
     }
 
