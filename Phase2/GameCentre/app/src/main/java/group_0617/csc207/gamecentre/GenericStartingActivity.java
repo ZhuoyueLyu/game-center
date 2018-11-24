@@ -27,19 +27,14 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     /**
      * Complexity of choice
      */
-    private int complexity = 4;
-
-    /**
-     * counting the times user click the arrow, start with medium which is index 1
-     */
-    private int positionOfChoice = 1;
+    private int currentComplexity = 4;
 
 
     /**
      * The main save file.
      */
     private String SAVE_FILENAME = "save_file_" + GameChoiceActivity.currentGame + "_" +
-            complexity + "_" + LoginActivity.currentUser;
+            currentComplexity + "_" + LoginActivity.currentUser;
 
     /**
      * A temporary save file.
@@ -79,9 +74,11 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView complexity = (TextView) findViewById(R.id.Complexity);
-                if (positionOfChoice - 1 >= 0) {
-                    positionOfChoice--;
-                    ChooseComplexity(complexity);
+                if (currentComplexity > 3) {
+                    currentComplexity--;
+                    showComplexity(complexity);
+                    setSAVE_FILENAME("save_file_" + GameChoiceActivity.currentGame + "_" +
+                            currentComplexity + "_" + LoginActivity.currentUser);
                 }
             }
         });
@@ -99,45 +96,40 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView complexity = (TextView) findViewById(R.id.Complexity);
-                if (positionOfChoice + 1 <= 2) {
-                    positionOfChoice++;
-                    ChooseComplexity(complexity);
+                if (currentComplexity < 5) {
+                    currentComplexity++;
+                    showComplexity(complexity);
+                    setSAVE_FILENAME("save_file_" + GameChoiceActivity.currentGame + "_" +
+                            currentComplexity + "_" + LoginActivity.currentUser);
 
                 }
             }
         });
     }
 
-//    /**
-//     * Choose the complexity of the game
-//     */
-//    @SuppressLint("SetTextI18n")
-//    abstract public void ChooseComplexity(TextView complexity);
-
+    /**
+     * Show the complexity of the game
+     */
     @SuppressLint("SetTextI18n")
-    private void ChooseComplexity(TextView complexity){
-        switch (positionOfChoice){
-            case 0:
-                genericBoardManager.getBoard().setComplexity(3);
+    private void showComplexity(TextView complexity){
+        switch (currentComplexity){
+            case 3:
                 gameComplexity = "easy";
-                this.complexity = 3;
-                complexity.setText("Easy (3x3)");break;
+                complexity.setText("Easy (3x3)");
+                break;
 
-            case 1:
-                genericBoardManager.getBoard().setComplexity(4);
+            case 4:
                 gameComplexity = "medium";
-                this.complexity = 4;
-                complexity.setText("Medium (4x4)");break;
-            case 2:
-                genericBoardManager.getBoard().setComplexity(5);
-                gameComplexity = "hard";
-                this.complexity = 5;
-                complexity.setText("Hard (5x5)");break;
-            default:
-                genericBoardManager.getBoard().setComplexity(4);
-                gameComplexity = "medium";
-                this.complexity = 4;
                 complexity.setText("Medium (4x4)");
+                break;
+            case 5:
+                gameComplexity = "hard";
+                complexity.setText("Hard (5x5)");
+                break;
+            default:
+                gameComplexity = "medium";
+                complexity.setText("Medium (4x4)");
+
         }
     }
 
@@ -256,5 +248,13 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
 
     public void setGenericBoardManager(GenericBoardManager genericBoardManager) {
         this.genericBoardManager = genericBoardManager;
+    }
+
+    public int getCurrentComplexity() {
+        return currentComplexity;
+    }
+
+    public void setSAVE_FILENAME(String SAVE_FILENAME) {
+        this.SAVE_FILENAME = SAVE_FILENAME;
     }
 }

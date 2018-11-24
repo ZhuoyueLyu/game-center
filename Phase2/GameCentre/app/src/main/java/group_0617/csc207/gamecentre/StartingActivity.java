@@ -25,23 +25,6 @@ public class StartingActivity extends GenericStartingActivity {
     public static String gameComplexity = "medium";
 
     /**
-     * Complexity of choice
-     */
-    private int complexity = 4;
-
-    /**
-     * counting the times user click the arrow, start with medium which is index 1
-     */
-    private int positionOfChoice = 1;
-
-
-    /**
-     * The main save file.
-     */
-    private String SAVE_FILENAME = "save_file_" + GameChoiceActivity.currentGame + "_" +
-            complexity + "_" + LoginActivity.currentUser;
-
-    /**
      * A temporary save file.
      */
     public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame  + "_" + LoginActivity.currentUser;
@@ -56,7 +39,7 @@ public class StartingActivity extends GenericStartingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //boardManager = new BoardManager(complexity);
-        setGenericBoardManager(new BoardManager(complexity));
+        setGenericBoardManager(new BoardManager(getCurrentComplexity()));
     }
 
 ///**
@@ -98,7 +81,7 @@ public class StartingActivity extends GenericStartingActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setGenericBoardManager(new BoardManager(complexity));
+                setGenericBoardManager(new BoardManager(getCurrentComplexity()));
                 switchToGame();
             }
         });
