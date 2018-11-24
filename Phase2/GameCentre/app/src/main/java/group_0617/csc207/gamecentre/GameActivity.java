@@ -40,7 +40,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private BoardManagerSlidingtiles boardManagerSlidingtiles;
 
     /**
      * The buttons to display.
@@ -102,9 +102,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         counts++;
                         TextView score = (TextView) findViewById(R.id.Score);
                         score.setText("Time: "+ counts + " s");
-                        boardManager.setLastTime(counts);
-                        saveToFile("save_file_" +
-                                boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
+
+                        boardManagerSlidingtiles.setLastTime(counts);
+                        saveToFile("save_file_" + GameChoiceActivity.currentGame + "_" +
+                                boardManagerSlidingtiles.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
                     }
                 });
             }
@@ -143,9 +144,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
         addUploadButtonListener();
 
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(boardManager.getBoard().getComplexity());
-        gridView.setBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
+        gridView.setNumColumns(boardManagerSlidingtiles.getBoard().getComplexity());
+        gridView.setAbleToFling(false);
+        gridView.setBoardManager(boardManagerSlidingtiles);
+        boardManagerSlidingtiles.getBoard().addObserver(this)
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -156,8 +158,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / boardManager.getBoard().getComplexity();
-                        columnHeight = displayHeight / boardManager.getBoard().getComplexity();
+                        columnWidth = displayWidth / boardManagerSlidingtiles.getBoard().getComplexity();
+                        columnHeight = displayHeight / boardManagerSlidingtiles.getBoard().getComplexity();
 
                         display();
                     }
@@ -170,15 +172,16 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = boardManager.getBoard();
+        BoardSlidingtiles boardSlidingtiles = boardManagerSlidingtiles.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != boardManager.getBoard().getComplexity(); row++) {
-            for (int col = 0; col != boardManager.getBoard().getComplexity(); col++) {
+
+        for (int row = 0; row != boardManagerSlidingtiles.getBoard().getComplexity(); row++) {
+            for (int col = 0; col != boardManagerSlidingtiles.getBoard().getComplexity(); col++) {
                 Button tmp = new Button(context);
                 if (bitmapList == null) {
-                    tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-                } else if (board.getTile(row, col).getId() != boardManager.getBoard().getComplexity() * boardManager.getBoard().getComplexity()) {
-                    BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(board.getTile(row, col).getId()));
+                    tmp.setBackgroundResource(boardSlidingtiles.getTile(row, col).getBackground());
+                } else if (boardSlidingtiles.getTile(row, col).getId() != boardManagerSlidingtiles.getBoard().getComplexity() * boardManagerSlidingtiles.getBoard().getComplexity()) {
+                    BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(boardSlidingtiles.getTile(row, col).getId()));
                     tmp.setBackground(d);
                 } else {
                     tmp.setBackgroundResource(R.drawable.tile_grey);
@@ -192,15 +195,16 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = boardManager.getBoard();
+        BoardSlidingtiles boardSlidingtiles = boardManagerSlidingtiles.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / boardManager.getBoard().getComplexity();
-            int col = nextPos % boardManager.getBoard().getComplexity();
+
+            int row = nextPos / boardManagerSlidingtiles.getBoard().getComplexity();
+            int col = nextPos % boardManagerSlidingtiles.getBoard().getComplexity();
             if (bitmapList == null) {
-                b.setBackgroundResource(board.getTile(row, col).getBackground());
-            } else if (board.getTile(row, col).getId() != boardManager.getBoard().getComplexity() * boardManager.getBoard().getComplexity()) {
-                BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(board.getTile(row, col).getId()));
+                b.setBackgroundResource(boardSlidingtiles.getTile(row, col).getBackground());
+            } else if (boardSlidingtiles.getTile(row, col).getId() != boardManagerSlidingtiles.getBoard().getComplexity() * boardManagerSlidingtiles.getBoard().getComplexity()) {
+                BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(boardSlidingtiles.getTile(row, col).getId()));
                 b.setBackground(d);
             } else {
                 b.setBackgroundResource(R.drawable.tile_grey);
@@ -216,8 +220,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onPause() {
         super.onPause();
         saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
-        boardManager.setLastTime(stopTimer());
-        System.out.println("pause: " + boardManager.getLastTime());
+        boardManagerSlidingtiles.setLastTime(stopTimer());
     }
 
     /**
@@ -226,8 +229,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("start: " + boardManager.getLastTime());
-        startTimer(boardManager.getLastTime());
+        startTimer(boardManagerSlidingtiles.getLastTime());
     }
 
     /**
@@ -240,7 +242,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
+                boardManagerSlidingtiles = (BoardManagerSlidingtiles) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -261,7 +263,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
+            outputStream.writeObject(boardManagerSlidingtiles);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
@@ -276,9 +278,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean undoAvailable = boardManager.undo();
+                boolean undoAvailable = boardManagerSlidingtiles.undo();
                 if (undoAvailable) {
-                    displayToast("Undo successfully! You have made " + boardManager.getTimesOfUndo() + " times of undo.");
+                    displayToast("Undo successfully! You have made " + boardManagerSlidingtiles.getTimesOfUndo() + " times of undo.");
                 } else {
                     displayToast("Undo failed! This is the original board.");
                 }
@@ -369,10 +371,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
         List<Bitmap> newPieces = new ArrayList<Bitmap>();
         int w = picture.getWidth();
         int h = picture.getHeight();
-        int boxWidth = w / boardManager.getBoard().getComplexity();
-        int boxHeight = h / boardManager.getBoard().getComplexity();
-        for (int i = 0; i < boardManager.getBoard().getComplexity(); i++) {
-            for (int j = 0; j < boardManager.getBoard().getComplexity(); j++) {
+
+        int boxWidth = w / boardManagerSlidingtiles.getBoard().getComplexity();
+        int boxHeight = h / boardManagerSlidingtiles.getBoard().getComplexity();
+        for (int i = 0; i < boardManagerSlidingtiles.getBoard().getComplexity(); i++) {
+            for (int j = 0; j < boardManagerSlidingtiles.getBoard().getComplexity(); j++) {
                 Bitmap pictureFragment = Bitmap.createBitmap(picture, j * boxWidth, i * boxHeight, boxWidth, boxHeight);
                 newPieces.add(pictureFragment);
             }

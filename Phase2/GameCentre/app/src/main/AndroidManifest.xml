@@ -26,6 +26,7 @@
         <activity android:name=".UserScoreboardActivity" />
         <activity android:name=".LeaderboardActivity" />
         <activity android:name=".GameRulesActivity" />
+        <activity android:name=".Game2048Activity" />
         <activity android:name=".GameActivity"></activity>
         <uses-library android:name="com.google.android.maps" />
     </application>
