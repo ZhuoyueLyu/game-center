@@ -28,6 +28,7 @@
         <activity android:name=".GameRulesActivity" />
         <activity android:name=".Game2048Activity" />
         <activity android:name=".GameActivity"></activity>
+        <activity android:name=".CardGameActivity" />
         <uses-library android:name="com.google.android.maps" />
     </application>
 </manifest>
