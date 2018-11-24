@@ -56,7 +56,7 @@ public class GameChoiceActivity extends AppCompatActivity {
         otherGame1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivity.class);
+                Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivity2048.class);
                 currentGame = "2048";
                 startActivity(startingScreen);
             }
