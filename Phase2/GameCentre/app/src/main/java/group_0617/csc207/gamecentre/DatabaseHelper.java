@@ -102,10 +102,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
-        if (cursor.moveToFirst()){
-            if (cursor.getCount() > 0) {
-                return true;
-            }}
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+
+            return true;
+        }
         cursor.close();
         db.close();
 
