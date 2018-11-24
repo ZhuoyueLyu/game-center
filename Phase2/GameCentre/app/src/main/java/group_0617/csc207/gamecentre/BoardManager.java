@@ -12,12 +12,12 @@ import java.util.Stack;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager implements Serializable {
+class BoardManager extends GenericBoardManager {
 
     /**
-     * The board being managed.
+     * The defauly complexity of the game
      */
-    private Board board;
+    static final int DEDFAULT_COMPLEXITY = 4;
 
     /**
      * The number of steps.
@@ -39,10 +39,10 @@ class BoardManager implements Serializable {
      */
     private int score = 0;
 
-//    /**
-//     * The stack of all previous reversed moves.
-//     */
-//    private Stack<Board> boardStack = new Stack<>();
+    /**
+     * The stack of all previous reversed moves.
+     */
+    private Stack<Integer> moveStack = new Stack<Integer>();
 
 
     /**
@@ -51,14 +51,7 @@ class BoardManager implements Serializable {
      * @param board the board
      */
     BoardManager(Board board) {
-        this.board = board;
-    }
-
-    /**
-     * Return the current board.
-     */
-    Board getBoard() {
-        return board;
+        super(board);
     }
 
     /**
@@ -66,14 +59,14 @@ class BoardManager implements Serializable {
      */
     BoardManager() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = 16;
+        final int numTiles = DEDFAULT_COMPLEXITY * DEDFAULT_COMPLEXITY;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum, getBoard().getComplexity()));
         }
 
         Collections.shuffle(tiles);
-        this.board = new Board(tiles);
-    }
+        setBoard(new Board(tiles));
+}
 
     /**
      * Manage a new shuffled board specifying desired complexity
@@ -87,69 +80,69 @@ class BoardManager implements Serializable {
         }
 
         Collections.shuffle(tiles);
-        this.board = new Board(tiles);
+        setBoard(new Board(tiles));
     }
-    /**
-     * Return whether the tiles are in row-major order.
-     *
-     * @return whether the tiles are in row-major order
-     */
-    boolean puzzleSolved(){
+
+    @Override
+    boolean puzzleSolved() {
+
+//        for (int row = 0; row != Board.NUM_ROWS; row++) {
+//            for (int col = 0; col != Board.NUM_COLS; col++) {
+//                int correct_older_id = 4 * row + col + 1;
+//                if (getId(row, col) != correct_older_id) {
+//                    return false;
+//                }
+//            }
+//        }
+        if (stepCounter == 5) {
+            score = 10000 / lastTime / (stepCounter + timesOfUndo);
+            stepCounter = 0;
+            lastTime = 0;
+            timesOfUndo = 0;
+            return true;
+        }
         return false;
     }
 
-    /**
-     * Return whether any of the four surrounding tiles is the blank tile.
-     *
-     * @param position the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
-     */
-<<<<<<< HEAD
-    boolean isValidTap(int position) {
 
-        int row = position / board.getComplexity();
-        int col = position % board.getComplexity();
-        int blankId = board.numTiles();
+    @Override
+    boolean isValidTap(int position) {
+        int row = position / getBoard().getComplexity();
+        int col = position % getBoard().getComplexity();
+        int blankId = getBoard().numTiles();
         // Are any of the 4 the blank tile?
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == board.getComplexity() - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == board.getComplexity() - 1 ? null : board.getTile(row, col + 1);
+        Tile above = row == 0 ? null : (Tile) getBoard().getGenericTile(row - 1, col);
+        Tile below = row == getBoard().getComplexity() - 1 ? null : (Tile) getBoard().getGenericTile(row + 1, col);
+        Tile left = col == 0 ? null : (Tile) getBoard().getGenericTile(row, col - 1);
+        Tile right = col == getBoard().getComplexity() - 1 ? null : (Tile) getBoard().getGenericTile(row, col + 1);
+
 
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
                 || (right != null && right.getId() == blankId);
-=======
-    boolean isValidTap(int position){
-        return true;
->>>>>>> ljh
     }
 
-    /**
-     * Process a touch at position in the board, swapping tiles if any of the neighbouring
-     * tiles is the blank tile.
-     *
-     * @param position the position of a touch
-     */
+    @Override
     void touchMove(int position) {
-<<<<<<< HEAD
+
+        Board board = (Board) getBoard();
 
         int row = position / board.getComplexity();
         int col = position % board.getComplexity();
         int blankId = board.numTiles();
 
         if (getId(row + 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row + 1, col);
+            board.swapTiles(row, col, row + 1, col);
             moveStack.add(position + board.getComplexity());
         } else if (getId(row, col + 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col + 1);
+            board.swapTiles(row, col, row, col + 1);
             moveStack.add(position + 1);
         } else if (getId(row - 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row - 1, col);
+            board.swapTiles(row, col, row - 1, col);
             moveStack.add(position - board.getComplexity());
         } else if (getId(row, col - 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col - 1);
+            board.swapTiles(row, col, row, col - 1);
             moveStack.add(position - 1);
         }
         stepCounter++;
@@ -166,11 +159,13 @@ class BoardManager implements Serializable {
      */
     private int getId(int row, int col) {
 
+        Board board = (Board) getBoard();
         if (row <= board.getComplexity() - 1
                 && row >= 0
                 && col <= board.getComplexity() - 1
                 && col >= 0) {
-            return getBoard().getTile(row, col).getId();
+            Tile curTile = (Tile)board.getGenericTile(row, col);
+            return curTile.getId();
         }
 //        this -1 means the row and col is out of bound;
         return -1;
@@ -200,80 +195,48 @@ class BoardManager implements Serializable {
      */
     private void touchUndo(int position) {
 
+        Board board = (Board) getBoard();
         int row = position / board.getComplexity();
         int col = position % board.getComplexity();
         int blankId = board.numTiles();
 
         if (getId(row + 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row + 1, col);
+            board.swapTiles(row, col, row + 1, col);
         } else if (getId(row, col + 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col + 1);
+            board.swapTiles(row, col, row, col + 1);
         } else if (getId(row - 1, col) == blankId) {
-            getBoard().swapTiles(row, col, row - 1, col);
+            board.swapTiles(row, col, row - 1, col);
         } else if (getId(row, col - 1) == blankId) {
-            getBoard().swapTiles(row, col, row, col - 1);
+            board.swapTiles(row, col, row, col - 1);
         }
     }
-=======
-        int a = 0;
-    }
-
-//    /**
-//     * Undo last move and return true if undo successfully, false if it has been initial states.
-//     *
-//     * @return whether the current state can make undo.
-//     */
-//    boolean undo() {
-//        if (boardStack.isEmpty()) {
-//            return false;
-//        } else {
-//            //board = boardStack.pop();
-//            board.changeTo(boardStack.pop());
-//            timesOfUndo++;
-//            return true;
-//        }
-//    }
-//
-//    void addBoard(Board board){
-//        boardStack.add(board);
-//    }
->>>>>>> ljh
 
     /**
      * Return the last timer counts.
      */
-    public int getLastTime() {
+    int getLastTime() {
         return lastTime;
     }
 
     /**
      * Set lastTime at lastTime.
      */
-    public void setLastTime(int lastTime) {
+    void setLastTime(int lastTime) {
         this.lastTime = lastTime;
     }
 
     /**
      * Return the times of undos.
      */
-    public int getTimesOfUndo() {
+    int getTimesOfUndo() {
         return this.timesOfUndo;
     }
 
-    public void setTimesOfUndo(int timesOfUndo) {
-        this.timesOfUndo = timesOfUndo;
-    }
-
-    /**
-     * Return the score.
-     */
+    @Override
     public int getScore() {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
 
     /**
      * Return the number of steps.
@@ -282,10 +245,4 @@ class BoardManager implements Serializable {
         return stepCounter;
     }
 
-    public void setStepCounter(int stepCounter) {
-        this.stepCounter = stepCounter;
-    }
-
 }
-
-
