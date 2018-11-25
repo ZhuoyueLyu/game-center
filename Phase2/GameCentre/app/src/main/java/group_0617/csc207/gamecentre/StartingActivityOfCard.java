@@ -102,9 +102,9 @@ public class StartingActivityOfCard extends GenericStartingActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                BoardManager boardManager = (BoardManager)input.readObject();
-                if (boardManager != null) {
-                    setGenericBoardManager((BoardManager) input.readObject());
+                CardBoardManager cardBoardManager = (CardBoardManager)input.readObject();
+                if (cardBoardManager != null) {
+                    setGenericBoardManager((CardBoardManager) input.readObject());
                 } else {
                     re = false;
                 }
