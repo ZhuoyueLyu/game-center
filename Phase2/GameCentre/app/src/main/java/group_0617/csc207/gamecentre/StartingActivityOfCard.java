@@ -37,7 +37,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //boardManager = new BoardManager(complexity);
-        setGenericBoardManager(new CardBoardManager(getCurrentComplexity()));
+        setGenericBoardManager(new CardBoardManager((getCurrentComplexity()-2)*2));
     }
 
     /**
@@ -48,7 +48,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setGenericBoardManager(new CardBoardManager(getCurrentComplexity()));
+                setGenericBoardManager(new CardBoardManager((getCurrentComplexity()-2)*2));
                 switchToGame();
             }
         });
@@ -86,7 +86,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
     public void switchToGame() {
         Intent tmp = new Intent(this,CardGameActivity.class);
         tmp.putExtra("tempSaveFileName", tempSaveFileName);
-        tmp.putExtra("complexity", getCurrentComplexity());
+        tmp.putExtra("complexity", (getCurrentComplexity()-2)*2);
         saveToFile(tempSaveFileName);
         startActivity(tmp);
     }
