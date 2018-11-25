@@ -13,7 +13,7 @@ import java.util.List;
  * The sliding tiles board.
  * Which implement Iterable<Tile> and Serializable.
  */
-public class Board extends GenericBoard implements Iterable<Tile>{
+public class Board extends GenericBoard implements Iterable<Tile> {
 
     /**
      * A new board of tiles in row-major order.
@@ -71,7 +71,100 @@ public class Board extends GenericBoard implements Iterable<Tile>{
         notifyObservers();
     }
 
-    
+    /**
+     * Count the number of inversion for current tile specified by row and column number
+     *
+     * @param row the row of current tile
+     * @param col the column of current tile
+     * @return the number of inversion for current tile
+     */
+    private int countInversion(int row, int col) {
+        int inv = 0;
+        int pos = row * getComplexity() + col;
+        int posToCompare = pos + 1;
+        Tile currentTile = getTile(row, col);
+        Tile tileToCompare;
+        while (posToCompare < numTiles()) {
+            tileToCompare = getTile(posToCompare / getComplexity(), posToCompare % getComplexity());
+            if (tileToCompare.getId() != numTiles()) {
+                if (currentTile.getId() > tileToCompare.getId()) {
+                    inv++;
+                }
+            }
+            posToCompare++;
+        }
+
+        return inv;
+    }
+
+    /**
+     * Return the sum of polarity over all tiles in the blank.
+     *
+     * @return the sum of polarity over all tiles in the blank.
+     */
+    private int sumOverPolarity() {
+        int totInv = 0;
+        int complexity = getComplexity();
+        for (int i = 0; i < complexity; i++) {
+            for (int j = 0; j < complexity; j++) {
+                Tile curTile = getTile(i, j);
+                if (curTile.getId() != numTiles()) {
+                    totInv = totInv + countInversion(i, j);
+                }
+            }
+        }
+        return totInv;
+    }
+
+    /**
+     * Check if the board is solvable
+     *
+     * @return if the board is solvable
+     */
+    private boolean isSolvable() {
+        boolean isEvenPol = sumOverPolarity() % 2 == 0;
+        int complexity = getComplexity();
+        return complexity % 2 == 1 && isEvenPol || complexity % 2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
+    }
+
+    /**
+     * This method check if the board is solvable. If not, it makes the board solvable
+     */
+    public void makeSolvable() {
+        if (!isSolvable()) {
+            Tile first = getTile(0, 0);
+            Tile second = getTile(1, 0);
+            int complexity = getComplexity();
+            if (first.getId() == numTiles() || second.getId() == numTiles()) {
+                swapTiles(complexity - 1, complexity - 1, complexity - 1, complexity - 2);
+            } else {
+                swapTiles(0, 0, 1, 0);
+            }
+        }
+    }
+
+    /**
+     * Check if blank tile is on odd row counting from bottom
+     *
+     * @return if blank tile is on odd row counting from bottom
+     */
+    private boolean blankOnOddRowFromBottom() {
+        boolean re = false;
+        int complexity = getComplexity();
+        for (int row = complexity - 1; row >= 0; row++) {
+            if ((complexity - row) % 2 == 1) {
+                for (int col = 0; col < complexity; col++) {
+                    Tile curTile = getTile(row, col);
+                    if (curTile.getId() == numTiles()) {
+                        re = true;
+                    }
+                }
+            }
+        }
+        return re;
+    }
+
+
     @Override
     public String toString() {
         return "Board{" +
@@ -91,36 +184,19 @@ public class Board extends GenericBoard implements Iterable<Tile>{
     private class BoardIterator implements Iterator<Tile> {
 
         /**
-         * The current row index
+         * The index of next tile to return
          */
-        int rowIndex = 0;
-
-        /**
-         * The current col index
-         */
-        int columnIndex = 0;
+        int nextIndex = 0;
 
         @Override
         public boolean hasNext() {
-            return rowIndex != getComplexity() - 1 ||
-                    columnIndex != getComplexity() - 1;
+            return nextIndex != numTiles();
         }
 
         @Override
         public Tile next() {
-            Tile result = getTile(rowIndex, columnIndex);
-            if (rowIndex != getComplexity() - 1) {
-                if (columnIndex != getComplexity() - 1) {
-                    columnIndex++;
-                } else {
-                    rowIndex++;
-                    columnIndex = 0;
-                }
-            } else {
-                if (columnIndex != getComplexity() - 1) {
-                    columnIndex++;
-                }
-            }
+            Tile result = getTile(nextIndex / getComplexity(), nextIndex % getComplexity());
+            nextIndex++;
             return result;
         }
 

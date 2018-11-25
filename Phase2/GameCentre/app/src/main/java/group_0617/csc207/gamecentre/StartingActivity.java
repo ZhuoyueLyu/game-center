@@ -102,22 +102,29 @@ public class StartingActivity extends GenericStartingActivity {
      *
      * @param fileName the name of the file
      */
-    public void loadFromFile(String fileName) {
-
+    public boolean loadFromFile(String fileName) {
+        boolean re = true;
         try {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                setGenericBoardManager((BoardManager) input.readObject());
+                BoardManager boardManager = (BoardManager)input.readObject();
+                if (boardManager != null) {
+                    setGenericBoardManager((BoardManager) input.readObject());
+                } else {
+                    re = false;
+                }
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
             Log.e("login activity","File not found: " + e.toString());
+            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("login activity","Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity","File contained unexpected data type: " + e.toString());
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
+        return re;
     }
 
     /**

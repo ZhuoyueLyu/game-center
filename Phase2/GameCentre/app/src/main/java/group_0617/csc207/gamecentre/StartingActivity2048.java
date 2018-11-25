@@ -49,7 +49,7 @@ public class StartingActivity2048 extends GenericStartingActivity {
      *
      * @param fileName the name of the file
      */
-    public void loadFromFile(String fileName) {
+    public boolean loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -66,6 +66,8 @@ public class StartingActivity2048 extends GenericStartingActivity {
         } catch (ClassNotFoundException e) {
             Log.e("login activity","File contained unexpected data type: " + e.toString());
         }
+
+        return true;
     }
 
     /**
