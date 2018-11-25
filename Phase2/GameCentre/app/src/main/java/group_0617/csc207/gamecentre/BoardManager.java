@@ -58,15 +58,8 @@ class BoardManager extends GenericBoardManager {
      * Manage a new shuffled board.
      */
     BoardManager() {
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = DEFAULT_COMPLEXITY * DEFAULT_COMPLEXITY;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum, getBoard().getComplexity()));
-        }
-
-        Collections.shuffle(tiles);
-        setBoard(new Board(tiles));
-}
+        this(DEFAULT_COMPLEXITY);
+    }
 
     /**
      * Manage a new shuffled board specifying desired complexity
@@ -80,7 +73,9 @@ class BoardManager extends GenericBoardManager {
         }
 
         Collections.shuffle(tiles);
-        setBoard(new Board(tiles));
+        Board board = new Board(tiles);
+        board.makeSolvable();
+        setBoard(board);
     }
 
     @Override
