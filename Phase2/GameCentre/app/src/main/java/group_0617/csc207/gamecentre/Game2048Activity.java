@@ -127,7 +127,8 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
+        this.boardManager2048 = new BoardManager2048(4);
+        loadFromFile(StartingActivity2048.TEMP_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_2048);
         addUndoButtonListener();

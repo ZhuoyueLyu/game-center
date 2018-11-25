@@ -13,7 +13,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
     /**
      * The complexity of the board
      */
-    private int complexity;
+    private int complexity = 4;
 
     /**
      * The tiles this board manages

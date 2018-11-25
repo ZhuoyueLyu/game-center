@@ -16,72 +16,17 @@ import java.io.ObjectOutputStream;
 
 public class StartingActivity2048 extends GenericStartingActivity {
 
-    public static String gameComplexity = "medium";
-
-    /**
-     * Complexity of choice
-     */
-    private int complexity = 4;
-
-    /**
-     * counting the times user click the arrow, start with medium which is index 1
-     */
-    private int positionOfChoice = 1;
-
-
-    /**
-     * The main save file.
-     */
-    private String SAVE_FILENAME = "save_file_" + GameChoiceActivity.currentGame + "_" +
-            complexity + "_" + LoginActivity.currentUser;
-
     /**
      * A temporary save file.
      */
     public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame  + "_" + LoginActivity.currentUser;
-
-    /**
-     * The board manager.
-     */
-    //private BoardManager2048 boardManager2048;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //boardManager2048 = new BoardManager2048();
-        setGenericBoardManager(new BoardManager2048());
-    }
-
-    /**
-     * Choose the complexity of the game
-     */
-    @SuppressLint("SetTextI18n")
-    public void ChooseComplexity(TextView complexity) {
-        switch (positionOfChoice){
-            case 0:
-                getGenericBoardManager().getBoard().setComplexity(3);
-                gameComplexity = "easy";
-                this.complexity = 3;
-                complexity.setText("Easy (3x3)");break;
-
-            case 1:
-                getGenericBoardManager().getBoard().setComplexity(4);
-                gameComplexity = "medium";
-                this.complexity = 4;
-                complexity.setText("Medium (4x4)");break;
-            case 2:
-                getGenericBoardManager().getBoard().setComplexity(5);
-                gameComplexity = "hard";
-                this.complexity = 5;
-                complexity.setText("Hard (5x5)");break;
-            default:
-                getGenericBoardManager().getBoard().setComplexity(4);
-                gameComplexity = "medium";
-                this.complexity = 4;
-                complexity.setText("Medium (4x4)");
-
-        }
+        setGenericBoardManager(new BoardManager2048(getCurrentComplexity()));
     }
 
     /**
@@ -93,7 +38,7 @@ public class StartingActivity2048 extends GenericStartingActivity {
             @Override
             public void onClick(View v) {
                 //boardManager2048 = new BoardManager2048();
-                setGenericBoardManager(new BoardManager2048());
+                setGenericBoardManager(new BoardManager2048(getCurrentComplexity()));
                 switchToGame();
             }
         });
@@ -146,7 +91,7 @@ public class StartingActivity2048 extends GenericStartingActivity {
      */
     public void switchToGame() {
         Intent tmp = new Intent(this, Game2048Activity.class);
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity2048.TEMP_SAVE_FILENAME);
         startActivity(tmp);
     }
 }
