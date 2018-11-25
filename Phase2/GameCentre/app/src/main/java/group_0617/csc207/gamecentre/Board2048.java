@@ -28,6 +28,9 @@ public class Board2048 extends GenericBoard implements Serializable {
      * @param tiles the tiles for the board
      */
     Board2048(List<Tile2048> tiles) {
+        int complexity = (int) Math.sqrt((double) tiles.size());
+        setComplexity(complexity);
+
         for (int row = 0; row != getComplexity(); row++) {
             for (int col = 0; col != getComplexity(); col++) {
                 this.tiles[row][col] = tiles.get(row * getComplexity() + col);
@@ -161,9 +164,19 @@ public class Board2048 extends GenericBoard implements Serializable {
             }
         }
         int randomPosition = emptyTiles.get(new Random().nextInt(emptyTiles.size()));
-        int[] numToChoose = {2, 2, 2, 2, 4};
-        int randomNumber = numToChoose[(new Random()).nextInt(5)];
-        setTileId(randomPosition, randomNumber);
+//        int[] numToChoose = {2, 2, 2, 2, 4};
+//        int randomNumber = numToChoose[(new Random()).nextInt(5)];
+        setTileId(randomPosition, 2);
+        setChanged();
+        notifyObservers();
+    }
+
+    void revertBoard(Board2048 board2048){
+        for (int i = 0; i < getComplexity(); i++) {
+            for (int j = 0; j < getComplexity(); j++) {
+                this.tiles[i][j] = new Tile2048(board2048.getTile(i, j).getId());
+            }
+        }
         setChanged();
         notifyObservers();
     }
