@@ -13,7 +13,7 @@ import java.util.List;
  * The sliding tiles board.
  * Which implement Iterable<Tile> and Serializable.
  */
-public class Board extends GenericBoard implements Iterable<Tile>{
+public class Board extends GenericBoard implements Iterable<Tile> {
 
     /**
      * A new board of tiles in row-major order.
@@ -71,7 +71,7 @@ public class Board extends GenericBoard implements Iterable<Tile>{
         notifyObservers();
     }
 
-    
+
     @Override
     public String toString() {
         return "Board{" +
@@ -90,37 +90,17 @@ public class Board extends GenericBoard implements Iterable<Tile>{
      */
     private class BoardIterator implements Iterator<Tile> {
 
-        /**
-         * The current row index
-         */
-        int rowIndex = 0;
-
-        /**
-         * The current col index
-         */
-        int columnIndex = 0;
+        int nextIndex = 0;
 
         @Override
         public boolean hasNext() {
-            return rowIndex != getComplexity() - 1 ||
-                    columnIndex != getComplexity() - 1;
+            return nextIndex != numTiles();
         }
 
         @Override
         public Tile next() {
-            Tile result = getTile(rowIndex, columnIndex);
-            if (rowIndex != getComplexity() - 1) {
-                if (columnIndex != getComplexity() - 1) {
-                    columnIndex++;
-                } else {
-                    rowIndex++;
-                    columnIndex = 0;
-                }
-            } else {
-                if (columnIndex != getComplexity() - 1) {
-                    columnIndex++;
-                }
-            }
+            Tile result = getTile(nextIndex / getComplexity(), nextIndex % getComplexity());
+            nextIndex++;
             return result;
         }
 
