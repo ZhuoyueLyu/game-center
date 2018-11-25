@@ -40,16 +40,13 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
      */
     private Stack<Board2048> boardStack = new Stack<>();
 
-    //private boolean hasEmptyTile = true;
-
-
     /**
      * Manage a board that has been pre-populated.
      *
      * @param board2048 the board
      */
     BoardManager2048(Board2048 board2048) {
-        this.board2048 = board2048;
+        super(board2048);
     }
 
     /**
@@ -57,10 +54,6 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
      */
     Board2048 getBoard() {
         return board2048;
-    }
-
-    public void setBoard2048(Board2048 board2048) {
-        this.board2048 = board2048;
     }
 
     /**
@@ -75,7 +68,6 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
         board2048.addRandomTile();
         board2048.addRandomTile();
     }
-
 
     /**
      * Return whether the tiles are in row-major order.
