@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".StartingActivity" />
+        <activity android:name=".StartingActivity2048" />
         <activity android:name=".StartingActivityOfCard" />
         <activity android:name=".GameChoiceActivity" />
         <activity android:name=".ResultBoardActivity" />
