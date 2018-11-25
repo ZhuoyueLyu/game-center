@@ -7,6 +7,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+
+/**
+ * Unit test for CardBoard Manager
+ */
 public class CardBoardManagerTest {
 
     /**

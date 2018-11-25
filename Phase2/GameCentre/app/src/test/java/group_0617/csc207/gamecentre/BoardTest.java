@@ -7,6 +7,9 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Unit test for Board
+ */
 public class BoardTest {
 
     /**
@@ -49,6 +52,9 @@ public class BoardTest {
 
     }
 
+    /**
+     * Test whether numTiles
+     */
     @Test
     public void testNumTiles() {
         setUpCorrect();
@@ -56,6 +62,9 @@ public class BoardTest {
 
     }
 
+    /**
+     * Test whether getTile works
+     */
     @Test
     public void testGetTile() {
         setUpCorrect();
@@ -63,6 +72,9 @@ public class BoardTest {
         assertEquals(board.getComplexity() + 2, board.getTile(1, 1).getId());
     }
 
+    /**
+     * Test whether swap tile works
+     */
     @Test
     public void testSwapTiles() {
         setUpCorrect();
@@ -73,6 +85,9 @@ public class BoardTest {
         assertEquals(board.getComplexity() + 2, board.getTile(0, 0).getId());
     }
 
+    /**
+     * Test whether make solvable works
+     */
     @Test
     public void testMakeSolvable() {
         setUpCorrect();
@@ -81,9 +96,5 @@ public class BoardTest {
                 complexity - 2);
         board.makeSolvable();
         //assertTrue(board.isSolvable());
-    }
-
-    @Test
-    public void testIterator() {
     }
 }
