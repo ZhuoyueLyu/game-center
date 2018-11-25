@@ -22,13 +22,10 @@ import java.io.ObjectOutputStream;
  */
 abstract public class GenericStartingActivity extends AppCompatActivity {
 
-    public static String gameComplexity = "medium";
-
     /**
      * Complexity of choice
      */
     private int currentComplexity = 4;
-
 
     /**
      * The main save file.
@@ -111,23 +108,19 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      * Show the complexity of the game
      */
     @SuppressLint("SetTextI18n")
-    private void showComplexity(TextView complexity){
+    public void showComplexity(TextView complexity){
         switch (currentComplexity){
             case 3:
-                gameComplexity = "easy";
                 complexity.setText("Easy (3x3)");
                 break;
 
             case 4:
-                gameComplexity = "medium";
                 complexity.setText("Medium (4x4)");
                 break;
             case 5:
-                gameComplexity = "hard";
                 complexity.setText("Hard (5x5)");
                 break;
             default:
-                gameComplexity = "medium";
                 complexity.setText("Medium (4x4)");
 
         }

@@ -71,7 +71,7 @@ public class GameChoiceActivity extends AppCompatActivity {
         otherGame2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startingScreen = new Intent(GameChoiceActivity.this, CardGameActivity.class);
+                Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivityOfCard.class);
                 startActivity(startingScreen);
             }
         });
