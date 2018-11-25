@@ -20,9 +20,7 @@ import java.io.ObjectOutputStream;
 /**
  * The initial activity for the sliding puzzle tile game.
  */
-public class StartingActivity extends GenericStartingActivity {
-
-    public static String gameComplexity = "medium";
+public class StartingActivityOfCard extends GenericStartingActivity {
 
     /**
      * A temporary save file.
@@ -39,9 +37,8 @@ public class StartingActivity extends GenericStartingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //boardManager = new BoardManager(complexity);
-        setGenericBoardManager(new BoardManager(getCurrentComplexity()));
+        setGenericBoardManager(new CardBoardManager(getCurrentComplexity()));
     }
-
 
     /**
      * Activate the start button.
@@ -51,18 +48,45 @@ public class StartingActivity extends GenericStartingActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setGenericBoardManager(new BoardManager(getCurrentComplexity()));
+                setGenericBoardManager(new CardBoardManager(getCurrentComplexity()));
                 switchToGame();
             }
         });
     }
 
+
+    /**
+     * Show the complexity of the game
+     */
+    @Override
+    @SuppressLint("SetTextI18n")
+    public void showComplexity(TextView complexity){
+        switch (getCurrentComplexity()){
+            case 3:
+                complexity.setText("Easy (2x2)");
+                break;
+
+            case 4:
+                complexity.setText("Medium (4x4)");
+                break;
+            case 5:
+                complexity.setText("Hard (6x6)");
+                break;
+            default:
+                complexity.setText("Medium (4x4)");
+
+        }
+    }
+
+
+
     /**
      * Switch to the GameActivity view to play the game.
      */
     public void switchToGame() {
-        Intent tmp = new Intent(this,GameActivity.class);
+        Intent tmp = new Intent(this,CardGameActivity.class);
         tmp.putExtra("tempSaveFileName", tempSaveFileName);
+        tmp.putExtra("complexity", getCurrentComplexity());
         saveToFile(tempSaveFileName);
         startActivity(tmp);
     }
