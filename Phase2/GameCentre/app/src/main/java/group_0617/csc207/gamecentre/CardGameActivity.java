@@ -59,7 +59,14 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
         this.cardBoardManager = new CardBoardManager(this.complexity);
         createTileButtons(this);
         setContentView(R.layout.activity_memory_game);
+        cardBoardManager.getBoard().addObserver(this);
+        initializeGridView();
+    }
 
+    /**
+     * Initialize grid view of the game
+     */
+    private void initializeGridView() {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(cardBoardManager.getBoard().getComplexity());
         gridView.setGenericBoardManager(cardBoardManager);
