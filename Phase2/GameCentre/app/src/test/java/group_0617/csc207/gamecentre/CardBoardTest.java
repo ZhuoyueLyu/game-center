@@ -8,6 +8,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The unit test for CardBoard
+ */
 public class CardBoardTest {
 
     /**
@@ -44,6 +47,9 @@ public class CardBoardTest {
         cardBoard = new CardBoard(cards);
     }
 
+    /**
+     * Test whether flipping card works
+     */
     @Test
     public void testFlipCard() {
         setUpCardBoard();
@@ -53,12 +59,18 @@ public class CardBoardTest {
         assertTrue(cardBoard.getCard(0, 2).getIsCovered());
     }
 
+    /**
+     * Test whether getting card works
+     */
     @Test
     public void testGetCard() {
         setUpSpecificCardBoard();
         assertEquals(R.drawable.tile_2, cardBoard.getCard(0, 0).getBackground());
     }
 
+    /**
+     * Test whether getting complexity works
+     */
     @Test
     public void testGetComplexity() {
         setUpCardBoard();
@@ -67,6 +79,9 @@ public class CardBoardTest {
         assertEquals(3, cardBoard.getComplexity());
     }
 
+    /**
+     * Test whether iterator works
+     */
     @Test
     public void testIterator() {
         setUpSpecificCardBoard();

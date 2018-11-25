@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit test for Card
+ */
 public class CardTest {
 
     /**
@@ -11,9 +14,16 @@ public class CardTest {
      */
     private Card card;
 
+    /**
+     * Set up the card to test
+     */
     private void setUpCard() {
         this.card = new Card(3);
     }
+
+    /**
+     * Test whether flipping works
+     */
     @Test
     public void flip() {
         setUpCard();
@@ -22,18 +32,27 @@ public class CardTest {
         assertFalse(card.getIsCovered());
     }
 
+    /**
+     * Test whether is covered works
+     */
     @Test
     public void getIsCovered() {
         setUpCard();
         assertTrue(card.getIsCovered());
     }
 
+    /**
+     * Test whether getting background works
+     */
     @Test
     public void getBackground() {
         setUpCard();
         assertEquals(R.drawable.tile_4, card.getBackground());
     }
 
+    /**
+     * Test whether getting display works
+     */
     @Test
     public void getDisplay() {
         setUpCard();
