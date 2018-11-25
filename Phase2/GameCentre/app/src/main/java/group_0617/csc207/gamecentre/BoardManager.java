@@ -86,22 +86,19 @@ class BoardManager extends GenericBoardManager {
     @Override
     boolean puzzleSolved() {
 
-//        for (int row = 0; row != Board.NUM_ROWS; row++) {
-//            for (int col = 0; col != Board.NUM_COLS; col++) {
-//                int correct_older_id = 4 * row + col + 1;
-//                if (getId(row, col) != correct_older_id) {
-//                    return false;
-//                }
-//            }
-//        }
-        if (stepCounter == 5) {
-            score = 10000 / lastTime / (stepCounter + timesOfUndo);
-            stepCounter = 0;
-            lastTime = 0;
-            timesOfUndo = 0;
-            return true;
+        for (int row = 0; row != getBoard().getComplexity(); row++) {
+            for (int col = 0; col != getBoard().getComplexity(); col++) {
+                int correct_older_id = 4 * row + col + 1;
+                if (getId(row, col) != correct_older_id) {
+                    return false;
+                }
+            }
         }
-        return false;
+        score = 10000 / lastTime / (stepCounter + timesOfUndo);
+        stepCounter = 0;
+        lastTime = 0;
+        timesOfUndo = 0;
+        return true;
     }
 
 
