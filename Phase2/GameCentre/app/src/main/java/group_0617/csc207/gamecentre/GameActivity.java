@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +31,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -101,8 +103,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                     public void run() {
                         counts++;
                         TextView score = (TextView) findViewById(R.id.Score);
-                        score.setText("Time: "+ counts + " s");
-
+                        score.setText("Time: " + counts + " s");
                         boardManager.setLastTime(counts);
                         saveToFile("save_file_" + GameChoiceActivity.currentGame + "_" +
                                 boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
@@ -223,7 +224,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onPause();
         saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
         boardManager.setLastTime(stopTimer());
-        System.out.println("pause: " + boardManager.getLastTime());
     }
 
     /**
@@ -369,6 +369,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
      * Cut the picture evenly and return the list of pieces.
+     *
      * @param picture a Bitmap picture
      * @return the list of Bitmap pieces.
      */
