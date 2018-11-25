@@ -37,7 +37,6 @@ public class StartingActivity2048 extends GenericStartingActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //boardManager2048 = new BoardManager2048();
                 setGenericBoardManager(new BoardManager2048(getCurrentComplexity()));
                 switchToGame();
             }

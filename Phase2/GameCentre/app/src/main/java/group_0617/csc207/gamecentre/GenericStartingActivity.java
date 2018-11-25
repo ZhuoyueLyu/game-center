@@ -101,7 +101,6 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
                     showComplexity(complexity);
                     setSAVE_FILENAME("save_file_" + GameChoiceActivity.currentGame + "_" +
                             currentComplexity + "_" + LoginActivity.currentUser);
-
                 }
             }
         });
