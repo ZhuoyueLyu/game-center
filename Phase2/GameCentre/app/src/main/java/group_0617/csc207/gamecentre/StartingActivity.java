@@ -27,7 +27,7 @@ public class StartingActivity extends GenericStartingActivity {
     /**
      * A temporary save file.
      */
-    public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame  + "_" + LoginActivity.currentUser;
+    public String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame  + "_" + LoginActivity.currentUser;
 
     /**
      * The board manager.
@@ -92,7 +92,8 @@ public class StartingActivity extends GenericStartingActivity {
      */
     public void switchToGame() {
         Intent tmp = new Intent(this,GameActivity.class);
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        tmp.putExtra("tempSaveFileName", tempSaveFileName);
+        saveToFile(tempSaveFileName);
         startActivity(tmp);
     }
 

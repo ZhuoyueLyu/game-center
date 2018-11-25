@@ -137,7 +137,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
+        Bundle bundle = getIntent().getExtras();
+        String saveFileName = bundle.getString("tempSaveFileName");
+        loadFromFile(saveFileName);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
         addUndoButtonListener();
