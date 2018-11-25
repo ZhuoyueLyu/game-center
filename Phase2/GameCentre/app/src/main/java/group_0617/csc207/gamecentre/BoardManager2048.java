@@ -59,13 +59,16 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
         return board2048;
     }
 
+    public void setBoard2048(Board2048 board2048) {
+        this.board2048 = board2048;
+    }
+
     /**
      * Manage a new shuffled board.
      */
-    BoardManager2048() {
+    BoardManager2048(int complexity) {
         List<Tile2048> tiles = new ArrayList<>();
-        final int numTiles = board2048.getComplexity() * board2048.getComplexity();
-        for (int tileNum = 0; tileNum < numTiles; tileNum++) {
+        for (int tileNum = 0; tileNum < complexity * complexity; tileNum++) {
             tiles.add(new Tile2048(0));
         }
         this.board2048 = new Board2048(tiles);
@@ -84,6 +87,9 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
             for (int j = 0; j < board2048.getComplexity(); j++) {
                 if (getId(i, j) == 2048) {
                     score = 10000 / (stepCounter + timesOfUndo) / lastTime;
+                    stepCounter = 0;
+                    lastTime = 0;
+                    timesOfUndo = 0;
                     return true;
                 }
             }
@@ -167,11 +173,20 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
     }
 
     void touchMove(int move) {
+
+        List<Tile2048> tiles = new ArrayList<>();
+        for (int i = 0; i < board2048.getComplexity(); i++) {
+            for (int j = 0; j < board2048.getComplexity(); j++) {
+                tiles.add(new Tile2048(board2048.getTile(i, j).getId()));
+            }
+        }
+        Board2048 newBoard = new Board2048(tiles);
+        boardStack.add(newBoard);
+
         board2048.swipeMove(move);
         board2048.addRandomTile();
         stepCounter++;
     }
-
 
     /**
      * Get the Id of the tile at the specific row, col location.
@@ -202,7 +217,8 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
         if (boardStack.isEmpty()) {
             return false;
         } else {
-            board2048 = boardStack.pop();
+            Board2048 newBoard2048 = boardStack.pop();
+            board2048.revertBoard(newBoard2048);
             timesOfUndo++;
             return true;
         }
