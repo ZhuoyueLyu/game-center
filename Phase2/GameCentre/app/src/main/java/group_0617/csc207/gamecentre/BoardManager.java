@@ -15,9 +15,9 @@ import java.util.Stack;
 class BoardManager extends GenericBoardManager {
 
     /**
-     * The defauly complexity of the game
+     * The default complexity of the game
      */
-    static final int DEDFAULT_COMPLEXITY = 4;
+    private static final int DEFAULT_COMPLEXITY = 4;
 
     /**
      * The number of steps.
@@ -59,7 +59,7 @@ class BoardManager extends GenericBoardManager {
      */
     BoardManager() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = DEDFAULT_COMPLEXITY * DEDFAULT_COMPLEXITY;
+        final int numTiles = DEFAULT_COMPLEXITY * DEFAULT_COMPLEXITY;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum, getBoard().getComplexity()));
         }
