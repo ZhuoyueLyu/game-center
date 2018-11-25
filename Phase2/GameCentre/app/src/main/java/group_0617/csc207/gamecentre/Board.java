@@ -23,7 +23,6 @@ public class Board extends GenericBoard implements Iterable<Tile> {
      */
     Board(List<Tile> inTiles) {
         Iterator<Tile> iter = inTiles.iterator();
-
         int complexity = (int) Math.sqrt((double) inTiles.size());
         setComplexity(complexity);
         Tile[][] tiles = new Tile[complexity][complexity];
@@ -33,15 +32,6 @@ public class Board extends GenericBoard implements Iterable<Tile> {
             }
         }
         setGenericTiles(tiles);
-    }
-
-    /**
-     * Return the number of tiles on the board.
-     *
-     * @return the number of tiles on the board
-     */
-    int numTiles() {
-        return getComplexity() * getComplexity();
     }
 
     /**

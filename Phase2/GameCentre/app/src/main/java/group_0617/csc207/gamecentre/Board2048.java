@@ -14,11 +14,11 @@ import java.util.Random;
  */
 public class Board2048 extends GenericBoard implements Serializable {
 
-    /**
-     * l
-     * The tiles on the board in row-major order.
-     */
-    private Tile2048[][] tiles = new Tile2048[getComplexity()][getComplexity()];
+//    /**
+//     * l
+//     * The tiles on the board in row-major order.
+//     */
+//    private Tile2048[][] tiles = new Tile2048[getComplexity()][getComplexity()];
 
 
     /**
@@ -30,12 +30,13 @@ public class Board2048 extends GenericBoard implements Serializable {
     Board2048(List<Tile2048> tiles) {
         int complexity = (int) Math.sqrt((double) tiles.size());
         setComplexity(complexity);
-
-        for (int row = 0; row != getComplexity(); row++) {
-            for (int col = 0; col != getComplexity(); col++) {
-                this.tiles[row][col] = tiles.get(row * getComplexity() + col);
+        Tile2048[][] newTiles = new Tile2048[complexity][complexity];
+        for (int row = 0; row != complexity; row++) {
+            for (int col = 0; col != complexity; col++) {
+                newTiles[row][col] = tiles.get(row * complexity + col);
             }
         }
+        setGenericTiles(newTiles);
     }
 
     /**
@@ -46,10 +47,10 @@ public class Board2048 extends GenericBoard implements Serializable {
      * @return the tile at (row, col)
      */
     Tile2048 getTile(int row, int col) {
-        return tiles[row][col];
+        return (Tile2048) getGenericTile(row, col);
     }
 
-    public void leftCombine(Tile2048[] line) {
+    void leftCombine(Tile2048[] line) {
         List<Integer> newLine = new ArrayList<>();
         for (int i = 0, j = 0; i < getComplexity() && j < getComplexity(); ) {
             if (line[i].getId() == 0) {
@@ -79,7 +80,7 @@ public class Board2048 extends GenericBoard implements Serializable {
         }
     }
 
-    public void rightCombine(Tile2048[] line) {
+    void rightCombine(Tile2048[] line) {
         Tile2048[] reverseLine = new Tile2048[line.length];
         for (int j = 0; j < line.length; j++) {
             reverseLine[j] = line[line.length - 1 - j];
@@ -92,10 +93,11 @@ public class Board2048 extends GenericBoard implements Serializable {
 
 
     void swipeMove(int dir) {
+        Tile2048[][] tiles = (Tile2048[][]) getGenericTiles();
         Tile2048[][] columnTiles = new Tile2048[getComplexity()][getComplexity()];
         for (int row = 0; row != getComplexity(); row++) {
             for (int col = 0; col != getComplexity(); col++) {
-                columnTiles[row][col] = this.tiles[col][row];
+                columnTiles[row][col] = tiles[col][row];
             }
         }
         switch (dir) {
@@ -122,11 +124,12 @@ public class Board2048 extends GenericBoard implements Serializable {
                 }
                 for (int row = 0; row != getComplexity(); row++) {
                     for (int col = 0; col != getComplexity(); col++) {
-                        tiles[row][col] = columnTiles[col][row];
+                        setGenericTile(columnTiles[col][row], row, col);
                     }
                 }
                 break;
             case Game2048Activity.LEFT:
+                //Tile2048[][] newTiles = (Tile2048[][]) getGenericTiles();
                 for (int i = 0; i < getComplexity(); i++) {
                     leftCombine(tiles[i]);
                 }
@@ -135,26 +138,21 @@ public class Board2048 extends GenericBoard implements Serializable {
                 for (int i = 0; i < getComplexity(); i++) {
                     Tile2048[] reverseRow = new Tile2048[getComplexity()];
                     for (int j = 0; j < getComplexity(); j++) {
-                        reverseRow[j] = tiles[i][getComplexity() - 1 - j];
+                        reverseRow[j] = getTile(i, getComplexity() - 1 - j);
                     }
                     leftCombine(reverseRow);
                     for (int k = 0; k < getComplexity(); k++) {
-                        tiles[i][k] = reverseRow[getComplexity() - 1 - k];
+                        setGenericTile(reverseRow[getComplexity() - 1 - k], i, k);
                     }
                 }
                 break;
         }
 //        setChanged();
 //        notifyObservers();
+        setGenericTiles(tiles);
     }
 
-    public void setTileId(int position, int id) {
-        int x = position / getComplexity();
-        int y = position % getComplexity();
-        this.tiles[x][y] = new Tile2048(id);
-    }
-
-    public void addRandomTile() {
+    void addRandomTile() {
         List<Integer> emptyTiles = new ArrayList<>();
         for (int i = 0; i < numTiles(); i++) {
             int row = i / getComplexity();
@@ -166,15 +164,15 @@ public class Board2048 extends GenericBoard implements Serializable {
         int randomPosition = emptyTiles.get(new Random().nextInt(emptyTiles.size()));
 //        int[] numToChoose = {2, 2, 2, 2, 4};
 //        int randomNumber = numToChoose[(new Random()).nextInt(5)];
-        setTileId(randomPosition, 2);
+        setGenericTile(new Tile2048(2), randomPosition / getComplexity(), randomPosition % getComplexity());
         setChanged();
         notifyObservers();
     }
 
-    void revertBoard(Board2048 board2048){
+    void revertBoard(Board2048 board2048) {
         for (int i = 0; i < getComplexity(); i++) {
             for (int j = 0; j < getComplexity(); j++) {
-                this.tiles[i][j] = new Tile2048(board2048.getTile(i, j).getId());
+                setGenericTile(new Tile2048(board2048.getTile(i, j).getId()), i, j);
             }
         }
         setChanged();
@@ -182,24 +180,14 @@ public class Board2048 extends GenericBoard implements Serializable {
     }
 
     public Tile2048[][] getTiles() {
-        return tiles;
-    }
-
-    /**
-     * Return the number of tiles on the board.
-     *
-     * @return the number of tiles on the board
-     */
-    int numTiles() {
-        return getComplexity() * getComplexity();
+        return (Tile2048[][]) getGenericTiles();
     }
 
     @Override
     public String toString() {
         return "Board{" +
-                "tiles=" + Arrays.toString(tiles) +
+                "tiles=" + Arrays.toString((Tile[][]) getGenericTiles()) +
                 '}';
     }
-
 
 }
