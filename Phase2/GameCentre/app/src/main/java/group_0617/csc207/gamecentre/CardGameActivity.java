@@ -34,16 +34,13 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
      */
     private GestureDetectGridView gridView;
     private int columnHeight, columnWidth;
+    private int complexity;
 
     /**
      * The name of the game
      */
     private static final String GAME_NAME = "MemoryGame";
 
-    /**
-     * Current complexity
-     */
-    private int complexity = 4;
 
     /**
      * Update the buttons and set adapter
@@ -56,7 +53,9 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.cardBoardManager = new CardBoardManager(this.complexity);
+        Bundle bundle = getIntent().getExtras();
+        complexity = bundle.getInt("complexity");
+        this.cardBoardManager = new CardBoardManager(complexity);
         createTileButtons(this);
         setContentView(R.layout.activity_memory_game);
         cardBoardManager.getBoard().addObserver(this);
@@ -136,7 +135,7 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         display();
-        String nameToSave = GAME_NAME + this.complexity;
+        String nameToSave = GAME_NAME + complexity;
         saveToFile(nameToSave);
     }
 }
