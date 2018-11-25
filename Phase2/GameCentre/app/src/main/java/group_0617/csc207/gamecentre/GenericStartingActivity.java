@@ -146,10 +146,11 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
-                makeToastLoadedText();
-                switchToGame();
+                if (loadFromFile(SAVE_FILENAME)) {
+                    saveToFile(TEMP_SAVE_FILENAME);
+                    makeToastLoadedText();
+                    switchToGame();
+                }
             }
         });
     }
@@ -233,7 +234,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    abstract public void loadFromFile(String fileName) ;
+    abstract public boolean loadFromFile(String fileName) ;
 
     /**
      * Save the board manager to fileName.
