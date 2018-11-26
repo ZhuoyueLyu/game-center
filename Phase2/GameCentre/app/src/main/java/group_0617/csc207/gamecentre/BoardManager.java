@@ -58,8 +58,7 @@ class BoardManager extends GenericBoardManager {
                 }
             }
         }
-        score = 10000 / lastTime / (stepCounter + timesOfUndo);
-        stepCounter = 0;
+        score = 10000 / lastTime / (moveStack.size() + 2*timesOfUndo);
         lastTime = 0;
         timesOfUndo = 0;
         return true;
@@ -139,8 +138,13 @@ class BoardManager extends GenericBoardManager {
         if (moveStack.isEmpty()) {
             return false;
         } else {
-            int lastInverseMove = moveStack.pop();
-            touchUndo(lastInverseMove);
+            Tuple<Integer, Integer> lastMove = moveStack.pop();
+            int pos1 = lastMove.getX();
+            int pos2 = lastMove.getY();
+            Board board = (Board) getBoard();
+            int complexity = board.getComplexity();
+            board.swapTiles(pos1 / complexity, pos1 % complexity,
+                    pos2 / complexity, pos2 % complexity);
             timesOfUndo++;
             return true;
         }
