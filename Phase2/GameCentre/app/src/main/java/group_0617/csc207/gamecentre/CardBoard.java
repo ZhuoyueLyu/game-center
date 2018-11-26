@@ -1,5 +1,7 @@
 package group_0617.csc207.gamecentre;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -28,7 +30,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card> {
         setComplexity(inComplexity);
         Card[][] cards = new Card[inComplexity][inComplexity];
         int numOfUniqueCards = inComplexity * inComplexity / 2;
-        List<Card> newCards = new ArrayList<Card>();
+        List<Card> newCards = new ArrayList<>();
         for (int i = 0; i < numOfUniqueCards; i++) {
             newCards.add(new Card(i));
             newCards.add(new Card(i));
@@ -47,7 +49,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card> {
      * @param inCards the cards to put in the newly created Cardboard
      */
     CardBoard(List<Card> inCards) {
-        setComplexity((int) Math.sqrt((double) inCards.size()));
+        setComplexity((int)Math.ceil(Math.sqrt((double) inCards.size())));
         Card[][] cards = new Card[getComplexity()][getComplexity()];
         Iterator<Card> iter = inCards.iterator();
         for (int row = 0; row < getComplexity(); row++) {
@@ -59,6 +61,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card> {
                 }
             }
         }
+        setGenericTiles(cards);
     }
 
     /**
@@ -91,6 +94,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card> {
     }
 
     @Override
+    @NonNull
     public Iterator<Card> iterator() {
         return new CardBoardIterator();
     }

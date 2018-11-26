@@ -31,10 +31,11 @@ public class CardBoardTest {
     }
 
     /**
-     * Set up a specific card board for testing purpose
+     * Set up a self defined card board for testing purpose
+     * Insufficient amount of cards is given
      */
     private void setUpSpecificCardBoard() {
-        List<Card> cards = new ArrayList<Card>();
+        List<Card> cards = new ArrayList<>();
         cards.add(new Card(1));
         cards.add(new Card(3));
         cards.add(new Card(1));
@@ -43,8 +44,29 @@ public class CardBoardTest {
         cards.add(new Card(4));
         cards.add(new Card(2));
         cards.add(new Card(4));
-        cards.add(new Card(0));
+        //cards.add(new Card(0));
         cardBoard = new CardBoard(cards);
+    }
+
+    /**
+     * Set up a default card board
+     */
+    private void setUpDefaultBoard() {
+        cardBoard = new CardBoard();
+    }
+
+    /**
+     * Test whether constructor works
+     */
+    @Test
+    public void testCardBoard() {
+        setUpDefaultBoard();
+        assertEquals(4, cardBoard.getComplexity());
+        setUpSpecificCardBoard();
+        assertEquals(3, cardBoard.getComplexity());
+        assertEquals(R.drawable.tile_0, cardBoard.getCard(2, 2).getBackground());
+        setUpCardBoard();
+        assertEquals(4, cardBoard.getComplexity());
     }
 
     /**
