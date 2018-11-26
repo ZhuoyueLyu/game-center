@@ -16,30 +16,72 @@ public class CardBoardManagerTest {
     /**
      * The cardBoardManager to test
      */
-    private CardBoardManager cardBoardManager = new CardBoardManager(4);
+    private CardBoardManager cardBoardManager;
 
-    private void setUpNewBoard() {
-        this.cardBoardManager = new CardBoardManager(4);
+    /**
+     * The cardBoard in the cardBoardManager
+     */
+    private CardBoard cardBoard;
+
+
+    /**
+     * Set up a Board specifying it's complexity
+     */
+    private void setUpBoardWithComplexity(){
+        this.cardBoardManager = new CardBoardManager(3);
     }
 
+    /**
+     * Set up specific cardBoard and cardBoardManager to test
+     */
     private void setUpSpecificBoard() {
         List<Card> cards = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             cards.add(new Card(i));
             cards.add(new Card(i));
         }
-        this.cardBoardManager = new CardBoardManager(new CardBoard(cards));
+        this.cardBoard = new CardBoard(cards);
+        this.cardBoardManager = new CardBoardManager(cardBoard);
     }
 
+    /**
+     * Test whether CardBoardManager's constructor works
+     */
+    @Test
+    public void testConstructor() {
+        setUpBoardWithComplexity();
+        assertEquals(3, cardBoardManager.getBoard().getComplexity() );
+        setUpSpecificBoard();
+        assertEquals(4, cardBoardManager.getBoard().getComplexity() );
+    }
+
+    /**
+     * Test whether getBoard works
+     */
     @Test
     public void testGetBoard() {
-        // CardBoard cardboard = CardBoardManager.getBoard();
+        setUpSpecificBoard();
+        CardBoard boardFromMethod = (CardBoard) cardBoardManager.getBoard();
+        assertEquals(cardBoard, boardFromMethod);
     }
 
+    /**
+     * Test whether puzzleSolved works
+     */
     @Test
     public void testPuzzleSolved() {
+        setUpSpecificBoard();
+        assertFalse(cardBoardManager.puzzleSolved());
+        int complexity = cardBoard.getComplexity();
+        for (int i = 0; i < complexity * complexity; i++) {
+            cardBoardManager.touchMove(i);
+        }
+        assertTrue(cardBoardManager.puzzleSolved());
     }
 
+    /**
+     * Test whether isValidTap works
+     */
     @Test
     public void testIsValidTap() {
         setUpSpecificBoard();
@@ -48,6 +90,9 @@ public class CardBoardManagerTest {
         assertFalse(cardBoardManager.isValidTap(1));
     }
 
+    /**
+     * Test whether touchMove works
+     */
     @Test
     public void testTouchMove() {
         setUpSpecificBoard();
@@ -59,75 +104,26 @@ public class CardBoardManagerTest {
         assertTrue(cardBoardManager.getCardAtPos(2).getIsCovered());
     }
 
-}
-/*
-    @Test
-    public void testHasIdentified() {
-        setUpSpecificBoard();
-        cardBoardManager.setFirst(cardBoardManager.getCardAtPos(0));
-        cardBoardManager.setSecond(cardBoardManager.getCardAtPos(1));
-        assertTrue(cardBoardManager.hasIdentified());
-        setUpNewBoard();
-        cardBoardManager.touchMove(0);
-        assertTrue(cardBoardManager.getCardAtPos(0).getBackground() == R.drawable.tile_1);
-        cardBoardManager.touchMove(15);
-        assertTrue(cardBoardManager.getCardAtPos(15).getBackground() == R.drawable.tile_8);
-        assertFalse(cardBoardManager.hasIdentified());
-    }
-
-    @Test
-    public void testIsFull() {
-        setUpSpecificBoard();
-        cardBoardManager.touchMove(0);
-        cardBoardManager.touchMove(1);
-        assertTrue(cardBoardManager.isFull());
-        setUpNewBoard();
-        cardBoardManager.touchMove(2);
-        assertFalse(cardBoardManager.isFull());
-        cardBoardManager.touchMove(3);
-        assertTrue(cardBoardManager.isFull());
-    }
-
-    @Test
-    public void testUpdateChosenCards() {
-        setUpSpecificBoard();
-        cardBoardManager.touchMove(0);
-        cardBoardManager.touchMove(1);
-        assertTrue(cardBoardManager.isFull());
-        cardBoardManager.updateChosenCards();
-        assertFalse(cardBoardManager.isFull());
-        cardBoardManager.touchMove(3);
-        cardBoardManager.touchMove(15);
-        assertTrue(cardBoardManager.isFull());
-        assertFalse(cardBoardManager.hasIdentified());
-        cardBoardManager.updateChosenCards();
-        assertTrue(cardBoardManager.getCardAtPos(3).getIsCovered());
-        assertTrue(cardBoardManager.getCardAtPos(15).getIsCovered());
-        assertFalse(cardBoardManager.isFull());
-
-    }
-
-    @Test
-    public void testGetFirst() {
-        setUpSpecificBoard();
-        cardBoardManager.touchMove(0);
-        assertEquals(cardBoardManager.getCardAtPos(0), cardBoardManager.getFirst());
-    }
-
-    @Test
-    public void testGetSecond() {
-        setUpSpecificBoard();
-        cardBoardManager.touchMove(0);
-        cardBoardManager.touchMove(1);
-        assertEquals(cardBoardManager.getCardAtPos(1), cardBoardManager.getSecond());
-    }
-
+    /**
+     * Test whether getCardAtPos works
+     */
     @Test
     public void testGetCardAtPos() {
+        setUpSpecificBoard();
+        Card fromBoard = (Card) cardBoard.getGenericTile(0, 1);
+        Card fromManager = cardBoardManager.getCardAtPos(1);
+        assertEquals(fromBoard, fromManager);
     }
 
+    /**
+     * Test whether getScore works
+     */
     @Test
     public void getScore() {
+        setUpSpecificBoard();
+        for (int i = 0; i < 4; i++) {
+            cardBoardManager.touchMove(i*2);
+        }
+        assertEquals(-4, cardBoardManager.getScore());
     }
 }
-*/
