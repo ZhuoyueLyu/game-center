@@ -26,7 +26,7 @@ class CardBoardManager extends GenericBoardManager {
      */
     CardBoardManager(int complexity) {
         setBoard(new CardBoard(complexity));
-        this.chosenCards = new ArrayList<Card>();
+        this.chosenCards = new ArrayList<>();
     }
 
     /**
@@ -36,7 +36,7 @@ class CardBoardManager extends GenericBoardManager {
      */
     CardBoardManager(CardBoard inCardBoard) {
         setBoard(inCardBoard);
-        this.chosenCards = new ArrayList<Card>();
+        this.chosenCards = new ArrayList<>();
     }
 
     @Override
@@ -73,7 +73,7 @@ class CardBoardManager extends GenericBoardManager {
      *
      * @return whether the two cards with same background is identified
      */
-    boolean hasIdentified() {
+    private boolean hasIdentified() {
         boolean re = false;
 
         if (isFull() && getFirst().getBackground() == getSecond().getBackground()) {
@@ -87,23 +87,23 @@ class CardBoardManager extends GenericBoardManager {
      *
      * @return whether or not number of chosen cards is at maximum.
      */
-    boolean isFull() {
+    private boolean isFull() {
         return chosenCards.size() == 2;
     }
 
     /**
      * update the chosen cards
      */
-    void updateChosenCards() {
+    private void updateChosenCards() {
         if (hasIdentified()) {
-            this.chosenCards = new ArrayList<Card>();
+            this.chosenCards = new ArrayList<>();
         } else {
             if (isFull()) {
                 for (Card cards : chosenCards) {
                     cards.flip();
                     ((CardBoard) getBoard()).update();
                 }
-                this.chosenCards = new ArrayList<Card>();
+                this.chosenCards = new ArrayList<>();
             }
         }
     }
@@ -113,7 +113,7 @@ class CardBoardManager extends GenericBoardManager {
      *
      * @return the first Card flipped
      */
-    Card getFirst() {
+    private Card getFirst() {
         return chosenCards.get(0);
     }
 
@@ -122,24 +122,8 @@ class CardBoardManager extends GenericBoardManager {
      *
      * @return the second Card flipped
      */
-    Card getSecond() {
+    private Card getSecond() {
         return chosenCards.get(1);
-    }
-
-    void setFirst(Card inCard) {
-        if (chosenCards.size() == 0) {
-            chosenCards.add(inCard);
-        } else {
-            chosenCards.set(0, inCard);
-        }
-    }
-
-    void setSecond(Card inCard) {
-        if (chosenCards.size() < 2) {
-            chosenCards.add(inCard);
-        } else {
-            chosenCards.set(1, inCard);
-        }
     }
 
     /**
@@ -150,8 +134,7 @@ class CardBoardManager extends GenericBoardManager {
      */
     Card getCardAtPos(int pos) {
         int complexity = getBoard().getComplexity();
-        Card re = (Card) getBoard().getGenericTile(pos / complexity, pos % complexity);
-        return re;
+        return (Card) getBoard().getGenericTile(pos / complexity, pos % complexity);
     }
 
     @Override
