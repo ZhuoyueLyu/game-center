@@ -15,11 +15,6 @@ import java.util.Stack;
 class BoardManager extends GenericBoardManager {
 
     /**
-     * The default complexity of the game
-     */
-    private static final int DEFAULT_COMPLEXITY = 4;
-
-    /**
      * The number of steps.
      */
     private int stepCounter = 0;
@@ -42,24 +37,7 @@ class BoardManager extends GenericBoardManager {
     /**
      * The stack of all previous reversed moves.
      */
-    private Stack<Integer> moveStack = new Stack<Integer>();
-
-
-    /**
-     * Manage a board that has been pre-populated.
-     *
-     * @param board the board
-     */
-    BoardManager(Board board) {
-        super(board);
-    }
-
-    /**
-     * Manage a new shuffled board.
-     */
-    BoardManager() {
-        this(DEFAULT_COMPLEXITY);
-    }
+    private Stack<Integer> moveStack = new Stack<>();
 
     /**
      * Manage a new shuffled board specifying desired complexity
@@ -108,7 +86,6 @@ class BoardManager extends GenericBoardManager {
         Tile left = col == 0 ? null : (Tile) getBoard().getGenericTile(row, col - 1);
         Tile right = col == getBoard().getComplexity() - 1 ? null : (Tile) getBoard().getGenericTile(row, col + 1);
 
-
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -138,7 +115,6 @@ class BoardManager extends GenericBoardManager {
             moveStack.add(position - 1);
         }
         stepCounter++;
-        System.out.println("Step: " + stepCounter);
     }
 
     /**
@@ -227,14 +203,6 @@ class BoardManager extends GenericBoardManager {
     @Override
     public int getScore() {
         return score;
-    }
-
-
-    /**
-     * Return the number of steps.
-     */
-    public int getStepCounter() {
-        return stepCounter;
     }
 
 }
