@@ -1,12 +1,8 @@
 package group_0617.csc207.gamecentre;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -15,17 +11,12 @@ import java.util.Stack;
 class BoardManager extends GenericBoardManager {
 
     /**
-     * The number of steps.
-     */
-    private int stepCounter = 0;
-
-    /**
      * The number of undos.
      */
     private int timesOfUndo = 0;
 
     /**
-     * The time of last game's timer counts..
+     * The time of last game's timer counts.
      */
     private int lastTime = 0;
 
@@ -37,7 +28,7 @@ class BoardManager extends GenericBoardManager {
     /**
      * The stack of all previous reversed moves.
      */
-    private Stack<Integer> moveStack = new Stack<>();
+    private Stack<Tuple<Integer, Integer>> moveStack = new Stack<>();
 
     /**
      * Manage a new shuffled board specifying desired complexity
@@ -100,21 +91,21 @@ class BoardManager extends GenericBoardManager {
         int row = position / board.getComplexity();
         int col = position % board.getComplexity();
         int blankId = board.numTiles();
+        int complexity = board.getComplexity();
 
         if (getId(row + 1, col) == blankId) {
             board.swapTiles(row, col, row + 1, col);
-            moveStack.add(position + board.getComplexity());
+            moveStack.add(new Tuple<>(position, position + complexity));
         } else if (getId(row, col + 1) == blankId) {
             board.swapTiles(row, col, row, col + 1);
-            moveStack.add(position + 1);
+            moveStack.add(new Tuple<>(position, position + 1));
         } else if (getId(row - 1, col) == blankId) {
             board.swapTiles(row, col, row - 1, col);
-            moveStack.add(position - board.getComplexity());
+            moveStack.add(new Tuple<>(position, position - complexity));
         } else if (getId(row, col - 1) == blankId) {
             board.swapTiles(row, col, row, col - 1);
-            moveStack.add(position - 1);
+            moveStack.add(new Tuple<>(position, position - 1));
         }
-        stepCounter++;
     }
 
     /**
@@ -152,30 +143,6 @@ class BoardManager extends GenericBoardManager {
             touchUndo(lastInverseMove);
             timesOfUndo++;
             return true;
-        }
-    }
-
-    /**
-     * Similar to touchMove(). However, when do the undo, the reverse move won't
-     * be saved in the moveStack.
-     *
-     * @param position the reverse move to be made for undo
-     */
-    private void touchUndo(int position) {
-
-        Board board = (Board) getBoard();
-        int row = position / board.getComplexity();
-        int col = position % board.getComplexity();
-        int blankId = board.numTiles();
-
-        if (getId(row + 1, col) == blankId) {
-            board.swapTiles(row, col, row + 1, col);
-        } else if (getId(row, col + 1) == blankId) {
-            board.swapTiles(row, col, row, col + 1);
-        } else if (getId(row - 1, col) == blankId) {
-            board.swapTiles(row, col, row - 1, col);
-        } else if (getId(row, col - 1) == blankId) {
-            board.swapTiles(row, col, row, col - 1);
         }
     }
 
