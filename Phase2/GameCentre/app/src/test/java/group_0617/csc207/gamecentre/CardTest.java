@@ -2,6 +2,9 @@ package group_0617.csc207.gamecentre;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -22,10 +25,62 @@ public class CardTest {
     }
 
     /**
+     * Set up card initially flipped
+     */
+    private void setUpSpecificCard() {
+        this.card = new Card(2, false);
+    }
+
+    /**
+     * Test whether constructor workss
+     */
+    @Test
+    public void testCard() {
+        setUpCard();
+        assertTrue(card.getIsCovered());
+        setUpSpecificCard();
+        assertFalse(card.getIsCovered());
+        List<Integer> backgrounds = new ArrayList<>();
+        backgrounds.add(R.drawable.tile_1);
+        backgrounds.add(R.drawable.tile_2);
+        backgrounds.add(R.drawable.tile_3);
+        backgrounds.add(R.drawable.tile_4);
+        backgrounds.add(R.drawable.tile_5);
+        backgrounds.add(R.drawable.tile_6);
+        backgrounds.add(R.drawable.tile_7);
+        backgrounds.add(R.drawable.tile_8);
+        backgrounds.add(R.drawable.tile_9);
+        backgrounds.add(R.drawable.tile_10);
+        backgrounds.add(R.drawable.tile_11);
+        backgrounds.add(R.drawable.tile_12);
+        backgrounds.add(R.drawable.tile_13);
+        backgrounds.add(R.drawable.tile_14);
+        backgrounds.add(R.drawable.tile_15);
+        backgrounds.add(R.drawable.tile_16);
+        backgrounds.add(R.drawable.tile_17);
+        backgrounds.add(R.drawable.tile_18);
+        backgrounds.add(R.drawable.tile_19);
+        backgrounds.add(R.drawable.tile_20);
+        backgrounds.add(R.drawable.tile_21);
+        backgrounds.add(R.drawable.tile_22);
+        backgrounds.add(R.drawable.tile_23);
+        backgrounds.add(R.drawable.tile_24);
+        for (int i = 0; i < 24; i++) {
+            card = new Card(i);
+            assertEquals(card.getBackground(), (long)backgrounds.get(i));
+        }
+
+        // executes default that set background to tile0
+        card = new Card(1000);
+        assertEquals(card.getBackground(), R.drawable.tile_0);
+    }
+
+
+    /**
      * Test whether flipping works
      */
     @Test
-    public void flip() {
+    public void testFlip() {
         setUpCard();
         assertTrue(card.getIsCovered());
         card.flip();
@@ -36,7 +91,7 @@ public class CardTest {
      * Test whether is covered works
      */
     @Test
-    public void getIsCovered() {
+    public void testGetIsCovered() {
         setUpCard();
         assertTrue(card.getIsCovered());
     }
@@ -45,7 +100,7 @@ public class CardTest {
      * Test whether getting background works
      */
     @Test
-    public void getBackground() {
+    public void testGetBackground() {
         setUpCard();
         assertEquals(R.drawable.tile_4, card.getBackground());
     }
@@ -54,7 +109,7 @@ public class CardTest {
      * Test whether getting display works
      */
     @Test
-    public void getDisplay() {
+    public void testGetDisplay() {
         setUpCard();
         assertEquals(R.drawable.tile_0, card.getDisplay());
         card.flip();
