@@ -18,10 +18,7 @@ import java.util.ArrayList;
  * Date of Retrieval: November 3, 2018
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    /**
-     * We tried to avoid using static variable here,
-     * but it seems that the SQlite can only use static final variable?
-     */
+
     private static final String TAG = DatabaseHelper.class.getSimpleName();
     private static final String DB_NAME = "gameCentre.db";
     private static final int DB_VERSION = 2;
@@ -30,10 +27,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASS = "password";
-    // Score of slidingtiles under easy, medium, hard mode text
+    // Score of SlidingTiles game under easy, medium, hard mode
     private static final String COLUMN_STEASY = "steasy";
     private static final String COLUMN_STMEDIUM = "stmedium";
     private static final String COLUMN_STHARD = "sthard";
+    // Score of 2048 game under easy, medium, hard mode
+    private static final String COLUMN_TFEASY = "tfeasy";
+    private static final String COLUMN_TFMEDIUM = "tfmedium";
+    private static final String COLUMN_TFHARD = "tfhard";
+    // Score of Memory game under easy, medium, hard mode
+    private static final String COLUMN_CARDEASY = "cardeasy";
+    private static final String COLUMN_CARDMEDIUM = "cardmedium";
+    private static final String COLUMN_CARDHARD = "cardhard";
 
     /**
      * create table users(
@@ -51,7 +56,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_PASS + " TEXT,"
             + COLUMN_STEASY + " INTEGER,"
             + COLUMN_STMEDIUM + " INTEGER,"
-            + COLUMN_STHARD + " INTEGER);";
+            + COLUMN_STHARD + " INTEGER,"
+            + COLUMN_TFEASY + " INTEGER,"
+            + COLUMN_TFMEDIUM + " INTEGER,"
+            + COLUMN_TFHARD + " INTEGER,"
+            + COLUMN_CARDEASY + " INTEGER,"
+            + COLUMN_CARDMEDIUM + " INTEGER,"
+            + COLUMN_CARDHARD + " INTEGER);";
 
     DatabaseHelper(@Nullable Context context) {
         super(context,DB_NAME,null,DB_VERSION);
@@ -80,6 +91,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_STEASY,0);
         values.put(COLUMN_STMEDIUM,0);
         values.put(COLUMN_STHARD,0);
+        values.put(COLUMN_TFEASY,0);
+        values.put(COLUMN_TFMEDIUM,0);
+        values.put(COLUMN_TFHARD,0);
+        values.put(COLUMN_CARDEASY,0);
+        values.put(COLUMN_CARDMEDIUM,0);
+        values.put(COLUMN_CARDHARD,0);
 
         long id = db.insert(USER_TABLE,null,values);
         db.close();
@@ -135,45 +152,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+
     /**
-     * This method is used to update the score of Sliding tiles game under different difficulties
+     * This method is used to update the score of different games under different difficulties.
      *
-     * @param username
-     * @param difficulty
-     * @param score
+     * @param username the name of the user
+     * @param column   the name of the column where we want to put the score in
+     * @param score    the score of that game
      */
-    void addSTdata(String username,String difficulty,int score) {
+    void addGameData(String username,String column,int score) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         String where = COLUMN_USERNAME + " = " + "'" + username + "'";
-        switch (difficulty) {
-            case "easy":
-                values.put(COLUMN_STEASY,Math.max(score,getSTdata(username,difficulty)));
-                break;
-            case "medium":
-                values.put(COLUMN_STMEDIUM,Math.max(score,getSTdata(username,difficulty)));
-                break;
-            case "hard":
-                values.put(COLUMN_STHARD,Math.max(score,getSTdata(username,difficulty)));
-                break;
-            default:
-                break;
-        }
+        //Compare whether the new score is higher then this user's previous score or not.
+        values.put(column,Math.max(score,getGameData(username,column)));
         db.update(USER_TABLE,values,where,null);
         db.close();
-
 
     }
 
 
     /**
-     * This method is used to return the sore of a given user under give game difficulty
+     * This method is used to return the sore of a given user under give game and difficulty
      *
-     * @param username
-     * @param stdifficulty
-     * @return sore
+     * @param username the name of the user
+     * @param column   the name of the column where we want to put the score in
+     * @return the score of a given user under give game and difficulty
      */
-    int getSTdata(String username,String stdifficulty) {
+    int getGameData(String username,String column) {
 
         String selectQuery = "select * from  " + USER_TABLE + " where " +
                 COLUMN_USERNAME + " = " + "'" + username + "'";
@@ -182,24 +188,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //cursor is used to read from the database
         Cursor cursor = db.rawQuery(selectQuery,null);
         int result = 0;
-        int stIndex = 0;
+        int Index = 0;
         if (cursor.moveToFirst()) {
-            switch (stdifficulty) {
-                case "easy":
-                    stIndex = cursor.getColumnIndex(COLUMN_STEASY);
-                    result = Integer.valueOf(cursor.getString(stIndex));
-                    break;
-                case "medium":
-                    stIndex = cursor.getColumnIndex(COLUMN_STMEDIUM);
-                    result = Integer.valueOf(cursor.getString(stIndex));
-                    break;
-                case "hard":
-                    stIndex = cursor.getColumnIndex(COLUMN_STHARD);
-                    result = Integer.valueOf(cursor.getString(stIndex));
-                    break;
-                default:
-                    break;
-            }
+            Index = cursor.getColumnIndex(column);
+            result = Integer.valueOf(cursor.getString(Index));
         }
         cursor.close();
         return result;

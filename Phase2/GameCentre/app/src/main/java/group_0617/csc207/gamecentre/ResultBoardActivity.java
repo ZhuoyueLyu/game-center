@@ -28,27 +28,54 @@ public class ResultBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_board);
         db = new DatabaseHelper(this);
-        TextView scoreLabel = (TextView) findViewById(R.id.scoreLabel);
-        TextView highScoreLabel = (TextView) findViewById(R.id.highScoreLabel);
+        TextView scoreLabel = findViewById(R.id.scoreLabel);
+        TextView highScoreLabel = findViewById(R.id.highScoreLabel);
 
-        int score = getIntent().getIntExtra("SCORE", 0);
+        int score = getIntent().getIntExtra("SCORE",0);
+        String currentGame = getIntent().getStringExtra("currentGame");
+        int gameComplexity = getIntent().getIntExtra("complexity",4);
+
         scoreLabel.setText(score + "");
+        SharedPreferences settings = getSharedPreferences("GAME_DATA",Context.MODE_PRIVATE);
+        int highScore = settings.getInt("HIGH_SCORE",0);
 
-        SharedPreferences settings = getSharedPreferences("GAME_DATA", Context.MODE_PRIVATE);
-        int highScore = settings.getInt("HIGH_SCORE", 0);
-
+        //Display the score
         if (score > highScore) {
             highScoreLabel.setText("High Score: " + score);
 
             // Save
             SharedPreferences.Editor editor = settings.edit();
-            editor.putInt("HIGH_SCORE", score);
+            editor.putInt("HIGH_SCORE",score);
             editor.commit();
         } else {
             highScoreLabel.setText("High Score: " + highScore);
         }
 
-        db.addSTdata(LoginActivity.currentUser, StartingActivity.gameComplexity, score);
+        //Write the data into the Database
+        writeData(score,currentGame,gameComplexity);
+    }
+
+    /**
+     * Write the data into the Database
+     * @param score the score that the user earned in this game
+     * @param currentGame the name of the current game
+     * @param gameComplexity the complexity of the current game 3(easy), 4(medium), 5(hard)
+     */
+    private void writeData(int score,String currentGame,int gameComplexity) {
+        switch (gameComplexity) {
+            case 3:
+                db.addGameData(LoginActivity.currentUser,currentGame+"easy",score);
+                break;
+            case 4:
+                db.addGameData(LoginActivity.currentUser,currentGame+"medium",score);
+                break;
+            case 5:
+                db.addGameData(LoginActivity.currentUser,currentGame+"hard",score);
+                break;
+            default:
+                break;
+
+        }
     }
 
     /**
@@ -57,7 +84,7 @@ public class ResultBoardActivity extends AppCompatActivity {
      * @param view the current view
      */
     public void tryAgain(View view) {
-        startActivity(new Intent(getApplicationContext(), StartingActivity.class));
+        startActivity(new Intent(getApplicationContext(),StartingActivity.class));
     }
 
     /**
@@ -66,6 +93,7 @@ public class ResultBoardActivity extends AppCompatActivity {
      * @param view the current view
      */
     public void backToMain(View view) {
-        startActivity(new Intent(getApplicationContext(), GameChoiceActivity.class));
+        startActivity(new Intent(getApplicationContext(),GameChoiceActivity.class));
     }
+
 }
