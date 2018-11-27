@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class UserScoreboardActivity extends Activity{
+public class ScoreboardActivity extends Activity{
 
     DatabaseHelper db;
     String[] listItem;
@@ -61,9 +61,9 @@ public class UserScoreboardActivity extends Activity{
         listItem[1] = other1Data.toString();
         listItem[2] = other2Data.toString();
 
-//        LstAdapter adapter=new LstAdapter(this,R.layout.rowlayout,R.id.txtUsername,items);
+//        ScoreboardListAdapter adapter=new ScoreboardListAdapter(this,R.layout.rowlayout,R.id.txtUsername,items);
         // Bind data to the ListView
-        LstAdapter adapter=new LstAdapter(this,R.layout.rowlayout,R.id.txtUsername,listItem);
+        ScoreboardListAdapter adapter=new ScoreboardListAdapter(this,R.layout.rowlayout,R.id.txtUsername,listItem);
         // Bind data to the ListView
         lstview.setAdapter(adapter);
     }
