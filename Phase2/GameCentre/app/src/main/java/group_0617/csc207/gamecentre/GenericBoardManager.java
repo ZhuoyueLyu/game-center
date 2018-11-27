@@ -65,4 +65,11 @@ abstract class GenericBoardManager implements Serializable {
      * @return the score recorded
      */
     abstract int getScore();
+
+    /**
+     * The method which return the abbreviation of current game.
+     *
+     * @return The name of the current Game
+     */
+    abstract String getCurrentGame();
 }

@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ScoreboardActivity extends Activity{
+public class ScoreboardActivity extends Activity {
 
     DatabaseHelper db;
     String[] listItem;
@@ -19,56 +19,65 @@ public class ScoreboardActivity extends Activity{
 
         db = new DatabaseHelper(this);
         listItem = new String[3];//3 is the number of game we have now
-        StringBuilder stData = new StringBuilder();
-        StringBuilder other1Data = new StringBuilder();
-        StringBuilder other2Data = new StringBuilder();
+        StringBuilder slidingTilesData = new StringBuilder();
+        StringBuilder twentyFortyEightData = new StringBuilder();
+        StringBuilder memoryGameData = new StringBuilder();
 
-        ListView lstview=(ListView)findViewById(R.id.listview);
+        ListView lstview = findViewById(R.id.listview);
         // Inflate header view
-        ViewGroup headerView = (ViewGroup)getLayoutInflater().inflate(R.layout.header, lstview,false);
+        ViewGroup headerView = (ViewGroup) getLayoutInflater().
+                inflate(R.layout.header,lstview,false);
         // Add header view to the ListView
         lstview.addHeaderView(headerView);
-        // Get the string array defined in strings.xml file
-        // Create an adapter to bind data to the ListView
         //Add the data of SlidingTiles game
-            //Add the score for 3 by 3 sliding tiles game
-            stData.append("Sliding Tiles " + "__");
-        stData.append(Integer.toString(db.getSTdata(LoginActivity.currentUser, "easy"))+"__");
+        //Add the score for 3 by 3 sliding tiles game
+        slidingTilesData.append("Sliding Tiles " + "__");
+        slidingTilesData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"steasy"))).append("__");
         //Add the score for 4 by 4 sliding tiles game
-        stData.append(Integer.toString(db.getSTdata(LoginActivity.currentUser, "medium"))+"__");
+        slidingTilesData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"stmedium"))).append("__");
         //Add the score for 5 by 5 sliding tiles game
-        stData.append(Integer.toString(db.getSTdata(LoginActivity.currentUser, "hard")));
+        slidingTilesData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"sthard")));
 
-        //Add the data of other1 game
-        other1Data.append("Other Game 1" + "__");
+
+        //Add the data of 2048 game
+        twentyFortyEightData.append("2048" + "__");
+        //Add the score for 2048 game under easy mode
+        twentyFortyEightData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"tfeasy"))).append("__");
+        //Add the score for 2048 game under medium mode
+        twentyFortyEightData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"tfmedium"))).append("__");
+        //Add the score for 2048 game under hard mode
+        twentyFortyEightData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"tfhard")));
+
+        //Add the data of Memory game
+        memoryGameData.append("Memory" + "__");
         //Add the score for easy
-        other1Data.append(Integer.toString(0)+"__");
+        memoryGameData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"cardeasy"))).append("__");
         //Add the score for medium
-        other1Data.append(Integer.toString(0)+"__");
+        memoryGameData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"cardmedium"))).append("__");
         //Add the score for hard
-        other1Data.append(Integer.toString(0));
+        memoryGameData.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,"cardhard")));
 
-        //Add the data of other2 game
-        other2Data.append("Other Game 2" + "__");
-        //Add the score for easy
-        other2Data.append(Integer.toString(0)+"__");
-        //Add the score for medium
-        other2Data.append(Integer.toString(0)+"__");
-        //Add the score for hard
-        other2Data.append(Integer.toString(0));
+        listItem[0] = slidingTilesData.toString();
+        listItem[1] = twentyFortyEightData.toString();
+        listItem[2] = memoryGameData.toString();
 
-        listItem[0] = stData.toString();
-        listItem[1] = other1Data.toString();
-        listItem[2] = other2Data.toString();
-
-//        ScoreboardListAdapter adapter=new ScoreboardListAdapter(this,R.layout.rowlayout,R.id.txtUsername,items);
         // Bind data to the ListView
-        ScoreboardListAdapter adapter=new ScoreboardListAdapter(this,R.layout.rowlayout,R.id.txtUsername,listItem);
+        ScoreboardListAdapter adapter = new ScoreboardListAdapter(this,R.layout.rowlayout,R.id.txtUsername,listItem);
         // Bind data to the ListView
         lstview.setAdapter(adapter);
     }
+
     private void displayToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
     }
 
 }

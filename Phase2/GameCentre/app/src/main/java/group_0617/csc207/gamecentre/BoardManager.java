@@ -176,4 +176,13 @@ class BoardManager extends GenericBoardManager {
         return score;
     }
 
+
+    /**
+     * The method which return the abbreviation of the SlidingTiles game, i.e., "ST"
+     * @return "ST"
+     */
+    @Override
+    public String getCurrentGame() {
+        return "st";
+    }
 }
