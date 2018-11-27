@@ -86,9 +86,4 @@ public class Tile2048 extends GenericTile implements Serializable {
     public int getId() {
         return id;
     }
-
-//    @Override
-//    public int compareTo(@NonNull Tile2048 o) {
-//        return o.id - this.id;
-//    }
 }

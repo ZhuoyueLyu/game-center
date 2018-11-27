@@ -1,6 +1,7 @@
 package group_0617.csc207.gamecentre;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -104,5 +105,12 @@ public abstract class GenericBoard extends Observable implements Serializable {
      */
     void setGenericTile(GenericTile inGenericTiles, int row, int col) {
         this.genericTiles[row][col] = inGenericTiles;
+    }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "tiles=" + Arrays.toString(getGenericTiles()) +
+                '}';
     }
 }

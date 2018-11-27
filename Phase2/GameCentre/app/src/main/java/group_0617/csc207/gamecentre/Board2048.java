@@ -1,10 +1,7 @@
 package group_0617.csc207.gamecentre;
 
 import java.util.ArrayList;
-import java.util.Observable;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -13,13 +10,6 @@ import java.util.Random;
  * Which implement Iterable<Tile> and Serializable.
  */
 public class Board2048 extends GenericBoard implements Serializable {
-
-//    /**
-//     * l
-//     * The tiles on the board in row-major order.
-//     */
-//    private Tile2048[][] tiles = new Tile2048[getComplexity()][getComplexity()];
-
 
     /**
      * A new board of tiles in row-major order.
@@ -40,16 +30,10 @@ public class Board2048 extends GenericBoard implements Serializable {
     }
 
     /**
-     * Return the tile at (row, col)
+     * Modify line to concatenate "adjacent" same tiles towards the left.
      *
-     * @param row the tile row
-     * @param col the tile column
-     * @return the tile at (row, col)
+     * @param line the array of Tile2048 to be modified.
      */
-    Tile2048 getTile(int row, int col) {
-        return (Tile2048) getGenericTile(row, col);
-    }
-
     void leftCombine(Tile2048[] line) {
         List<Integer> newLine = new ArrayList<>();
         for (int i = 0, j = 0; i < getComplexity() && j < getComplexity(); ) {
@@ -80,6 +64,11 @@ public class Board2048 extends GenericBoard implements Serializable {
         }
     }
 
+    /**
+     * Modify line to concatenate "adjacent" same tiles towards the right.
+     *
+     * @param line the array of Tile2048 to be modified.
+     */
     void rightCombine(Tile2048[] line) {
         Tile2048[] reverseLine = new Tile2048[line.length];
         for (int j = 0; j < line.length; j++) {
@@ -91,7 +80,11 @@ public class Board2048 extends GenericBoard implements Serializable {
         }
     }
 
-
+    /**
+     * Modify generidTiles by concatenate Tile2048s with same values in the dir direction(swipe).
+     *
+     * @param dir the direction of swipe.
+     */
     void swipeMove(int dir) {
         Tile2048[][] tiles = (Tile2048[][]) getGenericTiles();
         Tile2048[][] columnTiles = new Tile2048[getComplexity()][getComplexity()];
@@ -129,7 +122,6 @@ public class Board2048 extends GenericBoard implements Serializable {
                 }
                 break;
             case Game2048Activity.LEFT:
-                //Tile2048[][] newTiles = (Tile2048[][]) getGenericTiles();
                 for (int i = 0; i < getComplexity(); i++) {
                     leftCombine(tiles[i]);
                 }
@@ -152,6 +144,9 @@ public class Board2048 extends GenericBoard implements Serializable {
         setGenericTiles(tiles);
     }
 
+    /**
+     * Randomly add a Tile2048 with value of 2 to an empty tile.
+     */
     void addRandomTile() {
         List<Integer> emptyTiles = new ArrayList<>();
         for (int i = 0; i < numTiles(); i++) {
@@ -169,25 +164,35 @@ public class Board2048 extends GenericBoard implements Serializable {
         notifyObservers();
     }
 
-    void revertBoard(Board2048 board2048) {
-        for (int i = 0; i < getComplexity(); i++) {
-            for (int j = 0; j < getComplexity(); j++) {
-                setGenericTile(new Tile2048(board2048.getTile(i, j).getId()), i, j);
-            }
-        }
+    /**
+     * Set the current board the given board2048 and notify the observer.
+     *
+     * @param board2048 the board as a mould.
+     */
+    void applyBoard(Board2048 board2048) {
+        setGenericTiles(board2048.getTiles());
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * Return the tiles of Board2048.
+     *
+     * @return the current tiles.
+     */
     public Tile2048[][] getTiles() {
         return (Tile2048[][]) getGenericTiles();
     }
 
-    @Override
-    public String toString() {
-        return "Board{" +
-                "tiles=" + Arrays.toString((Tile[][]) getGenericTiles()) +
-                '}';
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+    Tile2048 getTile(int row, int col) {
+        return (Tile2048) getGenericTile(row, col);
     }
 
 }
