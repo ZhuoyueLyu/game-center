@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -18,10 +19,7 @@ public class BoardTest {
      */
     private Board board;
 
-    /**
-     * The complexity for testing
-     */
-    private int complexity = 4;
+    private List<Tile> tiles;
 
     /**
      * Make a set of tiles that are in order.
@@ -29,7 +27,8 @@ public class BoardTest {
      * @return a set of tiles that are in order
      */
     private List<Tile> makeTiles() {
-        List<Tile> tiles = new ArrayList<>();
+        tiles = new ArrayList<>();
+        int complexity = 4;
         int numTiles = complexity * complexity;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum + 1, tileNum));
@@ -96,7 +95,41 @@ public class BoardTest {
         board.swapTiles(complexity - 1, complexity - 3, complexity - 1,
                 complexity - 2);
         board.makeSolvable();
-        //assertTrue(board.isSolvable());
+        assertTrue(board.isSolvable());
     }
+
+    /**
+     * Test MakeSolvable() for first.getId() == numTiles()
+     */
+    @Test
+    public void testMakeSolvableForSpecialCase() {
+        setUpCorrect();
+        int complexity = board.getComplexity();
+        board.swapTiles(0, 0, complexity - 1,
+                complexity - 1);
+        board.makeSolvable();
+        assertTrue(board.isSolvable());
+    }
+
+
+    /**
+     * Test whether Board is Iterable.
+     */
+    @Test
+    public void testBoardIterableSimple() {
+        setUpCorrect();
+        assertTrue(board instanceof Iterable);
+        if(board instanceof Iterable) {
+            Iterable<Tile> it = (Iterable<Tile>)board;
+            Iterator<Tile> i = it.iterator();
+            assert(i.hasNext());
+            assertEquals(i.next(), tiles.get(0));
+
+            i = it.iterator();
+            assertEquals(i.next(), tiles.get(0));
+        }
+    }
+
+
 }
 

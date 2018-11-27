@@ -3,7 +3,6 @@ package group_0617.csc207.gamecentre;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,19 +24,20 @@ public class StartingActivityOfCard extends GenericStartingActivity {
     /**
      * A temporary save file.
      */
-    public String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame  + "_" + LoginActivity.currentUser;
+    public String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" + LoginActivity.currentUser;
 
     /**
      * The board manager.
      */
     //private BoardManager boardManager;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //boardManager = new BoardManager(complexity);
-        setGenericBoardManager(new CardBoardManager((getCurrentComplexity()-2)*2));
+        setGenericBoardManager(new CardBoardManager((getCurrentComplexity() - 2) * 2));
+        TextView view = findViewById(R.id.GameText);
+        view.setText("Welcome To Memory Game!  \n " +
+                "Where you must identify the two cards that have the same face " +
+                "Game is finished when all cards are identified.");
     }
 
     /**
@@ -48,7 +48,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setGenericBoardManager(new CardBoardManager((getCurrentComplexity()-2)*2));
+                setGenericBoardManager(new CardBoardManager((getCurrentComplexity() - 2) * 2));
                 switchToGame();
             }
         });
@@ -60,8 +60,8 @@ public class StartingActivityOfCard extends GenericStartingActivity {
      */
     @Override
     @SuppressLint("SetTextI18n")
-    public void showComplexity(TextView complexity){
-        switch (getCurrentComplexity()){
+    public void showComplexity(TextView complexity) {
+        switch (getCurrentComplexity()) {
             case 3:
                 complexity.setText("Easy (2x2)");
                 break;
@@ -79,14 +79,13 @@ public class StartingActivityOfCard extends GenericStartingActivity {
     }
 
 
-
     /**
      * Switch to the GameActivity view to play the game.
      */
     public void switchToGame() {
         Intent tmp = new Intent(this,CardGameActivity.class);
-        tmp.putExtra("tempSaveFileName", tempSaveFileName);
-        tmp.putExtra("complexity", (getCurrentComplexity()-2)*2);
+        tmp.putExtra("tempSaveFileName",tempSaveFileName);
+        tmp.putExtra("complexity",(getCurrentComplexity() - 2) * 2);
         saveToFile(tempSaveFileName);
         startActivity(tmp);
     }
@@ -102,7 +101,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                CardBoardManager cardBoardManager = (CardBoardManager)input.readObject();
+                CardBoardManager cardBoardManager = (CardBoardManager) input.readObject();
                 if (cardBoardManager != null) {
                     setGenericBoardManager((CardBoardManager) input.readObject());
                 } else {
@@ -112,11 +111,11 @@ public class StartingActivityOfCard extends GenericStartingActivity {
             }
         } catch (FileNotFoundException e) {
             Log.e("login activity","File not found: " + e.toString());
-            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("login activity","Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("login activity","File contained unexpected data type: " + e.toString());
         }
         return re;
     }
@@ -137,4 +136,21 @@ public class StartingActivityOfCard extends GenericStartingActivity {
         }
     }
 
+    /**
+     * Activate the Leaderboard button.
+     */
+    @Override
+    protected void addLeaderBoardButtonListener() {
+        ImageButton leaderboardButton = findViewById(R.id.leaderboard);
+        leaderboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gameScoreboardScreen =
+                        new Intent(StartingActivityOfCard.this,LeaderboardActivity.class);
+                gameScoreboardScreen.putExtra("currentGame","card");
+                gameScoreboardScreen.putExtra("complexity",getCurrentComplexity());
+                startActivity(gameScoreboardScreen);
+            }
+        });
+    }
 }

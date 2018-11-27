@@ -25,7 +25,7 @@
         <activity android:name=".StartingActivityOfCard" />
         <activity android:name=".GameChoiceActivity" />
         <activity android:name=".ResultBoardActivity" />
-        <activity android:name=".UserScoreboardActivity" />
+        <activity android:name=".ScoreboardActivity" />
         <activity android:name=".LeaderboardActivity" />
         <activity android:name=".GameRulesActivity" />
         <activity android:name=".Game2048Activity" />

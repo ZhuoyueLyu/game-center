@@ -141,4 +141,12 @@ class CardBoardManager extends GenericBoardManager {
     int getScore() {
         return -this.moves;
     }
+    /**
+     * The method which return the abbreviation of the Card Memory game, i.e., "CARD"
+     * @return "CARD"
+     */
+    @Override
+    public String getCurrentGame() {
+        return "card";
+    }
 }

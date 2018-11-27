@@ -12,13 +12,13 @@ Table code design adapted from
 http://www.worldbestlearningcenter.com/tips/Android-ListView-Header.htm
 Zhuoyue Lyu Nov 4 2018
 */
-public class LstAdapter extends ArrayAdapter<String> {
+public class ScoreboardListAdapter extends ArrayAdapter<String> {
     int groupid;
     String[] item_list;
     ArrayList<String> desc;
     Context context;
 
-    public LstAdapter(Context context, int vg, int id, String[] item_list){
+    public ScoreboardListAdapter(Context context,int vg,int id,String[] item_list){
         super(context,vg, id, item_list);
         this.context=context;
         groupid=vg;

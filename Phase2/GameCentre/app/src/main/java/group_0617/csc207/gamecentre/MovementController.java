@@ -23,6 +23,8 @@ public class MovementController {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 Intent result = new Intent(context.getApplicationContext(), ResultBoardActivity.class);
                 result.putExtra("SCORE", genericBoardManager.getScore());
+                result.putExtra("currentGame", genericBoardManager.getCurrentGame());
+                result.putExtra("complexity", genericBoardManager.getBoard().getComplexity());
                 context.startActivity(result);
             }
         } else {

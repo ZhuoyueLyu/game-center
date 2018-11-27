@@ -13,7 +13,7 @@ public class Card extends GenericTile {
     /**
      * The cover of all cards
      */
-    private final static int cover = R.drawable.tile_0;
+    private final static int cover = R.drawable.question;
 
     /**
      * Create the card with corresponding image specified by inBackground
@@ -95,7 +95,7 @@ public class Card extends GenericTile {
                 setBackground(R.drawable.tile_24);
                 break;
             default:
-                setBackground(R.drawable.tile_0);
+                setBackground(R.drawable.question);
         }
         this.isCovered = true;
     }

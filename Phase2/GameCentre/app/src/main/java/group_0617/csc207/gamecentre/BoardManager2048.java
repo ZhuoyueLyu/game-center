@@ -252,6 +252,11 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
         return stepCounter;
     }
 
+    @Override
+    public String getCurrentGame() {
+        return "tf";
+    }
+
 }
 
 

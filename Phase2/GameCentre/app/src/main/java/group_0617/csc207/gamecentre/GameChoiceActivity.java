@@ -118,7 +118,7 @@ public class GameChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent userScoreboardScreen =
-                        new Intent(GameChoiceActivity.this, UserScoreboardActivity.class);
+                        new Intent(GameChoiceActivity.this, ScoreboardActivity.class);
                 startActivity(userScoreboardScreen);
             }
         });
