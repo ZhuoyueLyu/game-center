@@ -3,6 +3,7 @@ package group_0617.csc207.gamecentre;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -126,7 +127,9 @@ public class GameChoiceActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Activite the logout button
+     */
 
     private void logout(){
         session.setLoggedin(false);
@@ -136,6 +139,18 @@ public class GameChoiceActivity extends AppCompatActivity {
     }
     private void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Override the back key
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
 }
