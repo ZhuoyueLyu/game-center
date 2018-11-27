@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"
-        android:layout_height="520dp"
+        android:layout_height="572dp"
         android:layout_weight="0"
         tools:context="group_0617.csc207.gamecentre.Game2048Activity" />
 
@@ -21,16 +21,15 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="30">
+        android:layout_weight="10">
 
 
         <Button
             android:id="@+id/btnundo"
             android:layout_width="71dp"
             android:layout_height="33dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/buttonshape"
             android:fontFamily="sans-serif-smallcaps"
             android:shadowColor="#A8A8A8"
@@ -42,16 +41,14 @@
             android:textColor="#FFFFFF"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.984" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/Score"
             android:layout_width="162dp"
             android:layout_height="33dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="68dp"
+            android:layout_marginBottom="28dp"
             android:fontFamily="sans-serif-smallcaps"
             android:text="Time: "
             android:textColor="@color/white"
