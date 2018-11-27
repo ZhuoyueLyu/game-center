@@ -13,7 +13,6 @@ public class BoardManagerTest {
 
     private int complexity = 4;
 
-
     /**
      * The board manager for testing.
      */
@@ -48,7 +47,6 @@ public class BoardManagerTest {
         boardManager.setBoard(board);
     }
 
-
     /**
      * Test whether swapping two tiles makes a solved board unsolved.
      */
@@ -60,34 +58,8 @@ public class BoardManagerTest {
         assertFalse(boardManager.puzzleSolved());
     }
 
-//    /**
-//     * Test whether swapping the first two tiles works.
-//     */
-//    @Test
-//    public void testSwapFirstTwo() {
-//        setUpCorrect();
-//        assertEquals(1,boardManager.getBoard().getGenericTile(0,0).getId());
-//        assertEquals(2,boardManager.getBoard().getTile(0,1).getId());
-//        boardManager.getBoard().swapTiles(0,0,0,1);
-//        assertEquals(2,boardManager.getBoard().getTile(0,0).getId());
-//        assertEquals(1,boardManager.getBoard().getTile(0,1).getId());
-//    }
-
-//    /**
-//     * Test whether swapping the last two tiles works.
-//     */
-//    @Test
-//    public void testSwapLastTwo() {
-//        setUpCorrect();
-//        assertEquals(15,boardManager.getBoard().getTile(3,2).getId());
-//        assertEquals(16,boardManager.getBoard().getTile(3,3).getId());
-//        boardManager.getBoard().swapTiles(3,3,3,2);
-//        assertEquals(16,boardManager.getBoard().getTile(3,2).getId());
-//        assertEquals(15,boardManager.getBoard().getTile(3,3).getId());
-//    }
-//
     /**
-     * Test whether isValidHelp works.
+     * Test whether isValidTap works.
      */
     @Test
     public void testIsValidTap() {
@@ -97,15 +69,9 @@ public class BoardManagerTest {
         assertFalse(boardManager.isValidTap(10));
     }
 
-
-//    @Test
-//    public void puzzleSolved() {
-//    }
-//
-//    @Test
-//    public void isValidTap() {
-//    }
-//
+    /**
+     * Test the touch move function by applying several moves
+     */
     @Test
     public void testTouchMove() {
         setUpCorrect();
@@ -117,7 +83,7 @@ public class BoardManagerTest {
         boardManager.touchMove(11);
         //The case that the up position is empty
         boardManager.touchMove(15);
-        assertEquals(16,board.getTile(3, 3).getId());
+        assertEquals(16,board.getTile(3,3).getId());
 
     }
 
@@ -125,50 +91,49 @@ public class BoardManagerTest {
      * Test the undo function
      */
     @Test
-    public void undo() {
+    public void testUndo() {
         setUpCorrect();
-        //The case that the right position is empty
+        //the case where no move has been made
+        assertFalse(boardManager.undo());
         boardManager.touchMove(14);
-        //The case that the left position is empty
         boardManager.touchMove(15);
-        //The case that the down position is empty
         boardManager.touchMove(11);
-        //The case that the up position is empty
         boardManager.touchMove(15);
-        assertEquals(16,board.getTile(3, 3).getId());
+        boardManager.undo();
+        assertEquals(12,board.getTile(3,3).getId());
+        boardManager.undo();
+        boardManager.undo();
+        boardManager.undo();
+        //We initialize the times of undo to be 1 (for the sake of testing),
+        // and we undo 4 times, so it's 5
+        assertEquals(4 + 1,boardManager.getTimesOfUndo());
+        assertEquals(16,board.getTile(3,3).getId());
     }
-//
-//
-//    @Test
-//    public void setLastTime() {
-//    }
-//
-//    @Test
-//    public void getTimesOfUndo() {
-//    }
-//
+
     /**
      * Test the getScore method
      */
     @Test
     public void testGetScore() {
         setUpCorrect();
-        assertEquals(0, boardManager.getScore());
+        assertEquals(0,boardManager.getScore());
     }
+
     /**
      * Test the getLastTime method
      */
-     @Test
-     public void getLastTime() {
-         setUpCorrect();
-         assertEquals(1, boardManager.getScore());
-     }
+    @Test
+    public void getLastTime() {
+        setUpCorrect();
+        assertEquals(1,boardManager.getLastTime());
+    }
+
     /**
      * Test the getCurrentGame method
      */
     @Test
     public void testGetCurrentGame() {
         setUpCorrect();
-        assertEquals("st", boardManager.getCurrentGame());
+        assertEquals("st",boardManager.getCurrentGame());
     }
 }
