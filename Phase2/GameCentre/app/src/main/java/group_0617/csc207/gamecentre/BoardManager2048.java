@@ -210,7 +210,7 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
             return false;
         } else {
             Board2048 newBoard2048 = boardStack.pop();
-            board2048.revertBoard(newBoard2048);
+            board2048.applyBoard(newBoard2048);
             timesOfUndo++;
             return true;
         }
