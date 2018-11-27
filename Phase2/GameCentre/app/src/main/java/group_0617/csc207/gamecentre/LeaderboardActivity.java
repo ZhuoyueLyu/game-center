@@ -8,7 +8,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+The activity which is responsible for the displaying of leaderboard
+ */
 public class LeaderboardActivity extends Activity {
 
     DatabaseHelper db;
@@ -37,7 +39,6 @@ public class LeaderboardActivity extends Activity {
                 break;
         }
 
-//        StringBuilder stData = new StringBuilder();
         ListView listView = (ListView) findViewById(R.id.listview);
         // Inflate header view
         ViewGroup headerView = (ViewGroup) getLayoutInflater().
