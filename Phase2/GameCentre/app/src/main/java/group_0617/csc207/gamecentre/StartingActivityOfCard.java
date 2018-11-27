@@ -37,7 +37,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
         TextView view = findViewById(R.id.GameText);
         view.setText("Welcome To Memory Game!  \n " +
                 "Where you must identify the two cards that have the same face " +
-                "Game is finished when all cards are identified. Less flips used mean better score!");
+                "Game is finished when all cards are identified.");
     }
 
     /**
