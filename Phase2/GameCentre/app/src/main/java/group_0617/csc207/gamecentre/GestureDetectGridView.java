@@ -8,14 +8,11 @@ This extension of GridView contains built in logic for handling swipes between b
  */
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.GridView;
 
 public class GestureDetectGridView extends GridView {
@@ -61,7 +58,7 @@ public class GestureDetectGridView extends GridView {
                 int position = GestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processTapMovement(context, position, true);
+                mController.processTapMovement(context, position);
                 return true;
             }
 
@@ -100,7 +97,7 @@ public class GestureDetectGridView extends GridView {
                             direction = Game2048Activity.RIGHT;
                         }
                     }
-                    mController.processTapMovement(context, direction, true);
+                    mController.processTapMovement(context, direction);
                 }
 
                 return super.onFling(e1, e2, velocityX, velocityY);

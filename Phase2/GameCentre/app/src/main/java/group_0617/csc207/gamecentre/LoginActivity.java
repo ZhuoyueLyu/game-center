@@ -75,7 +75,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }}
 
-
+    /**
+     * Check the user information and store them into Database
+     * @param view the current view
+     */
     public void register(View view) {
         String usernameString = username.getText().toString();
         String passwordString = password.getText().toString();
@@ -97,6 +100,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * toasting message
+     * @param message the message that we want to send
+     */
     private void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }

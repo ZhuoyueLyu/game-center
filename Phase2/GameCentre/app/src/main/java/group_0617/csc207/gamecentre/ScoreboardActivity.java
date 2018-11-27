@@ -7,11 +7,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+/**
+ * The scoreboard activity which is responsible for displaying the scoreboard of current user
+ * for all three games.
+ */
 public class ScoreboardActivity extends Activity {
 
     DatabaseHelper db;
     String[] listItem;
-    ArrayAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,42 +32,16 @@ public class ScoreboardActivity extends Activity {
                 inflate(R.layout.header,lstview,false);
         // Add header view to the ListView
         lstview.addHeaderView(headerView);
-        //Add the data of SlidingTiles game
-        //Add the score for 3 by 3 sliding tiles game
-        slidingTilesData.append("Sliding Tiles " + "__");
-        slidingTilesData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"steasy"))).append("__");
-        //Add the score for 4 by 4 sliding tiles game
-        slidingTilesData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"stmedium"))).append("__");
-        //Add the score for 5 by 5 sliding tiles game
-        slidingTilesData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"sthard")));
-
+        buildDataString(slidingTilesData,
+                "Sliding Tiles ","steasy","stmedium","sthard");
 
         //Add the data of 2048 game
-        twentyFortyEightData.append("2048" + "__");
-        //Add the score for 2048 game under easy mode
-        twentyFortyEightData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"tfeasy"))).append("__");
-        //Add the score for 2048 game under medium mode
-        twentyFortyEightData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"tfmedium"))).append("__");
-        //Add the score for 2048 game under hard mode
-        twentyFortyEightData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"tfhard")));
+        buildDataString(twentyFortyEightData,
+                "2048","tfeasy","tfmedium","tfhard");
 
         //Add the data of Memory game
-        memoryGameData.append("Memory" + "__");
-        //Add the score for easy
-        memoryGameData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"cardeasy"))).append("__");
-        //Add the score for medium
-        memoryGameData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"cardmedium"))).append("__");
-        //Add the score for hard
-        memoryGameData.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,"cardhard")));
+        buildDataString(memoryGameData,
+                "Memory","cardeasy","cardmedium","cardhard");
 
         listItem[0] = slidingTilesData.toString();
         listItem[1] = twentyFortyEightData.toString();
@@ -76,6 +53,32 @@ public class ScoreboardActivity extends Activity {
         lstview.setAdapter(adapter);
     }
 
+    /**
+     * A method which is used to build a string that transfer the data of the specific game
+     *
+     * @param stringBuilder a string builder which carry the game data
+     * @param game          the name of the game
+     * @param easy          the string that represent this game under easy mode
+     * @param medium        the string that represent this game under medium mode
+     * @param hard          the string that represent this game under hard mode
+     */
+    private void buildDataString(StringBuilder stringBuilder,String game,String easy,String medium,String hard) {
+        stringBuilder.append(game).append("__");
+        stringBuilder.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,easy))).append("__");
+        //Add the score for 4 by 4 sliding tiles game
+        stringBuilder.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,medium))).append("__");
+        //Add the score for 5 by 5 sliding tiles game
+        stringBuilder.append(Integer.toString(db.getGameData
+                (LoginActivity.currentUser,hard)));
+    }
+
+    /**
+     * Make a toast message
+     *
+     * @param message the message that we want to toast
+     */
     private void displayToast(String message) {
         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
     }

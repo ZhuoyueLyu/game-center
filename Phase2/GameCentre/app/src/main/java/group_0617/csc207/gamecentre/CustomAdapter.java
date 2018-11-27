@@ -1,5 +1,11 @@
 package group_0617.csc207.gamecentre;
 
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+
+import java.util.ArrayList;
 /*
 Taken from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/CustomAdapter.java
@@ -8,19 +14,11 @@ This Class is an overwrite of the Base Adapter class
 It is designed to aid setting the button sizes and positions in the GridView
  */
 
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-
-import java.util.ArrayList;
-
 public class CustomAdapter extends BaseAdapter {
     private ArrayList<Button> mButtons = null;
     private int mColumnWidth, mColumnHeight;
 
-    public CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
+    CustomAdapter(ArrayList<Button> buttons,int columnWidth,int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;
@@ -42,7 +40,7 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position,View convertView,ViewGroup parent) {
         Button button;
 
         if (convertView == null) {
@@ -52,7 +50,7 @@ public class CustomAdapter extends BaseAdapter {
         }
 
         android.widget.AbsListView.LayoutParams params =
-                new android.widget.AbsListView.LayoutParams(mColumnWidth, mColumnHeight);
+                new android.widget.AbsListView.LayoutParams(mColumnWidth,mColumnHeight);
         button.setLayoutParams(params);
 
         return button;

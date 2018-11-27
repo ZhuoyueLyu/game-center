@@ -2,23 +2,27 @@ package group_0617.csc207.gamecentre;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 /*
-Table code design adapted from
+List adapter code design adapted from
 http://www.worldbestlearningcenter.com/tips/Android-ListView-Header.htm
 Zhuoyue Lyu Nov 4 2018
+
+This is an adapter which is responsible for adapting the game data to the user scoreboard
+
 */
 public class ScoreboardListAdapter extends ArrayAdapter<String> {
-    int groupid;
-    String[] item_list;
+    private int groupid;
+    private String[] item_list;
     ArrayList<String> desc;
     Context context;
 
-    public ScoreboardListAdapter(Context context,int vg,int id,String[] item_list){
+    ScoreboardListAdapter(Context context,int vg,int id,String[] item_list){
         super(context,vg, id, item_list);
         this.context=context;
         groupid=vg;
@@ -32,15 +36,16 @@ public class ScoreboardListAdapter extends ArrayAdapter<String> {
         public TextView txtMedium;
         public TextView txtHard;
 
-
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position,View convertView,@NonNull ViewGroup parent) {
 
         View rowView = convertView;
         // Inflate the rowlayout.xml file if convertView is null
         if(rowView==null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert inflater != null;
             rowView= inflater.inflate(groupid, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.txtUsername= (TextView) rowView.findViewById(R.id.txtUsername);

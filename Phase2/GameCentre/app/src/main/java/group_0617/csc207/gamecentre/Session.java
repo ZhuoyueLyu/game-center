@@ -1,26 +1,38 @@
 package group_0617.csc207.gamecentre;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * The class that switch/check the mode between login and log out
+ */
+class Session {
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
-public class Session {
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
-    Context ctx;
-
-    public Session(Context ctx){
-        this.ctx = ctx;
-        prefs = ctx.getSharedPreferences("myapp", Context.MODE_PRIVATE);
+    @SuppressLint("CommitPrefEdits")
+    Session(Context ctx) {
+        prefs = ctx.getSharedPreferences("myapp",Context.MODE_PRIVATE);
         editor = prefs.edit();
     }
 
-    public void setLoggedin(boolean logggedin){
+    /**
+     * Set the mode to be log in
+     *
+     * @param logggedin whether we've logged in or not
+     */
+    void setLoggedin(boolean logggedin) {
         editor.putBoolean("loggedInmode",logggedin);
         editor.commit();
     }
 
-    public boolean loggedin(){
-        return prefs.getBoolean("loggedInmode", false);
+    /**
+     * Check the mode to be log in
+     *
+     * @return whether we've logged in or not
+     */
+    boolean loggedin() {
+        return prefs.getBoolean("loggedInmode",false);
     }
 }
