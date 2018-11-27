@@ -7,26 +7,43 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LeaderboardActivity extends Activity {
 
     DatabaseHelper db;
     String[] listItem;
-    ArrayList<Tuple<String, Integer>> leaderBoardData;
-    public static boolean DESC = false;
+    List<Tuple<String, Integer>> leaderBoardData;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.avtivity_game_leaderboard);
+        String currentGame = getIntent().getStringExtra("currentGame");
+        int gameComplexity = getIntent().getIntExtra("complexity",4);
 
         db = new DatabaseHelper(this);
-        leaderBoardData = db.getSTLeaderboardData(StartingActivity.gameComplexity);
-        StringBuilder stData = new StringBuilder();
-        ListView lstview = (ListView) findViewById(R.id.listview);
+
+        switch (gameComplexity) {
+            case 3:
+                leaderBoardData = db.getLeaderboardData(currentGame + "easy");
+                break;
+            case 4:
+                leaderBoardData = db.getLeaderboardData(currentGame + "medium");
+                break;
+            case 5:
+                leaderBoardData = db.getLeaderboardData(currentGame + "hard");
+                break;
+            default:
+                break;
+        }
+
+//        StringBuilder stData = new StringBuilder();
+        ListView listView = (ListView) findViewById(R.id.listview);
         // Inflate header view
-        ViewGroup headerView = (ViewGroup) getLayoutInflater().inflate(R.layout.header_leaderboard,lstview,false);
+        ViewGroup headerView = (ViewGroup) getLayoutInflater().
+                inflate(R.layout.header_leaderboard,listView,false);
         // Add header view to the ListView
-        lstview.addHeaderView(headerView);
+        listView.addHeaderView(headerView);
 
 
         int n = leaderBoardData.size();
@@ -59,14 +76,11 @@ public class LeaderboardActivity extends Activity {
             }
         }
 
-        LeaderboardListViewAdapter adapter = new LeaderboardListViewAdapter(this,R.layout.rowlayout_leaderboard,R.id.txtLeaderRank,listItem);
+        LeaderboardListViewAdapter adapter = new LeaderboardListViewAdapter
+                (this,R.layout.rowlayout_leaderboard,R.id.txtLeaderRank,listItem);
         // Bind data to the ListView
-        lstview.setAdapter(adapter);
+        listView.setAdapter(adapter);
 
-    }
-
-    private void displayToast(String message) {
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
     }
 
 

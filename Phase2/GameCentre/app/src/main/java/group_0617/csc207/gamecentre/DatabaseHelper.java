@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * initialize database
@@ -201,23 +202,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * This method is used to get the game score of Sliding tiles for different users under the same
      * level of difficulty
      *
-     * @param stdifficulty
+     * @param column the String which represent the column where we want to find the data
      * @return an arraylist of tuple which can be used to re-arrange and generate the leaderboard
      */
-    ArrayList<Tuple<String, Integer>> getSTLeaderboardData(String stdifficulty) {
+    List<Tuple<String, Integer>> getLeaderboardData(String column) {
 
-        ArrayList<Tuple<String, Integer>> leaderBoardData = new ArrayList<Tuple<String, Integer>>();
+        List<Tuple<String, Integer>> leaderBoardData = new ArrayList<Tuple<String, Integer>>();
         String selectQuery = "select * from  " + USER_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
-
-        int stIndex = cursor.getColumnIndex("st" + stdifficulty);
+        int Index = cursor.getColumnIndex(column);
 
         if (cursor.moveToFirst()) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 // The Cursor is now set to the right position
                 leaderBoardData.add(new Tuple(cursor.getString(1),
-                        Integer.valueOf(cursor.getString(stIndex))));
+                        Integer.valueOf(cursor.getString(Index))));
             }
         }
         cursor.close();

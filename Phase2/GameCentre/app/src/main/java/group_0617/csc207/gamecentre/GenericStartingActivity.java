@@ -169,20 +169,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Activate the Leaderboard button.
-     */
-    private void addLeaderBoardButtonListener() {
-        ImageButton leaderboardButton = findViewById(R.id.leaderboard);
-        leaderboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gameScoreboardScreen =
-                        new Intent(GenericStartingActivity.this,LeaderboardActivity.class);
-                startActivity(gameScoreboardScreen);
-            }
-        });
-    }
+    protected abstract void addLeaderBoardButtonListener();
 
     /**
      * Activate the rules button.
