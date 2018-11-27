@@ -131,7 +131,13 @@ public class BoardTest {
     }
 
 
-
-
+    @Test
+    public void testToString() {
+        setUpCorrect();
+        assertEquals("Board{tiles=[[Lgroup_0617.csc207.gamecentre.Tile;" +
+                "@573fd745, [Lgroup_0617.csc207.gamecentre.Tile;@15327b79, " +
+                "[Lgroup_0617.csc207.gamecentre.Tile;@4f2410ac, " +
+                "[Lgroup_0617.csc207.gamecentre.Tile;@722c41f4]}",  board.toString());
+    }
 }
 
