@@ -33,6 +33,11 @@ public class Board2048Test {
         this.board2048 = new Board2048(tiles);
     }
 
+    /**
+     * Return an array showing board2048's all tiles' IDs.
+     *
+     * @return an array of IDs.
+     */
     private int[] getNumTiles() {
         int[] resultTiles = new int[complexity * complexity];
         Tile2048[][] tiles = board2048.getTiles();
@@ -44,6 +49,9 @@ public class Board2048Test {
         return resultTiles;
     }
 
+    /**
+     * Test whether swipeMove works.
+     */
     @Test
     public void testSwipeMove() {
         int[] numTiles = {4, 2, 2, 0,
@@ -81,17 +89,30 @@ public class Board2048Test {
         Assert.assertArrayEquals(expectedTiles4, getNumTiles());
     }
 
+    /**
+     * Test whether getTile works.
+     */
+    @Test
+    public void testGetTile() {
+        int[] numTiles = {8, 2, 2, 0,
+                2, 0, 0, 2,
+                0, 0, 2, 4,
+                2, 4, 0, 0};
+        setUpBoard2048(numTiles);
+        assertEquals(8, board2048.getTile(0, 0).getId());
+    }
 
-//    @Test
-//    public void applyBoard() {
-//    }
-//
-//    @Test
-//    public void getTile() {
-//    }
-//
-//    @Test
-//    public void getTiles() {
-//    }
+    /**
+     * Test whether getTiles works.
+     */
+    @Test
+    public void testGetTiles() {
+        int[] numTiles = {4, 2, 2, 0,
+                2, 0, 0, 2,
+                0, 0, 2, 4,
+                2, 4, 0, 0};
+        setUpBoard2048(numTiles);
+        assertArrayEquals(numTiles, getNumTiles());
+    }
 
 }

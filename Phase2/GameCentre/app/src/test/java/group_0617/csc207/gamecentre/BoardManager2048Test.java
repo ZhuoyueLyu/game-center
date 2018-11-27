@@ -83,15 +83,24 @@ public class BoardManager2048Test {
      */
     @Test
     public void testIsValidTap() {
-        int[] numTiles = {2, 2, 2, 2,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0};
-        setUpBoardManager2048(numTiles);
-        assertFalse(boardManager2048.isValidTap(Game2048Activity.UP));
-        //boardManager2048.touchMove(Game2048Activity.Right);
+        int[] numTiles1 = {1, 0, 0, 0,
+                1, 0, 0, 0,
+                1, 0, 0, 0,
+                3, 0, 0, 0};
+        setUpBoardManager2048(numTiles1);
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.LEFT));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.UP));
         assertTrue(boardManager2048.isValidTap(Game2048Activity.RIGHT));
         assertTrue(boardManager2048.isValidTap(Game2048Activity.DOWN));
+
+        int[] numTiles2 = {0, 0, 0, 2,
+                0, 0, 0, 4,
+                0, 0, 0, 8,
+                0, 0, 0, 16};
+        setUpBoardManager2048(numTiles2);
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.UP));
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.RIGHT));
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.DOWN));
         assertTrue(boardManager2048.isValidTap(Game2048Activity.LEFT));
     }
 
@@ -100,10 +109,10 @@ public class BoardManager2048Test {
      */
     @Test
     public void testTouchMove() {
-        int[] numTiles = {2,2,2,2,
-                0,0,0,0,
-                0,0,0,0,
-                0,0,0,0};
+        int[] numTiles = {2, 2, 2, 2,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0};
         setUpBoardManager2048(numTiles);
         boardManager2048.touchMove(Game2048Activity.RIGHT);
         assertEquals(1, boardManager2048.getStepNum());
@@ -114,10 +123,10 @@ public class BoardManager2048Test {
      */
     @Test
     public void testGetScore() {
-        int[] numTiles = {2,2,2,2,
-                0,0,0,0,
-                0,0,0,0,
-                0,0,0,0};
+        int[] numTiles = {2, 2, 2, 2,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0};
         setUpBoardManager2048(numTiles);
         assertEquals(0, boardManager2048.getScore());
     }
@@ -127,24 +136,38 @@ public class BoardManager2048Test {
      */
     @Test
     public void testGetCurrentName() {
-        int[] numTiles = {2,2,2,2,
-                0,0,0,0,
-                0,0,0,0,
-                0,0,0,0};
+        int[] numTiles = {2, 2, 2, 2,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0};
         setUpBoardManager2048(numTiles);
         assertEquals("tf", boardManager2048.getCurrentGame());
     }
 
     /**
-     * Test undo works.
+     * Test whether getLastTime works
      */
     @Test
-    public void testUndo(){
-        int[] numTiles = {2,2,2,2,
-                0,0,0,0,
-                0,0,0,0,
-                0,0,0,0};
+    public void testGetLastTime() {
+        int[] numTiles = {2, 2, 2, 2,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0};
         setUpBoardManager2048(numTiles);
+        assertEquals(0, boardManager2048.getLastTime());
+    }
+
+    /**
+     * Test whether undo works.
+     */
+    @Test
+    public void testUndo() {
+        int[] numTiles = {2, 2, 2, 2,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0};
+        setUpBoardManager2048(numTiles);
+        assertFalse(boardManager2048.undo());
         boardManager2048.touchMove(Game2048Activity.RIGHT);
         boardManager2048.undo();
         assertEquals(1, boardManager2048.getTimesOfUndo());
