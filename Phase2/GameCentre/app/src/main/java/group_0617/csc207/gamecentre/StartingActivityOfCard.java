@@ -3,7 +3,6 @@ package group_0617.csc207.gamecentre;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +35,6 @@ public class StartingActivityOfCard extends GenericStartingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //boardManager = new BoardManager(complexity);
         setGenericBoardManager(new CardBoardManager((getCurrentComplexity()-2)*2));
     }
 
@@ -137,4 +135,21 @@ public class StartingActivityOfCard extends GenericStartingActivity {
         }
     }
 
+    /**
+     * Activate the Leaderboard button.
+     */
+    @Override
+    protected void addLeaderBoardButtonListener() {
+        ImageButton leaderboardButton = findViewById(R.id.leaderboard);
+        leaderboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gameScoreboardScreen =
+                        new Intent(StartingActivityOfCard.this,LeaderboardActivity.class);
+                gameScoreboardScreen.putExtra("currentGame", "card");
+                gameScoreboardScreen.putExtra("complexity", getCurrentComplexity());
+                startActivity(gameScoreboardScreen);
+            }
+        });
+    }
 }
