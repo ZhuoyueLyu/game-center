@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,11 +22,16 @@ public class StartingActivity2048 extends GenericStartingActivity {
     public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame  + "_" + LoginActivity.currentUser;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //boardManager2048 = new BoardManager2048();
         setGenericBoardManager(new BoardManager2048(getCurrentComplexity()));
+        TextView view = findViewById(R.id.GameText);
+        view.setText("Welcome To 2048!  \n" +
+                "The game's objective is to slide numbered tiles on a grid to combine " +
+                "them to create a tile with the number 2048.");
     }
 
     /**
