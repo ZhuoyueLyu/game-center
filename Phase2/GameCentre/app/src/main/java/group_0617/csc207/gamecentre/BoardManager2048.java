@@ -16,11 +16,6 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
     private Board2048 board2048;
 
     /**
-     * The number of steps.
-     */
-    private int stepCounter = 0;
-
-    /**
      * The number of undos.
      */
     private int timesOfUndo = 0;
@@ -47,6 +42,7 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
      */
     BoardManager2048(Board2048 board2048) {
         super(board2048);
+        this.board2048 = board2048;
     }
 
     /**
@@ -77,29 +73,28 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
     boolean puzzleSolved() {
         for (int i = 0; i < board2048.getComplexity(); i++) {
             for (int j = 0; j < board2048.getComplexity(); j++) {
-                if (getId(i, j) == 2048) {
-                    score = 10000 / (stepCounter + timesOfUndo) / lastTime;
-                    stepCounter = 0;
+                if (board2048.getTile(i,j).getId() == (int) Math.pow(2, board2048.getComplexity()*5-9)) {
+                    score = 10000 / (getStepNum() + timesOfUndo) / lastTime;
                     lastTime = 0;
                     timesOfUndo = 0;
+                    boardStack = new Stack<>();
                     return true;
                 }
             }
         }
+
+//        int[] moves = {Game2048Activity.UP, Game2048Activity.DOWN, Game2048Activity.LEFT, Game2048Activity.RIGHT};
+//        for (int move: moves){
+//            if (isValidTap(move)){
+//                stepCounter = 0;
+//                lastTime = 0;
+//                timesOfUndo = 0;
+//                return true;
+//            }
+//        }
+
         return false;
     }
-
-    boolean isGameOver(){
-        score = 10000 / (stepCounter + timesOfUndo) / lastTime;
-        int[] moves = {Game2048Activity.UP, Game2048Activity.DOWN, Game2048Activity.LEFT, Game2048Activity.RIGHT};
-        for (int move: moves){
-            if (isValidTap(move)){
-                return false;
-            }
-        }
-        return true;
-    }
-
 
     /**
      * Return whether any of the four surrounding tiles is the blank tile.
@@ -193,27 +188,6 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
 
         board2048.swipeMove(move);
         board2048.addRandomTile();
-        stepCounter++;
-    }
-
-    /**
-     * Get the Id of the tile at the specific row, col location.
-     *
-     * @param row the row number of that tile
-     * @param col the column number of that tile
-     * @return the Id of tile[row][col],
-     * or "-1" if the row number or column number is invalid.
-     */
-    private int getId(int row, int col) {
-
-        if (row <= board2048.getComplexity() - 1
-                && row >= 0
-                && col <= board2048.getComplexity() - 1
-                && col >= 0) {
-            return getBoard().getTile(row, col).getId();
-        }
-//        this -1 means the row and col is out of bound;
-        return -1;
     }
 
     /**
@@ -230,6 +204,10 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
             timesOfUndo++;
             return true;
         }
+    }
+
+    int getStepNum(){
+        return timesOfUndo+boardStack.size();
     }
 
     /**
@@ -258,14 +236,6 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
      */
     public int getScore() {
         return score;
-    }
-
-
-    /**
-     * Return the number of steps.
-     */
-    public int getStepCounter() {
-        return stepCounter;
     }
 
     @Override

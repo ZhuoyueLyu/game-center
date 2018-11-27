@@ -81,10 +81,7 @@ public class Board2048Test {
         Assert.assertArrayEquals(expectedTiles4, getNumTiles());
     }
 
-//    @Test
-//    public void addRandomTile() {
-//    }
-//
+
 //    @Test
 //    public void applyBoard() {
 //    }
