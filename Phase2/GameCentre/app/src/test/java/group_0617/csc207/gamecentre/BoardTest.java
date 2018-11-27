@@ -98,18 +98,18 @@ public class BoardTest {
         assertTrue(board.isSolvable());
     }
 
-//    /**
-//     * Test MakeSolvable() for first.getId() == numTiles()
-//     */
-//    @Test
-//    public void testMakeSolvableForSpecialCase() {
-//        setUpCorrect();
-//        int complexity = board.getComplexity();
-//        board.swapTiles(0, 0, complexity - 1,
-//                complexity - 2);
-//        board.makeSolvable();
-//        assertTrue(board.isSolvable());
-//    }
+    /**
+     * Test MakeSolvable() for first.getId() == numTiles()
+     */
+    @Test
+    public void testMakeSolvableForSpecialCase() {
+        setUpCorrect();
+        int complexity = board.getComplexity();
+        board.swapTiles(0, 0, complexity - 1,
+                complexity - 1);
+        board.makeSolvable();
+        assertTrue(board.isSolvable());
+    }
 
 
     /**
@@ -131,13 +131,5 @@ public class BoardTest {
     }
 
 
-    @Test
-    public void testToString() {
-        setUpCorrect();
-        assertEquals("Board{tiles=[[Lgroup_0617.csc207.gamecentre.Tile;" +
-                "@573fd745, [Lgroup_0617.csc207.gamecentre.Tile;@15327b79, " +
-                "[Lgroup_0617.csc207.gamecentre.Tile;@4f2410ac, " +
-                "[Lgroup_0617.csc207.gamecentre.Tile;@722c41f4]}",  board.toString());
-    }
 }
 
