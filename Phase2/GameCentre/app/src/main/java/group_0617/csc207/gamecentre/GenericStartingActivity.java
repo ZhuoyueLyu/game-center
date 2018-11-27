@@ -4,18 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -74,7 +67,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
                 if (currentComplexity > 3) {
                     currentComplexity--;
                     showComplexity(complexity);
-                    setSAVE_FILENAME("save_file_" + GameChoiceActivity.currentGame + "_" +
+                    setSaveFileName("save_file_" + GameChoiceActivity.currentGame + "_" +
                             currentComplexity + "_" + LoginActivity.currentUser);
                 }
             }
@@ -96,7 +89,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
                 if (currentComplexity < 5) {
                     currentComplexity++;
                     showComplexity(complexity);
-                    setSAVE_FILENAME("save_file_" + GameChoiceActivity.currentGame + "_" +
+                    setSaveFileName("save_file_" + GameChoiceActivity.currentGame + "_" +
                             currentComplexity + "_" + LoginActivity.currentUser);
                 }
             }
@@ -222,19 +215,35 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      */
     abstract public void saveToFile(String fileName);
 
+    /**
+     * Return this board manager
+     * @return this board manager
+     */
     public GenericBoardManager getGenericBoardManager() {
         return genericBoardManager;
     }
 
+    /**
+     * Set the board manager
+     * @param genericBoardManager the board manager that we want to set this. to
+     */
     public void setGenericBoardManager(GenericBoardManager genericBoardManager) {
         this.genericBoardManager = genericBoardManager;
     }
 
+    /**
+     * Return the complexity of the current game
+     * @return the complexity of the current game
+     */
     public int getCurrentComplexity() {
         return currentComplexity;
     }
 
-    public void setSAVE_FILENAME(String SAVE_FILENAME) {
+    /**
+     * Set the name of the save_file
+     * @param SAVE_FILENAME the name of save_file
+     */
+    public void setSaveFileName(String SAVE_FILENAME) {
         this.SAVE_FILENAME = SAVE_FILENAME;
     }
 }
