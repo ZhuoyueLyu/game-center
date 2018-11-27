@@ -111,7 +111,7 @@ public class Board extends GenericBoard implements Iterable<Tile> {
      *
      * @return if the board is solvable
      */
-    private boolean isSolvable() {
+    public boolean isSolvable() {
         boolean isEvenPol = sumOverPolarity() % 2 == 0;
         int complexity = getComplexity();
         return complexity % 2 == 1 && isEvenPol || complexity % 2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
@@ -152,14 +152,6 @@ public class Board extends GenericBoard implements Iterable<Tile> {
             }
         }
         return re;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Board{" +
-                "tiles=" + Arrays.toString((Tile[][]) getGenericTiles()) +
-                '}';
     }
 
     @NonNull
