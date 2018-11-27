@@ -75,15 +75,15 @@ public class DatabaseHelperInstrumentedTest {
      * Test whether we can add and get the data for slidingTiles successfully or not
      */
     @Test
-    public void testAddAndGetSTdata() {
-        databaseHelper.addSTdata("testName","easy",123);
-        databaseHelper.addSTdata("testName","medium",454);
-        databaseHelper.addSTdata("testName","hard",290);
-        assertThat(databaseHelper.getSTdata("testName","easy"),is(123));
-        assertThat(databaseHelper.getSTdata("testName","medium"),is(454));
-        assertThat(databaseHelper.getSTdata("testName","hard"),not(0));
+    public void testAddAndGetGameData() {
+        databaseHelper.addGameData("testName","steasy",123);
+        databaseHelper.addGameData("testName","tfmedium",454);
+        databaseHelper.addGameData("testName","sthard",290);
+        assertThat(databaseHelper.getGameData("testName","steasy"),is(123));
+        assertThat(databaseHelper.getGameData("testName","tfmedium"),is(454));
+        assertThat(databaseHelper.getGameData("testName","cardhard"),is(0));
         //For a newly created user2, the score should be set to 0 by default.
-        assertThat(databaseHelper.getSTdata("testName2","hard"),is(0));
+        assertThat(databaseHelper.getGameData("testName2","sthard"),is(0));
 
 
     }
