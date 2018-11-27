@@ -8,8 +8,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /*
-The activity which is responsible for the displaying of leaderboard
+The activity which is responsible for displaying the leaderboard
  */
 public class LeaderboardActivity extends Activity {
 
@@ -24,7 +25,7 @@ public class LeaderboardActivity extends Activity {
         int gameComplexity = getIntent().getIntExtra("complexity",4);
 
         db = new DatabaseHelper(this);
-
+        //Retrieve the game data from database (per game/per difficulty)
         switch (gameComplexity) {
             case 3:
                 leaderBoardData = db.getLeaderboardData(currentGame + "easy");
@@ -45,28 +46,31 @@ public class LeaderboardActivity extends Activity {
                 inflate(R.layout.header_leaderboard,listView,false);
         // Add header view to the ListView
         listView.addHeaderView(headerView);
+        //Rank the score of a given game (descending)
+        RankTheScore();
+        LeaderboardListViewAdapter adapter = new LeaderboardListViewAdapter
+                (this,R.layout.rowlayout_leaderboard,R.id.txtLeaderRank,listItem);
+        // Bind data to the ListView
+        listView.setAdapter(adapter);
 
+    }
 
+    /**
+     * Rank the score of a given game (descending)
+     */
+    private void RankTheScore() {
         int n = leaderBoardData.size();
         for (int i = 0; i < n; i++) {
-
             for (int j = 1; j < (n - i); j++) {
-
                 if (leaderBoardData.get(j - 1).getY() < leaderBoardData.get(j).getY()) {
-
                     String tmp_x = leaderBoardData.get(j - 1).getX();
                     int tmp_y = leaderBoardData.get(j - 1).getY();
-
                     leaderBoardData.get(j - 1).setX(leaderBoardData.get(j).getX());
                     leaderBoardData.get(j - 1).setY(leaderBoardData.get(j).getY());
-
                     leaderBoardData.get(j).setX(tmp_x);
                     leaderBoardData.get(j).setY(tmp_y);
-
-
                 }
             }
-
         }
         int len = leaderBoardData.size();
         listItem = new String[Math.min(10,len)];
@@ -76,12 +80,6 @@ public class LeaderboardActivity extends Activity {
                         leaderBoardData.get(i).getY());
             }
         }
-
-        LeaderboardListViewAdapter adapter = new LeaderboardListViewAdapter
-                (this,R.layout.rowlayout_leaderboard,R.id.txtLeaderRank,listItem);
-        // Bind data to the ListView
-        listView.setAdapter(adapter);
-
     }
 
 
