@@ -23,13 +23,6 @@ public class Board2048Test {
     /**
      * Set up a board like a normal game
      */
-//    private void setUpBoard2048(List<Tile2048> tiles){
-//        this.board2048 = new Board2048(tiles);
-//    }
-
-    /**
-     * Set up a board like a normal game
-     */
     private void setUpBoard2048(int[] numTiles) {
         List<Tile2048> tiles = new ArrayList<>();
         for (int row = 0; row != complexity; row++) {
