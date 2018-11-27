@@ -64,21 +64,21 @@ public class Board2048 extends GenericBoard implements Serializable {
         }
     }
 
-    /**
-     * Modify line to concatenate "adjacent" same tiles towards the right.
-     *
-     * @param line the array of Tile2048 to be modified.
-     */
-    void rightCombine(Tile2048[] line) {
-        Tile2048[] reverseLine = new Tile2048[line.length];
-        for (int j = 0; j < line.length; j++) {
-            reverseLine[j] = line[line.length - 1 - j];
-        }
-        leftCombine(reverseLine);
-        for (int k = 0; k < line.length; k++) {
-            line[k] = reverseLine[line.length - 1 - k];
-        }
-    }
+//    /**
+//     * Modify line to concatenate "adjacent" same tiles towards the right.
+//     *
+//     * @param line the array of Tile2048 to be modified.
+//     */
+//    void rightCombine(Tile2048[] line) {
+//        Tile2048[] reverseLine = new Tile2048[line.length];
+//        for (int j = 0; j < line.length; j++) {
+//            reverseLine[j] = line[line.length - 1 - j];
+//        }
+//        leftCombine(reverseLine);
+//        for (int k = 0; k < line.length; k++) {
+//            line[k] = reverseLine[line.length - 1 - k];
+//        }
+//    }
 
     /**
      * Modify generidTiles by concatenate Tile2048s with same values in the dir direction(swipe).

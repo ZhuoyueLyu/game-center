@@ -130,7 +130,15 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
             case Game2048Activity.RIGHT:
                 for (Tile2048[] line : tiles) {
                     Tile2048[] lineCopy = line.clone();
-                    board2048.rightCombine(line);
+//                    board2048.rightCombine(line);
+                    Tile2048[] reverseLine = new Tile2048[line.length];
+                    for (int j = 0; j < line.length; j++) {
+                        reverseLine[j] = line[line.length - 1 - j];
+                    }
+                    board2048.leftCombine(reverseLine);
+                    for (int k = 0; k < line.length; k++) {
+                        line[k] = reverseLine[line.length - 1 - k];
+                    }
                     for (int i = 0; i < line.length; i++){
                         if (line[i].getId() != lineCopy[i].getId()){
                             return true;
@@ -152,7 +160,15 @@ class BoardManager2048 extends GenericBoardManager implements Serializable {
             case Game2048Activity.DOWN:
                 for (Tile2048[] line : columnTiles) {
                     Tile2048[] lineCopy = line.clone();
-                    board2048.rightCombine(line);
+//                    board2048.rightCombine(line);
+                    Tile2048[] reverseLine = new Tile2048[line.length];
+                    for (int j = 0; j < line.length; j++) {
+                        reverseLine[j] = line[line.length - 1 - j];
+                    }
+                    board2048.leftCombine(reverseLine);
+                    for (int k = 0; k < line.length; k++) {
+                        line[k] = reverseLine[line.length - 1 - k];
+                    }
                     for (int i = 0; i < line.length; i++){
                         if (line[i].getId() != lineCopy[i].getId()){
                             return true;
