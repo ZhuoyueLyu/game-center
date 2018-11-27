@@ -26,16 +26,9 @@ public class StartingActivity extends GenericStartingActivity {
      */
     public String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame  + "_" + LoginActivity.currentUser;
 
-    /**
-     * The board manager.
-     */
-    //private BoardManager boardManager;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //boardManager = new BoardManager(complexity);
         setGenericBoardManager(new BoardManager(getCurrentComplexity()));
     }
 
