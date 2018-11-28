@@ -32,7 +32,7 @@ public class Tile2048 extends GenericTile implements Serializable {
                 break;
             case 2:
                 if (isNew){
-                    setBackground(R.drawable.tile2048_2);
+                    setBackground(R.drawable.tile2048_02);
                 }
                 else {
                     setBackground(R.drawable.tile2048_2);
