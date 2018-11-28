@@ -20,7 +20,7 @@ public class Tile extends GenericTile implements Comparable<Tile> {
      */
     public Tile(int backgroundId, int currentBoardComplexity) {
         id = backgroundId;
-        switch (backgroundId + 1) {
+        switch (backgroundId) {
             case 1:
                 setBackground(R.drawable.tile_1);
                 break;
