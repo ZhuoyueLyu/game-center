@@ -24,20 +24,17 @@ public class StartingActivityOfCard extends GenericStartingActivity {
     /**
      * A temporary save file.
      */
-    public String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" + LoginActivity.currentUser;
+    private String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" + LoginActivity.currentUser;
 
-    /**
-     * The board manager.
-     */
-    //private BoardManager boardManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setGenericBoardManager(new CardBoardManager((getCurrentComplexity() - 2) * 2));
         TextView view = findViewById(R.id.GameText);
-        view.setText("Welcome To Memory Game!  \n " +
+        String greeting = "Welcome To Memory Game!  \n " +
                 "Where you must identify the two cards that have the same face " +
-                "Game is finished when all cards are identified.");
+                "Game is finished when all cards are identified.";
+        view.setText(greeting);
     }
 
     /**
@@ -137,12 +134,12 @@ public class StartingActivityOfCard extends GenericStartingActivity {
     }
 
     /**
-     * Activate the Leaderboard button.
+     * Activate the LeaderBoard button.
      */
     @Override
     protected void addLeaderBoardButtonListener() {
-        ImageButton leaderboardButton = findViewById(R.id.leaderboard);
-        leaderboardButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton leaderBoardButton = findViewById(R.id.leaderboard);
+        leaderBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gameScoreboardScreen =
