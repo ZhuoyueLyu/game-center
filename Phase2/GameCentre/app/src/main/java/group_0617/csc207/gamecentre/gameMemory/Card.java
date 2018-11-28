@@ -98,7 +98,7 @@ public class Card extends GenericTile {
                 setBackground(R.drawable.tile_24);
                 break;
             default:
-                setBackground(R.drawable.question);
+                setBackground(cover);
         }
         this.isCovered = true;
     }

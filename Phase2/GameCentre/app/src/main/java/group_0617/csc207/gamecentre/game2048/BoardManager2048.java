@@ -60,7 +60,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
     public BoardManager2048(int complexity) {
         List<Tile2048> tiles = new ArrayList<>();
         for (int tileNum = 0; tileNum < complexity * complexity; tileNum++) {
-            tiles.add(new Tile2048(0));
+            tiles.add(new Tile2048(0, true));
         }
         this.board2048 = new Board2048(tiles);
         board2048.addRandomTile();
@@ -182,7 +182,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
         List<Tile2048> tiles = new ArrayList<>();
         for (int i = 0; i < board2048.getComplexity(); i++) {
             for (int j = 0; j < board2048.getComplexity(); j++) {
-                tiles.add(new Tile2048(board2048.getTile(i, j).getId()));
+                tiles.add(new Tile2048(board2048.getTile(i, j).getId(), false));
             }
         }
         Board2048 newBoard = new Board2048(tiles);
