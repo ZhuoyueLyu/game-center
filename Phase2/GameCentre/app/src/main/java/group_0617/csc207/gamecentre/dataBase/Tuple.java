@@ -1,20 +1,28 @@
 package group_0617.csc207.gamecentre.dataBase;
 
 /**
- * This tuple class is used to transfer the game data to the leader board
+ * This tuple class is used to store corresponding data of unspecified type
  *
- * @param <X> username
- * @param <Y> the score of the user in a specific game
+ * @param <X> the X class stored
+ * @param <Y> the Y class stored
  */
 public class Tuple<X,Y> {
+
+    /**
+     * The x stored by the tuple
+     */
     private X x;
+
+    /**
+     * The y stored by the tuple
+     */
     private Y y;
 
     /**
      * Constructor
      *
-     * @param x username
-     * @param y score
+     * @param x the x to store
+     * @param y the y to stored
      */
     public Tuple(X x,Y y) {
         this.x = x;
@@ -22,36 +30,36 @@ public class Tuple<X,Y> {
     }
 
     /**
-     * Get the value of x (username)
+     * Get the value of x
      *
-     * @return value of x (username)
+     * @return value of x
      */
     public X getX() {
         return x;
     }
 
     /**
-     * Set the value of x (username)
+     * Set the value of x
      *
-     * @param x value of x (username)
+     * @param x value of x
      */
     public void setX(X x) {
         this.x = x;
     }
 
     /**
-     * Get the value of y (score)
+     * Get the value of y
      *
-     * @return value of y (score)
+     * @return value of y
      */
     public Y getY() {
         return y;
     }
 
     /**
-     * Set the value of y (score)
+     * Set the value of y
      *
-     * @param y value of y (score)
+     * @param y value of y
      */
     public void setY(Y y) {
         this.y = y;
