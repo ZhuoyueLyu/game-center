@@ -73,29 +73,32 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
      * @return whether the tiles are in row-major order
      */
     public boolean puzzleSolved() {
-        for (int i = 0; i < board2048.getComplexity(); i++) {
-            for (int j = 0; j < board2048.getComplexity(); j++) {
-                if (board2048.getTile(i,j).getId() == (int) Math.pow(2, board2048.getComplexity()*5-9)) {
-                    score = 10000 / (getStepNum() + timesOfUndo) / lastTime;
-                    lastTime = 0;
-                    timesOfUndo = 0;
-                    boardStack = new Stack<>();
-                    return true;
-                }
+        int biggestNum = 0;
+
+        int[] moves = {Game2048Activity.UP, Game2048Activity.DOWN, Game2048Activity.LEFT, Game2048Activity.RIGHT};
+        for (int move: moves){
+            if (isValidTap(move)){
+                return false;
             }
         }
 
-//        int[] moves = {Game2048Activity.UP, Game2048Activity.DOWN, Game2048Activity.LEFT, Game2048Activity.RIGHT};
-//        for (int move: moves){
-//            if (isValidTap(move)){
-//                stepCounter = 0;
-//                lastTime = 0;
-//                timesOfUndo = 0;
-//                return true;
-//            }
-//        }
-
-        return false;
+        for (int i = 0; i < board2048.getComplexity(); i++) {
+            for (int j = 0; j < board2048.getComplexity(); j++) {
+                if (board2048.getTile(i,j).getId() > biggestNum) {
+                    try {
+                        score = biggestNum / (getStepNum() + timesOfUndo) / lastTime;
+                    }
+                    catch (Exception e){
+                        lastTime = 1;
+                        System.out.println("Divided by zero. ");
+                    }
+                    lastTime = 0;
+                    timesOfUndo = 0;
+                    boardStack = new Stack<>();
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -127,7 +130,6 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
             case Game2048Activity.RIGHT:
                 for (Tile2048[] line : tiles) {
                     Tile2048[] lineCopy = line.clone();
-//                    board2048.rightCombine(line);
                     Tile2048[] reverseLine = new Tile2048[line.length];
                     for (int j = 0; j < line.length; j++) {
                         reverseLine[j] = line[line.length - 1 - j];
@@ -157,7 +159,6 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
             case Game2048Activity.DOWN:
                 for (Tile2048[] line : columnTiles) {
                     Tile2048[] lineCopy = line.clone();
-//                    board2048.rightCombine(line);
                     Tile2048[] reverseLine = new Tile2048[line.length];
                     for (int j = 0; j < line.length; j++) {
                         reverseLine[j] = line[line.length - 1 - j];
