@@ -32,10 +32,10 @@ public class Tile2048 extends GenericTile implements Serializable {
                 break;
             case 2:
                 if (isNew){
-                    setBackground(R.drawable.tile2048_0);
+                    setBackground(R.drawable.tile2048_2);
                 }
                 else {
-                    setBackground(R.drawable.tile2048_0);
+                    setBackground(R.drawable.tile2048_2);
                 }
                 break;
             case 4:
@@ -53,36 +53,36 @@ public class Tile2048 extends GenericTile implements Serializable {
             case 64:
                 setBackground(R.drawable.tile2048_64);
                 break;
-//            case 128:
-//                setBackground(R.drawable.tile_7);
-//                break;
-//            case 256:
-//                setBackground(R.drawable.tile_8);
-//                break;
-//            case 512:
-//                setBackground(R.drawable.tile_9);
-//                break;
-//            case 1024:
-//                setBackground(R.drawable.tile_10);
-//                break;
-//            case 2048:
-//                setBackground(R.drawable.tile_11);
-//                break;
-//            case 4096:
-//                setBackground(R.drawable.tile_12);
-//                break;
-//            case 8192:
-//                setBackground(R.drawable.tile_13);
-//                break;
-//            case 16384:
-//                setBackground(R.drawable.tile_14);
-//                break;
-//            case 32768:
-//                setBackground(R.drawable.tile_15);
-//                break;
-//            case 65536:
-//                setBackground(R.drawable.tile_16);
-//                break;
+            case 128:
+                setBackground(R.drawable.tile2048_128);
+                break;
+            case 256:
+                setBackground(R.drawable.tile2048_256);
+                break;
+            case 512:
+                setBackground(R.drawable.tile2048_512);
+                break;
+            case 1024:
+                setBackground(R.drawable.tile2048_1024);
+                break;
+            case 2048:
+                setBackground(R.drawable.tile2048_2048);
+                break;
+            case 4096:
+                setBackground(R.drawable.tile_12);
+                break;
+            case 8192:
+                setBackground(R.drawable.tile_13);
+                break;
+            case 16384:
+                setBackground(R.drawable.tile_14);
+                break;
+            case 32768:
+                setBackground(R.drawable.tile_15);
+                break;
+            case 65536:
+                setBackground(R.drawable.tile_16);
+                break;
             default:
                 setBackground(R.drawable.tile_grey);
         }
