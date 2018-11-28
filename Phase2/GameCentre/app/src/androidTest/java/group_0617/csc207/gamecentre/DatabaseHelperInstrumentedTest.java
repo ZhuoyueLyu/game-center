@@ -96,6 +96,13 @@ public class DatabaseHelperInstrumentedTest {
 
     @Test
     public void getSTLeaderboardData() {
+        databaseHelper.addUser("testName","testPassword");
+        databaseHelper.addUser("testName2","testPassword2");
+        databaseHelper.addGameData("testName","steasy",123);
+        databaseHelper.addGameData("testName2","steasy",300);
+        databaseHelper.addGameData("testName2","tfeasy",300);
+        assertThat(databaseHelper.getLeaderboardData("steasy"),
+                not(databaseHelper.getLeaderboardData("tfeasy")));
     }
 
 }
