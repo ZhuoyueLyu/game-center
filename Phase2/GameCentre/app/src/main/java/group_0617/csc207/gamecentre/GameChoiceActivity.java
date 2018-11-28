@@ -23,7 +23,7 @@ public class GameChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_choice);
         session = new Session(this);
-        if(!session.loggedin()){
+        if (!session.loggedin()) {
             logout();
         }
         addLogoutButtonListener();
@@ -87,12 +87,13 @@ public class GameChoiceActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            logout();
+                logout();
             }
         });
 
 
     }
+
     /**
      * Activate the rules Button.
      */
@@ -128,15 +129,21 @@ public class GameChoiceActivity extends AppCompatActivity {
     }
 
     /**
-     * Activite the logout button
+     * Activate the logout button
      */
 
-    private void logout(){
+    private void logout() {
         session.setLoggedin(false);
         finish();
-        startActivity(new Intent(GameChoiceActivity.this,LoginActivity.class));
+        startActivity(new Intent(GameChoiceActivity.this, LoginActivity.class));
         LoginActivity.currentUser = "";
     }
+
+    /**
+     * Display the given message
+     *
+     * @param message the given message
+     */
     private void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
@@ -145,8 +152,8 @@ public class GameChoiceActivity extends AppCompatActivity {
      * Override the back key
      */
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             return true;
         }
 

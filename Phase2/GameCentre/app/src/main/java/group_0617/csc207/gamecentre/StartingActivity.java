@@ -18,13 +18,10 @@ import java.io.ObjectOutputStream;
  * The initial activity for the sliding puzzle tile game.
  */
 public class StartingActivity extends GenericStartingActivity {
-
-    public static String gameComplexity = "medium";
-
     /**
      * A temporary save file.
      */
-    public String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame  + "_" + LoginActivity.currentUser;
+    public String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" + LoginActivity.currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +48,7 @@ public class StartingActivity extends GenericStartingActivity {
      * Switch to the GameActivity view to play the game.
      */
     public void switchToGame() {
-        Intent tmp = new Intent(this,GameActivity.class);
+        Intent tmp = new Intent(this, GameActivity.class);
         tmp.putExtra("tempSaveFileName", tempSaveFileName);
         saveToFile(tempSaveFileName);
         startActivity(tmp);
@@ -68,7 +65,7 @@ public class StartingActivity extends GenericStartingActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                BoardManager boardManager = (BoardManager)input.readObject();
+                BoardManager boardManager = (BoardManager) input.readObject();
                 if (boardManager != null) {
                     setGenericBoardManager((BoardManager) input.readObject());
                 } else {
@@ -77,10 +74,10 @@ public class StartingActivity extends GenericStartingActivity {
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity","File not found: " + e.toString());
+            Log.e("login activity", "File not found: " + e.toString());
             Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Log.e("login activity","Can not read file: " + e.toString());
+            Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
@@ -95,11 +92,11 @@ public class StartingActivity extends GenericStartingActivity {
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName,MODE_PRIVATE));
+                    this.openFileOutput(fileName, MODE_PRIVATE));
             outputStream.writeObject(getGenericBoardManager());
             outputStream.close();
         } catch (IOException e) {
-            Log.e("Exception","File write failed: " + e.toString());
+            Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 
@@ -113,7 +110,7 @@ public class StartingActivity extends GenericStartingActivity {
             @Override
             public void onClick(View v) {
                 Intent gameScoreboardScreen =
-                        new Intent(StartingActivity.this,LeaderboardActivity.class);
+                        new Intent(StartingActivity.this, LeaderboardActivity.class);
                 gameScoreboardScreen.putExtra("currentGame", "st");
                 gameScoreboardScreen.putExtra("complexity", getCurrentComplexity());
                 startActivity(gameScoreboardScreen);

@@ -29,7 +29,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     /**
      * A temporary save file.
      */
-    public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame + "_"  + "_" + LoginActivity.currentUser;
+    public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" + "_" + LoginActivity.currentUser;
 
     /**
      * The board manager.
@@ -77,7 +77,6 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
 
     /**
      * Activate the right arrow button.
-     *
      */
     private void addRightArrowButtonListener() {
 
@@ -100,8 +99,8 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      * Show the complexity of the game
      */
     @SuppressLint("SetTextI18n")
-    public void showComplexity(TextView complexity){
-        switch (currentComplexity){
+    public void showComplexity(TextView complexity) {
+        switch (currentComplexity) {
             case 3:
                 complexity.setText("Easy (3x3)");
                 break;
@@ -144,7 +143,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      * Display that a game was loaded successfully.
      */
     private void makeToastLoadedText() {
-        Toast.makeText(this,"Loaded Game",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -173,7 +172,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent gameScoreboardScreen =
-                        new Intent(GenericStartingActivity.this,GameRulesActivity.class);
+                        new Intent(GenericStartingActivity.this, GameRulesActivity.class);
                 startActivity(gameScoreboardScreen);
             }
         });
@@ -184,7 +183,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      * Display that a game was saved successfully.
      */
     private void makeToastSavedText() {
-        Toast.makeText(this,"Game Saved",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -206,7 +205,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    abstract public boolean loadFromFile(String fileName) ;
+    abstract public boolean loadFromFile(String fileName);
 
     /**
      * Save the board manager to fileName.
@@ -217,6 +216,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
 
     /**
      * Return this board manager
+     *
      * @return this board manager
      */
     public GenericBoardManager getGenericBoardManager() {
@@ -225,6 +225,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
 
     /**
      * Set the board manager
+     *
      * @param genericBoardManager the board manager that we want to set this. to
      */
     public void setGenericBoardManager(GenericBoardManager genericBoardManager) {
@@ -233,6 +234,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
 
     /**
      * Return the complexity of the current game
+     *
      * @return the complexity of the current game
      */
     public int getCurrentComplexity() {
@@ -241,6 +243,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
 
     /**
      * Set the name of the save_file
+     *
      * @param SAVE_FILENAME the name of save_file
      */
     public void setSaveFileName(String SAVE_FILENAME) {

@@ -26,7 +26,6 @@ public class StartingActivity2048 extends GenericStartingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //boardManager2048 = new BoardManager2048();
         setGenericBoardManager(new BoardManager2048(getCurrentComplexity()));
         TextView view = findViewById(R.id.GameText);
         view.setText("Welcome To 2048!  \n" +
@@ -59,7 +58,6 @@ public class StartingActivity2048 extends GenericStartingActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                //boardManager2048 = (BoardManager2048) input.readObject();
                 setGenericBoardManager((BoardManager2048) input.readObject());
                 inputStream.close();
             }
@@ -83,7 +81,6 @@ public class StartingActivity2048 extends GenericStartingActivity {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName,MODE_PRIVATE));
-            //outputStream.writeObject(boardManager2048);
             outputStream.writeObject(getGenericBoardManager());
             outputStream.close();
         } catch (IOException e) {

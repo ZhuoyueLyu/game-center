@@ -49,7 +49,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card> {
      * @param inCards the cards to put in the newly created Cardboard
      */
     CardBoard(List<Card> inCards) {
-        setComplexity((int)Math.ceil(Math.sqrt((double) inCards.size())));
+        setComplexity((int) Math.ceil(Math.sqrt((double) inCards.size())));
         Card[][] cards = new Card[getComplexity()][getComplexity()];
         Iterator<Card> iter = inCards.iterator();
         for (int row = 0; row < getComplexity(); row++) {

@@ -8,4 +8,10 @@
     <string name="hard">Hard</string>
     <string name="medium">Medium</string>
     <string name="rule">Game \n Rules</string>
+    <string name="GameRuleOf2048">The game\'s objective is to slide numbered tiles on a grid to combine them to create a tile with the number 2048. However, one can continue to play the game after reaching the goal, creating tiles with larger numbers.</string>
+    <string name="GameRuleOfMemory">Where you must identify the two cards that have the same face. Game is finished when all cards are identified. Less flips used mean better score.</string>
+    <string name="memory">Memory</string>
+    <string name="GameRuleOfSlidingTiles">A Puzzle Game where you must arrange the numbers in the correct order.   You can earn a higher socre by choosing harder level of difficulty, moving faster and \'Undo\' less.</string>
+    <string name="sliding_tiles">Sliding Tiles</string>
+    <string name="_2048">2048</string>
 </resources>

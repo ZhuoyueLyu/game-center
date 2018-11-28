@@ -38,7 +38,7 @@ class BoardManager extends GenericBoardManager {
         List<Tile> tiles = new ArrayList<>();
         int numTiles = complexity * complexity;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum, complexity));
+            tiles.add(new Tile(tileNum + 1, complexity));
         }
 
         Collections.shuffle(tiles);

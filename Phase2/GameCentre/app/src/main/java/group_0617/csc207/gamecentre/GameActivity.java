@@ -66,8 +66,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
-    //private TextView score;
-
     /**
      * The timer for the game.
      */
@@ -227,7 +225,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * Dispatch onResumee() to fragments.
+     * Dispatch onResume() to fragments.
      */
     @Override
     protected void onResume() {

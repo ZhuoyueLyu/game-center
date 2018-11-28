@@ -64,7 +64,7 @@ public class CardBoardTest {
         assertEquals(4, cardBoard.getComplexity());
         setUpSpecificCardBoard();
         assertEquals(3, cardBoard.getComplexity());
-        assertEquals(R.drawable.tile_0, cardBoard.getCard(2, 2).getBackground());
+        assertEquals(R.drawable.question, cardBoard.getCard(2, 2).getBackground());
         setUpCardBoard();
         assertEquals(4, cardBoard.getComplexity());
     }

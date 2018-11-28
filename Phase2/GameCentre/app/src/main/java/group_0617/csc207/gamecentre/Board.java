@@ -111,7 +111,7 @@ public class Board extends GenericBoard implements Iterable<Tile> {
      *
      * @return if the board is solvable
      */
-    public boolean isSolvable() {
+    boolean isSolvable() {
         boolean isEvenPol = sumOverPolarity() % 2 == 0;
         int complexity = getComplexity();
         return complexity % 2 == 1 && isEvenPol || complexity % 2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
@@ -120,15 +120,15 @@ public class Board extends GenericBoard implements Iterable<Tile> {
     /**
      * This method check if the board is solvable. If not, it makes the board solvable
      */
-    public void makeSolvable() {
+    void makeSolvable() {
         if (!isSolvable()) {
             Tile first = getTile(0, 0);
-            Tile second = getTile(1, 0);
+            Tile second = getTile(0, 1);
             int complexity = getComplexity();
             if (first.getId() == numTiles() || second.getId() == numTiles()) {
                 swapTiles(complexity - 1, complexity - 1, complexity - 1, complexity - 2);
             } else {
-                swapTiles(0, 0, 1, 0);
+                swapTiles(0, 0, 0, 1);
             }
         }
     }

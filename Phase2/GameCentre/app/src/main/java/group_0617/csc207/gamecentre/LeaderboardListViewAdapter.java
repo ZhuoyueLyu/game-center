@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/*
+/**
 Table code design adapted from
 http://www.worldbestlearningcenter.com/tips/Android-ListView-Header.htm
 Zhuoyue Lyu Nov 4 2018
