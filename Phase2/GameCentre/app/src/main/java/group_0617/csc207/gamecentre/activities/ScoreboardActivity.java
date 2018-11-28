@@ -31,26 +31,26 @@ public class ScoreboardActivity extends Activity {
         ListView lstview = findViewById(R.id.listview);
         // Inflate header view
         ViewGroup headerView = (ViewGroup) getLayoutInflater().
-                inflate(R.layout.header,lstview,false);
+                inflate(R.layout.header, lstview, false);
         // Add header view to the ListView
         lstview.addHeaderView(headerView);
         buildDataString(slidingTilesData,
-                "Sliding Tiles ","steasy","stmedium","sthard");
+                "Sliding Tiles ", "steasy", "stmedium", "sthard");
 
         //Add the data of 2048 game
         buildDataString(twentyFortyEightData,
-                "2048","tfeasy","tfmedium","tfhard");
+                "2048", "tfeasy", "tfmedium", "tfhard");
 
         //Add the data of Memory game
         buildDataString(memoryGameData,
-                "Memory","cardeasy","cardmedium","cardhard");
+                "Memory", "cardeasy", "cardmedium", "cardhard");
 
         listItem[0] = slidingTilesData.toString();
         listItem[1] = twentyFortyEightData.toString();
         listItem[2] = memoryGameData.toString();
 
         // Bind data to the ListView
-        ScoreboardListAdapter adapter = new ScoreboardListAdapter(this,R.layout.rowlayout,R.id.txtUsername,listItem);
+        ScoreboardListAdapter adapter = new ScoreboardListAdapter(this, R.layout.rowlayout, R.id.txtUsername, listItem);
         // Bind data to the ListView
         lstview.setAdapter(adapter);
     }
@@ -64,25 +64,15 @@ public class ScoreboardActivity extends Activity {
      * @param medium        the string that represent this game under medium mode
      * @param hard          the string that represent this game under hard mode
      */
-    private void buildDataString(StringBuilder stringBuilder,String game,String easy,String medium,String hard) {
+    private void buildDataString(StringBuilder stringBuilder, String game, String easy, String medium, String hard) {
         stringBuilder.append(game).append("__");
         stringBuilder.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,easy))).append("__");
+                (LoginActivity.currentUser, easy))).append("__");
         //Add the score for 4 by 4 sliding tiles game
         stringBuilder.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,medium))).append("__");
+                (LoginActivity.currentUser, medium))).append("__");
         //Add the score for 5 by 5 sliding tiles game
         stringBuilder.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser,hard)));
+                (LoginActivity.currentUser, hard)));
     }
-
-    /**
-     * Make a toast message
-     *
-     * @param message the message that we want to toast
-     */
-    private void displayToast(String message) {
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-    }
-
 }
