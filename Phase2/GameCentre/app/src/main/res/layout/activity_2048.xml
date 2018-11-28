@@ -8,20 +8,27 @@
     android:orientation="vertical"
     tools:context=".activities.GestureDetectGridView">
 
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3" />
+
+
     <group_0617.csc207.gamecentre.activities.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="572dp"
-        android:layout_weight="0"
+        android:layout_weight="1"
         tools:context="group_0617.csc207.gamecentre.game2048.Game2048Activity" />
 
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="10">
+        android:layout_weight="3">
 
 
         <Button
