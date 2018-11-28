@@ -31,7 +31,7 @@ public class Board2048Test {
         List<Tile2048> tiles = new ArrayList<>();
         for (int row = 0; row != complexity; row++) {
             for (int col = 0; col != complexity; col++) {
-                tiles.add(new Tile2048(numTiles[row * complexity + col]));
+                tiles.add(new Tile2048(numTiles[row * complexity + col], false));
             }
         }
         this.board2048 = new Board2048(tiles);

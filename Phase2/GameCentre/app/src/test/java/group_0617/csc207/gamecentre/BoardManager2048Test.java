@@ -31,7 +31,7 @@ public class BoardManager2048Test {
     private void setUpBoardManager2048(int[] numTiles) {
         List<Tile2048> tiles = new ArrayList<>();
         for (int i = 0; i < complexity * complexity; i++) {
-            tiles.add(new Tile2048(numTiles[i]));
+            tiles.add(new Tile2048(numTiles[i], false));
         }
         this.boardManager2048 = new BoardManager2048(new Board2048(tiles));
     }
