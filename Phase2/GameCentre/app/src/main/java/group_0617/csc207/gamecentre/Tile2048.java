@@ -1,13 +1,6 @@
 package group_0617.csc207.gamecentre;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.widget.Button;
-
 import java.io.Serializable;
-
-import group_0617.csc207.gamecentre.R;
-
 /**
  * A Tile in a 2048 puzzle.
  */
@@ -24,8 +17,6 @@ public class Tile2048 extends GenericTile implements Serializable {
      * @param backgroundId
      */
     public Tile2048(int backgroundId) {
-        //super(backgroundId);
-        // This looks so ugly.
         this.id = backgroundId;
         switch (backgroundId) {
             case 0:

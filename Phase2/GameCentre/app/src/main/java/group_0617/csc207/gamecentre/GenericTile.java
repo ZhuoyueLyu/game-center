@@ -1,10 +1,11 @@
 package group_0617.csc207.gamecentre;
+
 import java.io.Serializable;
 
 /**
  * A Generic Tile with background id
  */
-public abstract class GenericTile implements Serializable{
+public abstract class GenericTile implements Serializable {
 
     /**
      * The background
@@ -14,10 +15,12 @@ public abstract class GenericTile implements Serializable{
     /**
      * Create an empty tile
      */
-    public GenericTile() {}
+    public GenericTile() {
+    }
 
     /**
      * Create a Tile with specified background
+     *
      * @param inBackground the background of the tile
      */
     public GenericTile(int inBackground) {
@@ -26,6 +29,7 @@ public abstract class GenericTile implements Serializable{
 
     /**
      * Return the background of the tile
+     *
      * @return the background of the tile
      */
     public int getBackground() {
@@ -34,7 +38,10 @@ public abstract class GenericTile implements Serializable{
 
     /**
      * Set the background of the tiles
+     *
      * @param inBackground the new background of the tile
      */
-    public void setBackground(int inBackground) {this.background = inBackground; }
+    public void setBackground(int inBackground) {
+        this.background = inBackground;
+    }
 }

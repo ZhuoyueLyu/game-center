@@ -1,10 +1,11 @@
 package group_0617.csc207.gamecentre;
 
 import android.support.annotation.NonNull;
+
 /**
  * A Tile in a sliding tiles puzzle.
  */
-public class Tile  extends GenericTile implements Comparable<Tile> {
+public class Tile extends GenericTile implements Comparable<Tile> {
 
     /**
      * The unique id.
@@ -14,11 +15,11 @@ public class Tile  extends GenericTile implements Comparable<Tile> {
     /**
      * A tile with a background id; look up and set the id.
      *
-     * @param backgroundId the id used to specify background of the tile
+     * @param backgroundId           the id used to specify background of the tile
      * @param currentBoardComplexity the complexity of current board
      */
     public Tile(int backgroundId, int currentBoardComplexity) {
-        id = backgroundId ;
+        id = backgroundId;
         switch (backgroundId + 1) {
             case 1:
                 setBackground(R.drawable.tile_1);
@@ -45,10 +46,9 @@ public class Tile  extends GenericTile implements Comparable<Tile> {
                 setBackground(R.drawable.tile_8);
                 break;
             case 9:
-                if (currentBoardComplexity == 3){
+                if (currentBoardComplexity == 3) {
                     setBackground(R.drawable.tile_0);
-                }
-                else {
+                } else {
                     setBackground(R.drawable.tile_9);
                 }
                 break;
@@ -71,10 +71,9 @@ public class Tile  extends GenericTile implements Comparable<Tile> {
                 setBackground(R.drawable.tile_15);
                 break;
             case 16:
-                if (currentBoardComplexity == 4){
+                if (currentBoardComplexity == 4) {
                     setBackground(R.drawable.tile_0);
-                }
-                else {
+                } else {
                     setBackground(R.drawable.tile_16);
                 }
                 break;

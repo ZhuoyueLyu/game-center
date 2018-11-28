@@ -66,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_CARDHARD + " INTEGER);";
 
     DatabaseHelper(@Nullable Context context) {
-        super(context,DB_NAME,null,DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
         onCreate(db);
     }
@@ -83,26 +83,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      */
-    void addUser(String username,String password) {
+    void addUser(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_USERNAME,username);
-        values.put(COLUMN_PASS,password);
-        values.put(COLUMN_STEASY,0);
-        values.put(COLUMN_STMEDIUM,0);
-        values.put(COLUMN_STHARD,0);
-        values.put(COLUMN_TFEASY,0);
-        values.put(COLUMN_TFMEDIUM,0);
-        values.put(COLUMN_TFHARD,0);
-        values.put(COLUMN_CARDEASY,0);
-        values.put(COLUMN_CARDMEDIUM,0);
-        values.put(COLUMN_CARDHARD,0);
+        values.put(COLUMN_USERNAME, username);
+        values.put(COLUMN_PASS, password);
+        values.put(COLUMN_STEASY, 0);
+        values.put(COLUMN_STMEDIUM, 0);
+        values.put(COLUMN_STHARD, 0);
+        values.put(COLUMN_TFEASY, 0);
+        values.put(COLUMN_TFMEDIUM, 0);
+        values.put(COLUMN_TFHARD, 0);
+        values.put(COLUMN_CARDEASY, 0);
+        values.put(COLUMN_CARDMEDIUM, 0);
+        values.put(COLUMN_CARDHARD, 0);
 
-        long id = db.insert(USER_TABLE,null,values);
+        long id = db.insert(USER_TABLE, null, values);
         db.close();
 
-        Log.d(TAG,"user inserted" + id);
+        Log.d(TAG, "user inserted" + id);
     }
 
     /**
@@ -112,11 +112,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param password
      * @return boolean, whether this user and password combination exist or not
      */
-    boolean getUser(String username,String password) {
+    boolean getUser(String username, String password) {
         String selectQuery = "select * from  " + USER_TABLE + " where " +
                 COLUMN_USERNAME + " = " + "'" + username + "'" + " and " + COLUMN_PASS + " = " + "'" + password + "'";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
@@ -141,7 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_USERNAME + " = " + "'" + username + "'";
         SQLiteDatabase db = this.getReadableDatabase();
         //cursor is used to read from the database
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
         if (cursor.moveToFirst()) {
             if (cursor.getCount() > 0) {
@@ -161,13 +161,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param column   the name of the column where we want to put the score in
      * @param score    the score of that game
      */
-    void addGameData(String username,String column,int score) {
+    void addGameData(String username, String column, int score) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         String where = COLUMN_USERNAME + " = " + "'" + username + "'";
         //Compare whether the new score is higher then this user's previous score or not.
-        values.put(column,Math.max(score,getGameData(username,column)));
-        db.update(USER_TABLE,values,where,null);
+        values.put(column, Math.max(score, getGameData(username, column)));
+        db.update(USER_TABLE, values, where, null);
         db.close();
 
     }
@@ -180,14 +180,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param column   the name of the column where we want to put the score in
      * @return the score of a given user under give game and difficulty
      */
-    int getGameData(String username,String column) {
+    int getGameData(String username, String column) {
 
         String selectQuery = "select * from  " + USER_TABLE + " where " +
                 COLUMN_USERNAME + " = " + "'" + username + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         //cursor is used to read from the database
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
         int result = 0;
         int Index = 0;
         if (cursor.moveToFirst()) {
@@ -210,7 +210,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<Tuple<String, Integer>> leaderBoardData = new ArrayList<Tuple<String, Integer>>();
         String selectQuery = "select * from  " + USER_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
         int Index = cursor.getColumnIndex(column);
 
         if (cursor.moveToFirst()) {

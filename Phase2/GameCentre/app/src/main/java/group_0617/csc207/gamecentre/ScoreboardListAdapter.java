@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-/*
+/**
 List adapter code design adapted from
 http://www.worldbestlearningcenter.com/tips/Android-ListView-Header.htm
 Zhuoyue Lyu Nov 4 2018

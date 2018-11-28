@@ -24,12 +24,14 @@ public abstract class GenericBoard extends Observable implements Serializable {
     /**
      * Create an empty Board
      */
-    GenericBoard() {}
+    GenericBoard() {
+    }
 
     /**
      * Create a Board given Tiles and complexity
+     *
      * @param inGenericTiles the tiles given
-     * @param inComplexity the complexity given
+     * @param inComplexity   the complexity given
      */
     GenericBoard(GenericTile[][] inGenericTiles, int inComplexity) {
         this.complexity = inComplexity;
@@ -38,17 +40,19 @@ public abstract class GenericBoard extends Observable implements Serializable {
 
     /**
      * Create a Board given Tiles
+     *
      * @param inGenericTiles the tiles given
      */
     GenericBoard(List<GenericTile> inGenericTiles) {
         Iterator<GenericTile> iter = inGenericTiles.iterator();
 
-        this.complexity = (int) Math.sqrt((double)inGenericTiles.size());
+        this.complexity = (int) Math.sqrt((double) inGenericTiles.size());
         this.genericTiles = new GenericTile[complexity][complexity];
     }
 
     /**
      * Return the number of tiles
+     *
      * @return the number of tiles
      */
     int numTiles() {
@@ -57,6 +61,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
 
     /**
      * Return the complexity of the board
+     *
      * @return the complexity of the board
      */
     int getComplexity() {
@@ -65,6 +70,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
 
     /**
      * Get the Tile at specified row and column
+     *
      * @param row the specified row
      * @param col the specified col
      * @return the Tile at specified row and column
@@ -75,6 +81,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
 
     /**
      * Get the entire tiles managed by this Board.
+     *
      * @return the entire tiles managed by this Board.
      */
     GenericTile[][] getGenericTiles() {
@@ -83,6 +90,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
 
     /**
      * Set the complexity of this Board
+     *
      * @param inComplexity the new complexity of the board
      */
     void setComplexity(int inComplexity) {
@@ -91,6 +99,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
 
     /**
      * Set the entire tiles managed by this board.
+     *
      * @param inGenericTiles the new set of tiles managed by this board
      */
     void setGenericTiles(GenericTile[][] inGenericTiles) {
@@ -99,9 +108,10 @@ public abstract class GenericBoard extends Observable implements Serializable {
 
     /**
      * Set the specific tile specified by it's row and column
+     *
      * @param inGenericTiles the new Tile
-     * @param row the row of tile to replace
-     * @param col the col of tile to replace
+     * @param row            the row of tile to replace
+     * @param col            the col of tile to replace
      */
     void setGenericTile(GenericTile inGenericTiles, int row, int col) {
         this.genericTiles[row][col] = inGenericTiles;

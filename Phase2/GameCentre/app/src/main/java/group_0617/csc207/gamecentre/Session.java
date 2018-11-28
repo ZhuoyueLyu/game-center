@@ -20,10 +20,10 @@ class Session {
     /**
      * Set the mode to be log in
      *
-     * @param logggedin whether we've logged in or not
+     * @param isLoggedIn whether we've logged in or not
      */
-    void setLoggedin(boolean logggedin) {
-        editor.putBoolean("loggedInmode",logggedin);
+    void setLoggedin(boolean isLoggedIn) {
+        editor.putBoolean("loggedInmode", isLoggedIn);
         editor.commit();
     }
 

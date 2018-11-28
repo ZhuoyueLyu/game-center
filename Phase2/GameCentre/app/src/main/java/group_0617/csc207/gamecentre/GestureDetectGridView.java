@@ -1,6 +1,6 @@
 package group_0617.csc207.gamecentre;
 
-/*
+/**
 Adapted from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
 

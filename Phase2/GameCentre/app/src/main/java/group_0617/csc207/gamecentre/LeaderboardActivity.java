@@ -9,8 +9,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-The activity which is responsible for displaying the leaderboard
+/**
+The activity which is responsible for displaying the leaderBoard
  */
 public class LeaderboardActivity extends Activity {
 
