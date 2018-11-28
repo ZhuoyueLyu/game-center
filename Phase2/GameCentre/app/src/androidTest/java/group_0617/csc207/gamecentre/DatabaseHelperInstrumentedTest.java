@@ -69,6 +69,8 @@ public class DatabaseHelperInstrumentedTest {
 
     @Test
     public void testUserExistance() {
+        databaseHelper.addUser("testName","testPassword");
+        databaseHelper.addUser("testName2","testPassword2");
         assertTrue(databaseHelper.checkUserExist("testName"));
         assertTrue(databaseHelper.checkUserExist("testName2"));
         assertFalse(databaseHelper.checkUserExist("pineApple"));
@@ -79,6 +81,8 @@ public class DatabaseHelperInstrumentedTest {
      */
     @Test
     public void testAddAndGetGameData() {
+        databaseHelper.addUser("testName","testPassword");
+        databaseHelper.addUser("testName2","testPassword2");
         databaseHelper.addGameData("testName","steasy",123);
         databaseHelper.addGameData("testName","tfmedium",454);
         databaseHelper.addGameData("testName","sthard",290);
@@ -87,8 +91,6 @@ public class DatabaseHelperInstrumentedTest {
         assertThat(databaseHelper.getGameData("testName","cardhard"),is(0));
         //For a newly created user2, the score should be set to 0 by default.
         assertThat(databaseHelper.getGameData("testName2","sthard"),is(0));
-
-
     }
 
 
