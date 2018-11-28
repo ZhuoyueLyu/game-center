@@ -17,7 +17,7 @@
         android:layout_marginTop="37dp"
         android:layout_marginBottom="63dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Welcome To Sliding Tiles!  \n A Puzzle Game where you must arrange the numbers in the correct order"
+        android:text="@string/GameRuleOfSlidingTiles"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/white"
