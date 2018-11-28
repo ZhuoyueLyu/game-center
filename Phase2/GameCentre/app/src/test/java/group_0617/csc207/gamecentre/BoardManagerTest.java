@@ -5,7 +5,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
+import group_0617.csc207.gamecentre.gameSlidingTiles.Board;
+import group_0617.csc207.gamecentre.gameSlidingTiles.BoardManager;
+import group_0617.csc207.gamecentre.gameSlidingTiles.Tile;
+
 import static org.junit.Assert.*;
 
 public class BoardManagerTest {
@@ -16,9 +19,9 @@ public class BoardManagerTest {
     /**
      * The board manager for testing.
      */
-    BoardManager boardManager;
+    private BoardManager boardManager;
 
-    Board board;
+    private Board board;
 
     /**
      * Make a set of tiles that are in order.

@@ -5,6 +5,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import group_0617.csc207.gamecentre.game2048.Board2048;
+import group_0617.csc207.gamecentre.game2048.BoardManager2048;
+import group_0617.csc207.gamecentre.game2048.Game2048Activity;
+import group_0617.csc207.gamecentre.game2048.Tile2048;
+
 import static org.junit.Assert.*;
 
 

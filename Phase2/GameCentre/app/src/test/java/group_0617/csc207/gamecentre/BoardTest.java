@@ -9,6 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
+import group_0617.csc207.gamecentre.gameSlidingTiles.Board;
+import group_0617.csc207.gamecentre.gameSlidingTiles.Tile;
+
 /**
  * Unit test for Board
  */

@@ -5,6 +5,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import group_0617.csc207.gamecentre.gameMemory.Card;
+import group_0617.csc207.gamecentre.gameMemory.CardBoard;
+import group_0617.csc207.gamecentre.gameMemory.CardBoardManager;
+
 import static org.junit.Assert.*;
 
 

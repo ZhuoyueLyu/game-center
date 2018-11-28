@@ -13,24 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartingActivity" />
-        <activity android:name=".StartingActivity2048" />
-        <activity android:name=".StartingActivityOfCard" />
-        <activity android:name=".GameChoiceActivity" />
-        <activity android:name=".ResultBoardActivity" />
-        <activity android:name=".ScoreboardActivity" />
-        <activity android:name=".LeaderboardActivity" />
-        <activity android:name=".GameRulesActivity" />
-        <activity android:name=".Game2048Activity" />
-        <activity android:name=".GameActivity"></activity>
-        <activity android:name=".CardGameActivity" />
+        <activity android:name=".gameSlidingTiles.StartingActivity" />
+        <activity android:name=".game2048.StartingActivity2048" />
+        <activity android:name=".gameMemory.StartingActivityOfCard" />
+        <activity android:name=".activities.GameChoiceActivity" />
+        <activity android:name=".activities.ResultBoardActivity" />
+        <activity android:name=".activities.ScoreboardActivity" />
+        <activity android:name=".activities.LeaderboardActivity" />
+        <activity android:name=".activities.GameRulesActivity" />
+        <activity android:name=".game2048.Game2048Activity" />
+        <activity android:name=".gameSlidingTiles.GameActivity" />
+        <activity android:name=".gameMemory.CardGameActivity" />
         <uses-library android:name="com.google.android.maps" />
     </application>
 </manifest>

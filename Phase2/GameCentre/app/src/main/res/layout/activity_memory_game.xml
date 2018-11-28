@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".GestureDetectGridView">
+    tools:context=".activities.GestureDetectGridView">
 
-    <group_0617.csc207.gamecentre.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <group_0617.csc207.gamecentre.activities.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0"
-        tools:context="group_0617.csc207.gamecentre.GameActivity" />
+        tools:context="group_0617.csc207.gamecentre.gameSlidingTiles.GameActivity" />
 
 
     <android.support.constraint.ConstraintLayout

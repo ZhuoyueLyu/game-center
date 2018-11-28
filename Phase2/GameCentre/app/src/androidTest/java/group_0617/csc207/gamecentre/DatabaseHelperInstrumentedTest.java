@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 

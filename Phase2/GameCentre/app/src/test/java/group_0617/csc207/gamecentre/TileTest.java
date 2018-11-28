@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import group_0617.csc207.gamecentre.gameSlidingTiles.Tile;
+
 import static org.junit.Assert.*;
 
 /**

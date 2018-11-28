@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * A Generic BoardManager that manages a Generic Board
  */
-abstract class GenericBoardManager implements Serializable {
+public abstract class GenericBoardManager implements Serializable {
 
     /**
      * The board being managed
@@ -15,7 +15,7 @@ abstract class GenericBoardManager implements Serializable {
     /**
      * Creates an empty BoardManager
      */
-    GenericBoardManager() {
+    protected GenericBoardManager() {
     }
 
     /**
@@ -23,7 +23,7 @@ abstract class GenericBoardManager implements Serializable {
      *
      * @param inGenericBoard the Board of the BoardManager
      */
-    GenericBoardManager(GenericBoard inGenericBoard) {
+    protected GenericBoardManager(GenericBoard inGenericBoard) {
         this.genericBoard = inGenericBoard;
     }
 
@@ -32,7 +32,7 @@ abstract class GenericBoardManager implements Serializable {
      *
      * @return the board managed by this manager
      */
-    GenericBoard getBoard() {
+    public GenericBoard getBoard() {
         return this.genericBoard;
     }
 
@@ -41,7 +41,7 @@ abstract class GenericBoardManager implements Serializable {
      *
      * @param inGenericBoard the board to be managed by this manager.
      */
-    void setBoard(GenericBoard inGenericBoard) {
+    protected void setBoard(GenericBoard inGenericBoard) {
         this.genericBoard = inGenericBoard;
     }
 
@@ -50,7 +50,7 @@ abstract class GenericBoardManager implements Serializable {
      *
      * @return whether the puzzle has been solved
      */
-    abstract boolean puzzleSolved();
+    public abstract boolean puzzleSolved();
 
     /**
      * Return whether a tap at specified position is valid
@@ -58,26 +58,26 @@ abstract class GenericBoardManager implements Serializable {
      * @param pos the position tapped
      * @return whether the tap is valid
      */
-    abstract boolean isValidTap(int pos);
+    public abstract boolean isValidTap(int pos);
 
     /**
      * Move according to the position specified
      *
      * @param pos the position specified
      */
-    abstract void touchMove(int pos);
+    public abstract void touchMove(int pos);
 
     /**
      * Return the score recorded by this manager
      *
      * @return the score recorded
      */
-    abstract int getScore();
+    public abstract int getScore();
 
     /**
      * The method which return the abbreviation of current game.
      *
      * @return The name of the current Game
      */
-    abstract String getCurrentGame();
+    public abstract String getCurrentGame();
 }

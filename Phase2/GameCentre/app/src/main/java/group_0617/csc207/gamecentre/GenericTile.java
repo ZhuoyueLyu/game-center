@@ -15,7 +15,7 @@ public abstract class GenericTile implements Serializable {
     /**
      * Create an empty tile
      */
-    public GenericTile() {
+    protected GenericTile() {
     }
 
     /**
@@ -23,7 +23,7 @@ public abstract class GenericTile implements Serializable {
      *
      * @param inBackground the background of the tile
      */
-    public GenericTile(int inBackground) {
+    protected GenericTile(int inBackground) {
         this.background = inBackground;
     }
 
@@ -41,7 +41,7 @@ public abstract class GenericTile implements Serializable {
      *
      * @param inBackground the new background of the tile
      */
-    public void setBackground(int inBackground) {
+    protected void setBackground(int inBackground) {
         this.background = inBackground;
     }
 }
