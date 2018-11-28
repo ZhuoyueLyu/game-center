@@ -64,10 +64,10 @@ public class BoardManager2048Test {
      */
     @Test
     public void testPuzzleSolved() {
-        int[] numTiles1 = {2, 4, 8, 16,
+        int[] numTiles1 = {2, 8, 16, 256,
                 32, 64, 128, 256,
                 512, 1024, 2, 8,
-                2, 2, 2, 2};
+                2, 2, 8, 2};
         setUpBoardManager2048(numTiles1);
         boardManager2048.setLastTime(100);
         boardManager2048.touchMove(Game2048Activity.LEFT);
@@ -76,7 +76,7 @@ public class BoardManager2048Test {
         int[] numTiles2 = {2, 4, 8, 16,
                 32, 64, 128, 256,
                 512, 1024, 1024, 8,
-                4, 2, 2, 1};
+                4, 16, 2, 1};
         setUpBoardManager2048(numTiles2);
         boardManager2048.setLastTime(100);
         boardManager2048.touchMove(Game2048Activity.RIGHT);
