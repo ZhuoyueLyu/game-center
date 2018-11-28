@@ -23,7 +23,7 @@ public class Tile2048 extends GenericTile implements Serializable {
      *
      * @param backgroundId
      */
-    public Tile2048(int backgroundId) {
+    public Tile2048(int backgroundId, boolean isNew) {
         //super(backgroundId);
         // This looks so ugly.
         this.id = backgroundId;
@@ -32,7 +32,12 @@ public class Tile2048 extends GenericTile implements Serializable {
                 setBackground(R.drawable.tile_0);
                 break;
             case 2:
-                setBackground(R.drawable.tile_1);
+                if (isNew){
+                    setBackground(R.drawable.tile2048_0);
+                }
+                else {
+                    setBackground(R.drawable.tile_1);
+                }
                 break;
             case 4:
                 setBackground(R.drawable.tile_2);

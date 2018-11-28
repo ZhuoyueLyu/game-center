@@ -60,7 +60,7 @@ public class Board2048 extends GenericBoard implements Serializable {
             newLine.add(0);
         }
         for (int index2 = 0; index2 < getComplexity(); index2++) {
-            line[index2] = new Tile2048(newLine.get(index2));
+            line[index2] = new Tile2048(newLine.get(index2), false);
         }
     }
 
@@ -159,7 +159,7 @@ public class Board2048 extends GenericBoard implements Serializable {
         int randomPosition = emptyTiles.get(new Random().nextInt(emptyTiles.size()));
 //        int[] numToChoose = {2, 2, 2, 2, 4};
 //        int randomNumber = numToChoose[(new Random()).nextInt(5)];
-        setGenericTile(new Tile2048(2), randomPosition / getComplexity(), randomPosition % getComplexity());
+        setGenericTile(new Tile2048(2, true), randomPosition / getComplexity(), randomPosition % getComplexity());
         setChanged();
         notifyObservers();
     }
