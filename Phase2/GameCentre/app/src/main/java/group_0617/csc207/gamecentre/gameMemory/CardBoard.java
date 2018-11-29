@@ -3,6 +3,7 @@ package group_0617.csc207.gamecentre.gameMemory;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +14,9 @@ import group_0617.csc207.gamecentre.GenericBoard;
  */
 public class CardBoard extends GenericBoard implements Iterable<Card> {
 
+    /**
+     * The default complexity
+     */
     private static final int DEFAULT_COMPLEXITY = 4;
 
     /**
@@ -37,7 +41,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card> {
             newCards.add(new Card(i));
             newCards.add(new Card(i));
         }
-        // Collections.shuffle(newCards);
+        Collections.shuffle(newCards);
 
         for (int j = 0; j < newCards.size(); j++) {
             cards[j / inComplexity][j % inComplexity] = newCards.get(j);
@@ -91,7 +95,7 @@ public class CardBoard extends GenericBoard implements Iterable<Card> {
      * @param col the column to get card from
      * @return the card at specified location
      */
-    public Card getCard(int row,int col) {
+    public Card getCard(int row, int col) {
         return (Card) getGenericTile(row, col);
     }
 
