@@ -15,6 +15,9 @@ import group_0617.csc207.gamecentre.gameSlidingTiles.Tile;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit test for BoardManager
+ */
 public class BoardManagerTest {
 
     /**
@@ -85,7 +88,7 @@ public class BoardManagerTest {
      */
     @Test
     public void testIsSolved() {
-        setUpCorrect(4);
+        setUpCorrect(3);
         assertTrue(boardManager.puzzleSolved());
         board.swapTiles(0, 0, 0, 1);
         assertFalse(boardManager.puzzleSolved());
@@ -148,7 +151,7 @@ public class BoardManagerTest {
      */
     @Test
     public void testGetScore() {
-        setUpCorrect(4);
+        setUpCorrect(5);
         assertEquals(0, boardManager.getScore());
     }
 
@@ -166,7 +169,7 @@ public class BoardManagerTest {
      */
     @Test
     public void testGetCurrentGame() {
-        setUpCorrect(4);
+        setUpCorrect(6);
         assertEquals("st", boardManager.getCurrentGame());
     }
 
@@ -176,6 +179,16 @@ public class BoardManagerTest {
     @Test
     public void testMakeSolvable() {
         setUpCorrect(4);
+        board.swapTiles(0, 0, 0, 1);
+        assertFalse(reflectIsSolvable());
+        boardManager.makeSolvable();
+        assertTrue(reflectIsSolvable());
+        setUpCorrect(3);
+        board.swapTiles(0, 0, 0, 1);
+        assertFalse(reflectIsSolvable());
+        boardManager.makeSolvable();
+        assertTrue(reflectIsSolvable());
+        setUpCorrect(5);
         board.swapTiles(0, 0, 0, 1);
         assertFalse(reflectIsSolvable());
         boardManager.makeSolvable();
