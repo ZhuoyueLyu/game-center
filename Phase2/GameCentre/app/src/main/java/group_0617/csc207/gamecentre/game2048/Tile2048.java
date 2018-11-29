@@ -65,22 +65,22 @@ public class Tile2048 extends GenericTile implements Serializable {
                 setBackground(R.drawable.tile2048_2048);
                 break;
             case 4096:
-                setBackground(R.drawable.tile_12);
+                setBackground(R.drawable.tile2048_4096);
                 break;
             case 8192:
-                setBackground(R.drawable.tile_13);
+                setBackground(R.drawable.tile2048_8192);
                 break;
             case 16384:
-                setBackground(R.drawable.tile_14);
+                setBackground(R.drawable.tile2048_16384);
                 break;
             case 32768:
-                setBackground(R.drawable.tile_15);
+                setBackground(R.drawable.tile2048_32768);
                 break;
             case 65536:
-                setBackground(R.drawable.tile_16);
+                setBackground(R.drawable.tile2048_65536);
                 break;
             default:
-                setBackground(R.drawable.tile_grey);
+                setBackground(R.drawable.tile2048_0);
         }
     }
 
