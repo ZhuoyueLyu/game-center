@@ -5,16 +5,44 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import group_0617.csc207.gamecentre.GenericBoardManager;
-import group_0617.csc207.gamecentre.activities.ResultBoardActivity;
 
 /**
  * The controller which controller the movement of tiles
  */
 class MovementController {
 
+    /**
+     * The boardManager for current game.
+     */
     private GenericBoardManager genericBoardManager = null;
 
+    /**
+     * A constructor for MovementController.
+     */
     MovementController() {
+    }
+
+    /**
+     * Process the tapping in a specific context
+     *
+     * @param context  the current context
+     * @param position the position of the tapping
+     */
+    void processTapMovement(Context context, int position) {
+        if (genericBoardManager.isValidTap(position)) {
+            genericBoardManager.touchMove(position);
+            if (genericBoardManager.puzzleSolved()) {
+                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+
+                Intent result = new Intent(context.getApplicationContext(), ResultBoardActivity.class);
+                result.putExtra("SCORE", genericBoardManager.getScore());
+                result.putExtra("currentGame", genericBoardManager.getCurrentGame());
+                result.putExtra("complexity", genericBoardManager.getBoard().getComplexity());
+                context.startActivity(result);
+            }
+        } else {
+            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -24,27 +52,5 @@ class MovementController {
      */
     void setGenericBoardManager(GenericBoardManager inGenericBoardManager) {
         this.genericBoardManager = inGenericBoardManager;
-    }
-
-    /**
-     * Process the tapping in a specific context
-     *
-     * @param context  the current context
-     * @param position the position of the tapping
-     */
-    void processTapMovement(Context context,int position) {
-        if (genericBoardManager.isValidTap(position)) {
-            genericBoardManager.touchMove(position);
-            if (genericBoardManager.puzzleSolved()) {
-                Toast.makeText(context,"YOU WIN!",Toast.LENGTH_SHORT).show();
-                Intent result = new Intent(context.getApplicationContext(),ResultBoardActivity.class);
-                result.putExtra("SCORE",genericBoardManager.getScore());
-                result.putExtra("currentGame",genericBoardManager.getCurrentGame());
-                result.putExtra("complexity",genericBoardManager.getBoard().getComplexity());
-                context.startActivity(result);
-            }
-        } else {
-            Toast.makeText(context,"Invalid Tap",Toast.LENGTH_SHORT).show();
-        }
     }
 }
