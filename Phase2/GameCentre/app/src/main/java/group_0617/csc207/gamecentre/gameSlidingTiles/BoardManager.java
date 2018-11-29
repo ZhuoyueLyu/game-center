@@ -47,7 +47,6 @@ public class BoardManager extends GenericBoardManager {
 
         Collections.shuffle(tiles);
         Board board = new Board(tiles);
-        board.makeSolvable();
         setBoard(board);
     }
 
@@ -196,5 +195,13 @@ public class BoardManager extends GenericBoardManager {
      */
     public void setTimesOfUndo(int times) {
         this.timesOfUndo = times;
+    }
+
+    /**
+     * Make the board managed solvable
+     */
+    void makeSolvable() {
+        Board board = (Board) getBoard();
+        board.makeSolvable();
     }
 }
