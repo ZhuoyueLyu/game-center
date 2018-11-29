@@ -8,45 +8,78 @@
     android:orientation="vertical"
     tools:context=".activities.GestureDetectGridView">
 
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        android:layout_weight="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tMemory"
+            android:layout_width="158dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="142dp"
+            android:layout_marginEnd="111dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="MEMORY"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="2" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
     <group_0617.csc207.gamecentre.activities.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0"
+        android:layout_height="730dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:context="group_0617.csc207.gamecentre.gameSlidingTiles.GameActivity" />
 
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="30">
+        android:layout_weight="3">
 
-
-        <ImageView
-            android:id="@+id/imgView"
-            android:layout_width="104dp"
-            android:layout_height="113dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:contentDescription="Small Picture"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/Score"
             android:layout_width="162dp"
             android:layout_height="33dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="68dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-smallcaps"
             android:text="Time: "
             android:textColor="@color/white"
             android:textSize="27dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="2" />
+
+        <TextView
+            android:id="@+id/RealScore"
+            android:layout_width="162dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Score: "
+            android:textColor="@color/white"
+            android:textSize="27dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_weight="2" />
 
     </android.support.constraint.ConstraintLayout>
