@@ -1,9 +1,9 @@
 package group_0617.csc207.gamecentre.activities;
 
-public class LeaderboardActivityController {
+class LeaderboardActivityController {
     /**
      * Rank the score of a given game (descending)
-     * @param leaderboardActivity
+     * @param leaderboardActivity the leaderboard Activity
      */
     void RankTheScore(LeaderboardActivity leaderboardActivity) {
         int n = leaderboardActivity.leaderBoardData.size();
