@@ -69,12 +69,12 @@ public class CardTest {
         backgrounds.add(R.drawable.tile_24);
         for (int i = 0; i < 24; i++) {
             card = new Card(i);
-            assertEquals(card.getBackground(), (long)backgrounds.get(i));
+            assertEquals((long)backgrounds.get(i), card.getBackground());
         }
 
         // executes default that set background to tile0
         card = new Card(1000);
-        assertEquals(card.getBackground(), R.drawable.question);
+        assertEquals(R.drawable.questionblank, card.getBackground());
     }
 
 
@@ -113,7 +113,7 @@ public class CardTest {
     @Test
     public void testGetDisplay() {
         setUpCard();
-        assertEquals(R.drawable.question, card.getDisplay());
+        assertEquals(R.drawable.questionblank, card.getDisplay());
         card.flip();
         assertEquals(card.getBackground(), card.getDisplay());
     }

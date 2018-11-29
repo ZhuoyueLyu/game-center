@@ -109,7 +109,7 @@ public class Board extends GenericBoard implements Iterable<Tile> {
      *
      * @return if the board is solvable
      */
-    public boolean isSolvable() {
+    private boolean isSolvable() {
         boolean isEvenPol = sumOverPolarity() % 2 == 0;
         int complexity = getComplexity();
         return complexity % 2 == 1 && isEvenPol || complexity % 2 == 0 && blankOnOddRowFromBottom() == isEvenPol;

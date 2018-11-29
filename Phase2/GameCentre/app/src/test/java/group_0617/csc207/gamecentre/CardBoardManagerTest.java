@@ -128,6 +128,6 @@ public class CardBoardManagerTest {
         for (int i = 0; i < 4; i++) {
             cardBoardManager.touchMove(i*2);
         }
-        assertEquals(-4, cardBoardManager.getScore());
+        assertEquals((int)(1000*Math.exp(-4*0.01)), cardBoardManager.getScore());
     }
 }

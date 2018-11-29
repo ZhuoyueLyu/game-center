@@ -57,14 +57,14 @@ public class TileTest {
         backgrounds.add(R.drawable.tile_23);
         backgrounds.add(R.drawable.tile_24);
         for (int i = 0; i < 24; i++) {
-            tile = new Tile(i, 5);
+            tile = new Tile(i+1, 5);
             assertEquals((long)backgrounds.get(i), tile.getBackground());
         }
-        tile = new Tile(24, 5);
+        tile = new Tile(25, 5);
         assertEquals(R.drawable.tile_0, tile.getBackground());
-        tile = new Tile(8, 3);
+        tile = new Tile(9, 3);
         assertEquals(R.drawable.tile_0, tile.getBackground());
-        tile = new Tile(15, 4);
+        tile = new Tile(16, 4);
         assertEquals(R.drawable.tile_0, tile.getBackground());
 
         // Give something undefined
@@ -79,7 +79,7 @@ public class TileTest {
     @Test
     public void testGetId() {
         setUpTile();
-        assertEquals(2, tile.getId());
+        assertEquals(1, tile.getId());
     }
 
     /**
