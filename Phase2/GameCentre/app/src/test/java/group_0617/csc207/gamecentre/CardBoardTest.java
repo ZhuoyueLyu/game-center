@@ -46,8 +46,6 @@ public class CardBoardTest {
         cards.add(new Card(2));
         cards.add(new Card(4));
         cards.add(new Card(2));
-        cards.add(new Card(4));
-        //cards.add(new Card(0));
         cardBoard = new CardBoard(cards);
     }
 
@@ -65,8 +63,11 @@ public class CardBoardTest {
     public void testCardBoard() {
         setUpDefaultBoard();
         assertEquals(4, cardBoard.getComplexity());
+
+        // See if giving insufficient number of cares cause trouble
         setUpSpecificCardBoard();
         assertEquals(3, cardBoard.getComplexity());
+        // Card should have cover as default background even if it is not given
         assertEquals(R.drawable.questionblank, cardBoard.getCard(2, 2).getBackground());
         setUpCardBoard();
         assertEquals(4, cardBoard.getComplexity());
