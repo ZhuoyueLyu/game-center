@@ -53,8 +53,8 @@
 
         <Button
             android:id="@+id/btnundo"
-            android:layout_width="71dp"
-            android:layout_height="33dp"
+            android:layout_width="124dp"
+            android:layout_height="52dp"
             android:layout_marginEnd="44dp"
             android:layout_marginBottom="48dp"
             android:background="@drawable/buttonshape"
@@ -74,14 +74,28 @@
             android:id="@+id/Score"
             android:layout_width="162dp"
             android:layout_height="33dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginBottom="80dp"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Time: "
+            android:text="Time:  0"
             android:textColor="@color/white"
             android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_weight="2" />
+
+        <TextView
+            android:id="@+id/RealScore"
+            android:layout_width="162dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="68dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Score:  0"
+            android:textColor="@color/white"
+            android:textSize="27dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_weight="2" />
 
 
