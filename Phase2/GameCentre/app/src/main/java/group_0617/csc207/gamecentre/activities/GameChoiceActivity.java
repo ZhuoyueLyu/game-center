@@ -20,18 +20,27 @@ import group_0617.csc207.gamecentre.gameSlidingTiles.StartingActivity;
  */
 public class GameChoiceActivity extends AppCompatActivity {
 
+    /**
+     * The session related to database
+     */
     private Session session;
 
+    /**
+     * The current game's name
+     */
     public static String currentGame = "Slidingtiles";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_game_choice);
+
         session = new Session(this);
         if (!session.loggedin()) {
             logout();
         }
+
         addLogoutButtonListener();
         addSlidingtilesButtonListener();
         addOtherGame1ButtonListener();
@@ -143,15 +152,6 @@ public class GameChoiceActivity extends AppCompatActivity {
         finish();
         startActivity(new Intent(GameChoiceActivity.this, LoginActivity.class));
         LoginActivity.currentUser = "";
-    }
-
-    /**
-     * Display the given message
-     *
-     * @param message the given message
-     */
-    private void displayToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     /**
