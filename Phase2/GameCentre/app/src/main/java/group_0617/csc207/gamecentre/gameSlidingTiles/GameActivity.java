@@ -91,6 +91,50 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private List<Bitmap> bitmapList;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        String saveFileName = bundle.getString("tempSaveFileName");
+        loadFromFile(saveFileName);
+        boardManager.makeSolvable();
+        createTileButtons(this);
+        setContentView(R.layout.activity_main);
+        addUndoButtonListener();
+        addUploadButtonListener();
+
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(boardManager.getBoard().getComplexity());
+        gridView.setAbleToFling(false);
+        gridView.setGenericBoardManager(boardManager);
+        boardManager.getBoard().addObserver(this);
+        // Observer sets up desired dimensions as well as calls our display function
+        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
+                                this);
+                        int displayWidth = gridView.getMeasuredWidth();
+                        int displayHeight = gridView.getMeasuredHeight();
+
+                        columnWidth = displayWidth / boardManager.getBoard().getComplexity();
+                        columnHeight = displayHeight / boardManager.getBoard().getComplexity();
+
+                        display();
+                    }
+                });
+    }
+
+    /**
+     * Set up the background image for each button based on the master list
+     * of positions, and then call the adapter to set the view.
+     */
+    public void display() {
+        updateTileButtons();
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+    }
+
     /**
      * Start the game timer at startValue.
      *
@@ -126,51 +170,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
         timerTask.cancel();
         timerTask = null;
         return counts;
-    }
-
-    /**
-     * Set up the background image for each button based on the master list
-     * of positions, and then call the adapter to set the view.
-     */
-    // Display
-    public void display() {
-        updateTileButtons();
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-        String saveFileName = bundle.getString("tempSaveFileName");
-        loadFromFile(saveFileName);
-        boardManager.makeSolvable();
-        createTileButtons(this);
-        setContentView(R.layout.activity_main);
-        addUndoButtonListener();
-        addUploadButtonListener();
-
-        gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(boardManager.getBoard().getComplexity());
-        gridView.setAbleToFling(false);
-        gridView.setGenericBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
-        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
-                                this);
-                        int displayWidth = gridView.getMeasuredWidth();
-                        int displayHeight = gridView.getMeasuredHeight();
-
-                        columnWidth = displayWidth / boardManager.getBoard().getComplexity();
-                        columnHeight = displayHeight / boardManager.getBoard().getComplexity();
-
-                        display();
-                    }
-                });
     }
 
     /**

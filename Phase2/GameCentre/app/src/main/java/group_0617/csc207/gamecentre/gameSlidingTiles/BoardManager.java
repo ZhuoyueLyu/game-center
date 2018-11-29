@@ -61,7 +61,13 @@ public class BoardManager extends GenericBoardManager {
                 }
             }
         }
-        score = 10000 / lastTime / (moveStack.size() + 2 * timesOfUndo);
+        score = 100000000 * (getBoard().getComplexity()-2) / lastTime / (moveStack.size() + 2 * timesOfUndo);
+//        try {
+//            score = 100000000 * (getBoard().getComplexity()-2) / (moveStack.size() + 2 * timesOfUndo) / lastTime;
+//        } catch (ArithmeticException e) {
+//            lastTime = 1;
+//            System.out.println("Zero as dividend. ");
+//        }
         lastTime = 0;
         timesOfUndo = 0;
         return true;
