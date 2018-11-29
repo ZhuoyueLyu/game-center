@@ -115,44 +115,44 @@ public class BoardTest {
      */
     @Test
     public void testMakeSolvable() {
-        boolean isSolved;
+        boolean isSolvable;
 
         // Test make solvable when complexity is 4
         setUpCorrect(4);
         // Make Board Unsolvable
         board.swapTiles(0, 0, 0, 1);
-        isSolved = reflectIsSolvable();
-        assertFalse(isSolved);
+        isSolvable = reflectIsSolvable();
+        assertFalse(isSolvable);
         board.makeSolvable();
-        isSolved = reflectIsSolvable();
-        assertTrue(isSolved);
+        isSolvable = reflectIsSolvable();
+        assertTrue(isSolvable);
 
         // When complexity is 3
         setUpCorrect(3);
         board.swapTiles(0, 0, 0, 1);
-        isSolved = reflectIsSolvable();
-        assertFalse(isSolved);
+        isSolvable = reflectIsSolvable();
+        assertFalse(isSolvable);
         board.makeSolvable();
-        isSolved = reflectIsSolvable();
-        assertTrue(isSolved);
+        isSolvable = reflectIsSolvable();
+        assertTrue(isSolvable);
 
         // When complexity is 2
         setUpCorrect(2);
         board.swapTiles(0, 0, 0, 1);
-        isSolved = reflectIsSolvable();
-        assertFalse(isSolved);
+        isSolvable = reflectIsSolvable();
+        assertFalse(isSolvable);
         board.makeSolvable();
-        isSolved = reflectIsSolvable();
-        assertTrue(isSolved);
+        isSolvable = reflectIsSolvable();
+        assertTrue(isSolvable);
 
         // When complexity is 6
         setUpCorrect(6);
         board.swapTiles(0, 0, 0, 1);
-        isSolved = reflectIsSolvable();
-        assertFalse(isSolved);
+        isSolvable = reflectIsSolvable();
+        assertFalse(isSolvable);
         board.makeSolvable();
-        isSolved = reflectIsSolvable();
-        assertTrue(isSolved);
+        isSolvable = reflectIsSolvable();
+        assertTrue(isSolvable);
     }
 
     /**
