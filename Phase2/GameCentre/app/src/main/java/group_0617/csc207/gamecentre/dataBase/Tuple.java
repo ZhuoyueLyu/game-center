@@ -1,12 +1,14 @@
 package group_0617.csc207.gamecentre.dataBase;
 
+import java.io.Serializable;
+
 /**
  * This tuple class is used to store corresponding data of unspecified type
  *
  * @param <X> the X class stored
  * @param <Y> the Y class stored
  */
-public class Tuple<X,Y> {
+public class Tuple<X,Y> implements Serializable {
 
     /**
      * The x stored by the tuple
