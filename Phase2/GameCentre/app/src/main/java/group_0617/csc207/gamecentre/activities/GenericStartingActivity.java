@@ -39,14 +39,13 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      */
     private GenericBoardManager genericBoardManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //boardManager = new BoardManager(complexity);
-        saveToFile(TEMP_SAVE_FILENAME);
 
+        saveToFile(TEMP_SAVE_FILENAME);
         setContentView(R.layout.activity_starting_);
+
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
@@ -107,7 +106,6 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             case 3:
                 complexity.setText("Easy (3x3)");
                 break;
-
             case 4:
                 complexity.setText("Medium (4x4)");
                 break;
