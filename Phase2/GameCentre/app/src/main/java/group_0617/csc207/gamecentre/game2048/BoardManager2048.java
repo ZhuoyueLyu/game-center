@@ -48,13 +48,6 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
     }
 
     /**
-     * Return the current board.
-     */
-    public Board2048 getBoard() {
-        return board2048;
-    }
-
-    /**
      * Manage a new shuffled board.
      */
     public BoardManager2048(int complexity) {
@@ -67,30 +60,25 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
         board2048.addRandomTile();
     }
 
-    /**
-     * Return whether the tiles are in row-major order.
-     *
-     * @return whether the tiles are in row-major order
-     */
+    @Override
     public boolean puzzleSolved() {
         int biggestNum = 0;
 
         int[] moves = {Game2048Activity.UP, Game2048Activity.DOWN, Game2048Activity.LEFT, Game2048Activity.RIGHT};
-        for (int move: moves){
-            if (isValidTap(move)){
+        for (int move : moves) {
+            if (isValidTap(move)) {
                 return false;
             }
         }
 
         for (int i = 0; i < board2048.getComplexity(); i++) {
             for (int j = 0; j < board2048.getComplexity(); j++) {
-                if (board2048.getTile(i,j).getId() > biggestNum) {
+                if (board2048.getTile(i, j).getId() > biggestNum) {
                     try {
-                        score = biggestNum / (getStepNum() + timesOfUndo) / lastTime;
-                    }
-                    catch (Exception e){
+                        score = biggestNum / (timesOfUndo + boardStack.size() + timesOfUndo) / lastTime;
+                    } catch (ArithmeticException e) {
                         lastTime = 1;
-                        System.out.println("Divided by zero. ");
+                        System.out.println("Zero as dividend. ");
                     }
                     lastTime = 0;
                     timesOfUndo = 0;
@@ -101,12 +89,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
         return true;
     }
 
-    /**
-     * Return whether any of the four surrounding tiles is the blank tile.
-     *
-     * @param move the direction to check
-     * @return whether the tile at position is surrounded by a blank tile
-     */
+    @Override
     public boolean isValidTap(int move) {
         Tile2048[][] tiles = board2048.getTiles();
         Tile2048[][] columnTiles = new Tile2048[board2048.getComplexity()][board2048.getComplexity()];
@@ -115,13 +98,14 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
                 columnTiles[row][col] = tiles[col][row];
             }
         }
+
         switch (move) {
             case Game2048Activity.LEFT:
                 for (Tile2048[] line : tiles) {
                     Tile2048[] lineCopy = line.clone();
                     board2048.leftCombine(lineCopy);
-                    for (int i = 0; i < line.length; i++){
-                        if (line[i].getId() != lineCopy[i].getId()){
+                    for (int i = 0; i < line.length; i++) {
+                        if (line[i].getId() != lineCopy[i].getId()) {
                             return true;
                         }
                     }
@@ -138,8 +122,8 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
                     for (int k = 0; k < line.length; k++) {
                         line[k] = reverseLine[line.length - 1 - k];
                     }
-                    for (int i = 0; i < line.length; i++){
-                        if (line[i].getId() != lineCopy[i].getId()){
+                    for (int i = 0; i < line.length; i++) {
+                        if (line[i].getId() != lineCopy[i].getId()) {
                             return true;
                         }
                     }
@@ -149,8 +133,8 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
                 for (Tile2048[] line : columnTiles) {
                     Tile2048[] lineCopy = line.clone();
                     board2048.leftCombine(line);
-                    for (int i = 0; i < line.length; i++){
-                        if (line[i].getId() != lineCopy[i].getId()){
+                    for (int i = 0; i < line.length; i++) {
+                        if (line[i].getId() != lineCopy[i].getId()) {
                             return true;
                         }
                     }
@@ -167,8 +151,8 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
                     for (int k = 0; k < line.length; k++) {
                         line[k] = reverseLine[line.length - 1 - k];
                     }
-                    for (int i = 0; i < line.length; i++){
-                        if (line[i].getId() != lineCopy[i].getId()){
+                    for (int i = 0; i < line.length; i++) {
+                        if (line[i].getId() != lineCopy[i].getId()) {
                             return true;
                         }
                     }
@@ -178,6 +162,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
         return false;
     }
 
+    @Override
     public void touchMove(int move) {
 
         List<Tile2048> tiles = new ArrayList<>();
@@ -209,8 +194,11 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
         }
     }
 
-    public int getStepNum(){
-        return timesOfUndo+boardStack.size();
+    /**
+     * Return the current board.
+     */
+    public Board2048 getBoard() {
+        return board2048;
     }
 
     /**
@@ -233,6 +221,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
     public int getTimesOfUndo() {
         return this.timesOfUndo;
     }
+
     /**
      * Return the score.
      */
