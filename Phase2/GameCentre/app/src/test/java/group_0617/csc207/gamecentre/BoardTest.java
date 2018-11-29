@@ -1,10 +1,14 @@
 
 package group_0617.csc207.gamecentre;
 
+import android.util.Log;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
@@ -22,6 +26,9 @@ public class BoardTest {
      */
     private Board board;
 
+    /**
+     * The tiles for testing
+     */
     private List<Tile> tiles;
 
     /**
@@ -41,18 +48,31 @@ public class BoardTest {
     }
 
     /**
+     * Does the reflection to access private method isSolvable of board
+     */
+    private boolean reflectIsSolvable() {
+        boolean re = false;
+        try {
+            Method boardIsSolvable = board.getClass().getDeclaredMethod("isSolvable");
+            boardIsSolvable.setAccessible(true);
+            re = (boolean) boardIsSolvable.invoke(board);
+        } catch (NoSuchMethodException e) {
+            Log.e("BoardTest", "Methods isSolvable was not found");
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return re;
+    }
+
+    /**
      * Make a solved Board.
      */
     private void setUpCorrect() {
         List<Tile> tiles = makeTiles();
         board = new Board(tiles);
-    }
-
-    /**
-     * Make a unsolvable Board
-     */
-    private void setUpUnsolvable() {
-
     }
 
     /**
@@ -62,7 +82,6 @@ public class BoardTest {
     public void testNumTiles() {
         setUpCorrect();
         assertEquals(board.getComplexity() * board.getComplexity(), board.numTiles());
-
     }
 
     /**
@@ -94,11 +113,12 @@ public class BoardTest {
     @Test
     public void testMakeSolvable() {
         setUpCorrect();
-        int complexity = board.getComplexity();
-        board.swapTiles(complexity - 1, complexity - 3, complexity - 1,
-                complexity - 2);
+        board.swapTiles(0, 0, 0, 1);
+        boolean isSolved = reflectIsSolvable();
+        assertFalse(isSolved);
         board.makeSolvable();
-        assertTrue(board.isSolvable());
+        isSolved = reflectIsSolvable();
+        assertTrue(isSolved);
     }
 
     /**
@@ -110,8 +130,11 @@ public class BoardTest {
         int complexity = board.getComplexity();
         board.swapTiles(0, 0, complexity - 1,
                 complexity - 1);
+        boolean isSolved = reflectIsSolvable();
+        assertFalse(isSolved);
         board.makeSolvable();
-        assertTrue(board.isSolvable());
+        isSolved = reflectIsSolvable();
+        assertTrue(isSolved);
     }
 
 
@@ -122,10 +145,10 @@ public class BoardTest {
     public void testBoardIterableSimple() {
         setUpCorrect();
         assertTrue(board instanceof Iterable);
-        if(board instanceof Iterable) {
-            Iterable<Tile> it = (Iterable<Tile>)board;
+        if (board instanceof Iterable) {
+            Iterable<Tile> it = (Iterable<Tile>) board;
             Iterator<Tile> i = it.iterator();
-            assert(i.hasNext());
+            assert (i.hasNext());
             assertEquals(i.next(), tiles.get(0));
 
             i = it.iterator();
