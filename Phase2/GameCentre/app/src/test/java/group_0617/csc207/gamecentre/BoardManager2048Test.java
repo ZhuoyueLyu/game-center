@@ -1,5 +1,6 @@
 package group_0617.csc207.gamecentre;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -34,6 +35,22 @@ public class BoardManager2048Test {
             tiles.add(new Tile2048(numTiles[i], false));
         }
         this.boardManager2048 = new BoardManager2048(new Board2048(tiles));
+    }
+
+    /**
+     * Return an array showing board2048's all tiles' IDs.
+     *
+     * @return an array of IDs.
+     */
+    private int[] getNumTiles() {
+        int[] resultTiles = new int[complexity * complexity];
+        Tile2048[][] tiles = boardManager2048.getBoard().getTiles();
+        for (int row = 0; row != complexity; row++) {
+            for (int col = 0; col != complexity; col++) {
+                resultTiles[row * complexity + col] = tiles[row][col].getId();
+            }
+        }
+        return resultTiles;
     }
 
     /**
@@ -114,13 +131,17 @@ public class BoardManager2048Test {
      */
     @Test
     public void testTouchMove() {
-        int[] numTiles = {2, 2, 2, 2,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0};
+        int[] numTiles = {4, 2, 2, 2,
+                16, 32, 64, 128,
+                128, 64, 32, 16,
+                2, 4, 8, 1024};
         setUpBoardManager2048(numTiles);
         boardManager2048.touchMove(Game2048Activity.RIGHT);
-        assertEquals(1, boardManager2048.getStepNum());
+        int[] expectedTiles = {2, 4, 2, 4,
+                16, 32, 64, 128,
+                128, 64, 32, 16,
+                2, 4, 8, 1024};
+        Assert.assertArrayEquals(expectedTiles, getNumTiles());
     }
 
     /**
@@ -173,8 +194,14 @@ public class BoardManager2048Test {
                 0, 0, 0, 0};
         setUpBoardManager2048(numTiles);
         assertFalse(boardManager2048.undo());
+
         boardManager2048.touchMove(Game2048Activity.RIGHT);
         boardManager2048.undo();
+        int[] expectedTiles = {2, 2, 2, 2,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0};
+        Assert.assertArrayEquals(expectedTiles, getNumTiles());
         assertEquals(1, boardManager2048.getTimesOfUndo());
     }
 }
