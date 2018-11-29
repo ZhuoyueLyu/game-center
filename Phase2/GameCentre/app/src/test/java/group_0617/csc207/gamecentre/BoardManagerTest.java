@@ -1,7 +1,11 @@
 package group_0617.csc207.gamecentre;
 
+import android.util.Log;
+
 import org.junit.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +17,40 @@ import static org.junit.Assert.*;
 
 public class BoardManagerTest {
 
-
+    /**
+     * The complexity to test
+     */
     private int complexity = 4;
 
     /**
-     * The board manager for testing.
+     * The board manager to test.
      */
     private BoardManager boardManager;
 
+    /**
+     * The board to test.
+     */
     private Board board;
+
+    /**
+     * Does the reflection to access private method isSolvable of board
+     */
+    private boolean reflectIsSolvable() {
+        boolean re = false;
+        try {
+            Method boardIsSolvable = board.getClass().getDeclaredMethod("isSolvable");
+            boardIsSolvable.setAccessible(true);
+            re = (boolean) boardIsSolvable.invoke(board);
+        } catch (NoSuchMethodException e) {
+            Log.e("BoardManagerTest", "Method isSolvable was not found");
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return re;
+    }
 
     /**
      * Make a set of tiles that are in order.
@@ -32,7 +61,7 @@ public class BoardManagerTest {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = complexity * complexity;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum + 1,tileNum));
+            tiles.add(new Tile(tileNum + 1, tileNum));
         }
 
         return tiles;
@@ -41,8 +70,9 @@ public class BoardManagerTest {
     /**
      * Make a solved Board.
      */
-    private void setUpCorrect() {
+    private void setUpCorrect(int inComplexity) {
         List<Tile> tiles = makeTiles();
+        complexity = inComplexity;
         board = new Board(tiles);
         boardManager = new BoardManager(complexity);
         boardManager.setLastTime(1);
@@ -55,9 +85,9 @@ public class BoardManagerTest {
      */
     @Test
     public void testIsSolved() {
-        setUpCorrect();
+        setUpCorrect(4);
         assertTrue(boardManager.puzzleSolved());
-        board.swapTiles(0,0,0,1);
+        board.swapTiles(0, 0, 0, 1);
         assertFalse(boardManager.puzzleSolved());
     }
 
@@ -66,7 +96,7 @@ public class BoardManagerTest {
      */
     @Test
     public void testIsValidTap() {
-        setUpCorrect();
+        setUpCorrect(4);
         assertTrue(boardManager.isValidTap(11));
         assertFalse(boardManager.isValidTap(15));
         assertFalse(boardManager.isValidTap(10));
@@ -77,7 +107,7 @@ public class BoardManagerTest {
      */
     @Test
     public void testTouchMove() {
-        setUpCorrect();
+        setUpCorrect(4);
         //The case that the right position is empty
         boardManager.touchMove(14);
         //The case that the left position is empty
@@ -86,7 +116,7 @@ public class BoardManagerTest {
         boardManager.touchMove(11);
         //The case that the up position is empty
         boardManager.touchMove(15);
-        assertEquals(16,board.getTile(3,3).getId());
+        assertEquals(16, board.getTile(3, 3).getId());
 
     }
 
@@ -95,7 +125,7 @@ public class BoardManagerTest {
      */
     @Test
     public void testUndo() {
-        setUpCorrect();
+        setUpCorrect(4);
         //the case where no move has been made
         assertFalse(boardManager.undo());
         boardManager.touchMove(14);
@@ -103,14 +133,14 @@ public class BoardManagerTest {
         boardManager.touchMove(11);
         boardManager.touchMove(15);
         boardManager.undo();
-        assertEquals(12,board.getTile(3,3).getId());
+        assertEquals(12, board.getTile(3, 3).getId());
         boardManager.undo();
         boardManager.undo();
         boardManager.undo();
         //We initialize the times of undo to be 1 (for the sake of testing),
         // and we undo 4 times, so it's 5
-        assertEquals(4 + 1,boardManager.getTimesOfUndo());
-        assertEquals(16,board.getTile(3,3).getId());
+        assertEquals(4 + 1, boardManager.getTimesOfUndo());
+        assertEquals(16, board.getTile(3, 3).getId());
     }
 
     /**
@@ -118,8 +148,8 @@ public class BoardManagerTest {
      */
     @Test
     public void testGetScore() {
-        setUpCorrect();
-        assertEquals(0,boardManager.getScore());
+        setUpCorrect(4);
+        assertEquals(0, boardManager.getScore());
     }
 
     /**
@@ -127,8 +157,8 @@ public class BoardManagerTest {
      */
     @Test
     public void getLastTime() {
-        setUpCorrect();
-        assertEquals(1,boardManager.getLastTime());
+        setUpCorrect(4);
+        assertEquals(1, boardManager.getLastTime());
     }
 
     /**
@@ -136,7 +166,19 @@ public class BoardManagerTest {
      */
     @Test
     public void testGetCurrentGame() {
-        setUpCorrect();
-        assertEquals("st",boardManager.getCurrentGame());
+        setUpCorrect(4);
+        assertEquals("st", boardManager.getCurrentGame());
+    }
+
+    /**
+     * Test the makeSolvable method
+     */
+    @Test
+    public void testMakeSolvable() {
+        setUpCorrect(4);
+        board.swapTiles(0, 0, 0, 1);
+        assertFalse(reflectIsSolvable());
+        boardManager.makeSolvable();
+        assertTrue(reflectIsSolvable());
     }
 }

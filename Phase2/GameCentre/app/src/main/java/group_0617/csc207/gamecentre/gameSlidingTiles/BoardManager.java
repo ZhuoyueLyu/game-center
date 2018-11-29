@@ -200,7 +200,7 @@ public class BoardManager extends GenericBoardManager {
     /**
      * Make the board managed solvable
      */
-    void makeSolvable() {
+    public void makeSolvable() {
         Board board = (Board) getBoard();
         board.makeSolvable();
     }
