@@ -28,29 +28,6 @@ public abstract class GenericBoard extends Observable implements Serializable {
     }
 
     /**
-     * Create a Board given Tiles and complexity
-     *
-     * @param inGenericTiles the tiles given
-     * @param inComplexity   the complexity given
-     */
-    GenericBoard(GenericTile[][] inGenericTiles, int inComplexity) {
-        this.complexity = inComplexity;
-        this.genericTiles = inGenericTiles;
-    }
-
-    /**
-     * Create a Board given Tiles
-     *
-     * @param inGenericTiles the tiles given
-     */
-    GenericBoard(List<GenericTile> inGenericTiles) {
-        Iterator<GenericTile> iter = inGenericTiles.iterator();
-
-        this.complexity = (int) Math.sqrt((double) inGenericTiles.size());
-        this.genericTiles = new GenericTile[complexity][complexity];
-    }
-
-    /**
      * Return the number of tiles
      *
      * @return the number of tiles
