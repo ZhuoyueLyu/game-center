@@ -1,12 +1,10 @@
 package group_0617.csc207.gamecentre.game2048;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.widget.Button;
-
 import java.io.Serializable;
+
 import group_0617.csc207.gamecentre.GenericTile;
 import group_0617.csc207.gamecentre.R;
+
 /**
  * A Tile in a 2048 puzzle.
  */
@@ -23,18 +21,16 @@ public class Tile2048 extends GenericTile implements Serializable {
      * @param backgroundId the id of the background
      */
     public Tile2048(int backgroundId, boolean isNew) {
-        //super(backgroundId);
-        // This looks so ugly.
         this.id = backgroundId;
+
         switch (backgroundId) {
             case 0:
                 setBackground(R.drawable.tile2048_0);
                 break;
             case 2:
-                if (isNew){
+                if (isNew) {
                     setBackground(R.drawable.tile2048_02);
-                }
-                else {
+                } else {
                     setBackground(R.drawable.tile2048_2);
                 }
                 break;
