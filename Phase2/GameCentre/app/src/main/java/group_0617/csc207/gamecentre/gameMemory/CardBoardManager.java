@@ -114,6 +114,7 @@ public class CardBoardManager extends GenericBoardManager {
 
     /**
      * Return the first Card flipped
+     * chosenCards have more than 1 Card
      *
      * @return the first Card flipped
      */
@@ -123,6 +124,7 @@ public class CardBoardManager extends GenericBoardManager {
 
     /**
      * Return the second Card flipped
+     * Precondition: chosenCards have 2 Cards
      *
      * @return the second Card flipped
      */
@@ -132,13 +134,14 @@ public class CardBoardManager extends GenericBoardManager {
 
     /**
      * Get the Card at specified position
+     * Precondition: 0 <= pos < complexity * complexity
      *
      * @param pos the specified position
      * @return the Card at specified position
      */
     public Card getCardAtPos(int pos) {
         int complexity = getBoard().getComplexity();
-        return (Card) getBoard().getGenericTile(pos / complexity,pos % complexity);
+        return (Card) getBoard().getGenericTile(pos / complexity, pos % complexity);
     }
 
     @Override
@@ -147,9 +150,9 @@ public class CardBoardManager extends GenericBoardManager {
     }
 
     /**
-     * The method which return the abbreviation of the Card Memory game, i.e., "CARD"
+     * The method which return the abbreviation of the Card Memory game, i.e., "card"
      *
-     * @return "CARD"
+     * @return "card"
      */
     @Override
     public String getCurrentGame() {
