@@ -2,6 +2,7 @@ package group_0617.csc207.gamecentre.gameSlidingTiles;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -60,48 +61,63 @@ public class Board extends GenericBoard implements Iterable<Tile> {
     }
 
     /**
-     * Count the number of inversion for current tile specified by row and column number
-     *
-     * @param row the row of current tile
-     * @param col the column of current tile
-     * @return the number of inversion for current tile
+     * Give the position of next smaller tile, if there is not a smaller tile return -1
+     * @param pos the position to start finding smaller tile
+     * @param id the id to compare to tell whether current tile is smaller
+     * @return the position of next smaller tile
      */
-    private int countInversion(int row, int col) {
-        int inv = 0;
-        int pos = row * getComplexity() + col;
-        int posToCompare = pos + 1;
-        Tile currentTile = getTile(row, col);
-        Tile tileToCompare;
-        while (posToCompare < numTiles()) {
-            tileToCompare = getTile(posToCompare / getComplexity(), posToCompare % getComplexity());
-            if (tileToCompare.getId() != numTiles()) {
-                if (currentTile.getId() > tileToCompare.getId()) {
-                    inv++;
-                }
+    private int findPosOfNextSmallerTile(int pos, int id) {
+        Tile nextTile;
+        while (pos < numTiles()) {
+            nextTile = getTile(pos / getComplexity(), pos % getComplexity());
+            if (nextTile.getId() < id) {
+                return pos;
             }
-            posToCompare++;
+            pos++;
         }
 
-        return inv;
+        // Meaning no smaller tile is found
+        return -1;
     }
 
     /**
-     * Return the sum of polarity over all tiles in the blank.
-     *
-     * @return the sum of polarity over all tiles in the blank.
+     * Given a list of integers, this method returns the sum.
+     * @param listToSumOver the list with integers to sum over
+     * @return the sum
      */
-    private int sumOverPolarity() {
-        int totInv = 0;
-        int complexity = getComplexity();
-        for (int i = 0; i < complexity; i++) {
-            for (int j = 0; j < complexity; j++) {
-                Tile curTile = getTile(i, j);
-                if (curTile.getId() != numTiles()) {
-                    totInv = totInv + countInversion(i, j);
+    private int sumOverIntegerList(List<Integer> listToSumOver) {
+        int sum = 0;
+        for (Integer integer : listToSumOver) {
+            sum += integer;
+        }
+        return sum;
+    }
+
+    /**
+     * Return the sum of polarity over all tiles in the board.
+     *
+     * @return the sum of polarity over all tiles in the board.
+     */
+    private int sumOverInversion() {
+        List<Integer> invList = new ArrayList<>();
+        int posToConsider = numTiles() - 2;
+        for (int i = 0; i < posToConsider + 2; i++) {
+            invList.add(0);
+        }
+
+        Tile curTile;
+        int smallerTilePos;
+        while (posToConsider >= 0) {
+            curTile = getTile(posToConsider / getComplexity(), posToConsider % getComplexity());
+            if (curTile.getId() != numTiles()) {
+                smallerTilePos = findPosOfNextSmallerTile(posToConsider + 1, curTile.getId());
+                if (smallerTilePos != -1) {
+                    invList.set(posToConsider, invList.get(smallerTilePos) + 1);
                 }
             }
+            posToConsider--;
         }
-        return totInv;
+        return sumOverIntegerList(invList);
     }
 
     /**
@@ -110,7 +126,7 @@ public class Board extends GenericBoard implements Iterable<Tile> {
      * @return if the board is solvable
      */
     private boolean isSolvable() {
-        boolean isEvenPol = sumOverPolarity() % 2 == 0;
+        boolean isEvenPol = sumOverInversion() % 2 == 0;
         int complexity = getComplexity();
         return complexity % 2 == 1 && isEvenPol || complexity % 2 == 0 && blankOnOddRowFromBottom() == isEvenPol;
     }
