@@ -146,7 +146,9 @@ public class CardBoardManager extends GenericBoardManager {
 
     @Override
     public int getScore() {
-        return -this.moves;
+        int Base = 1000;
+        double decay = 0.01;
+        return (int) (Base * Math.exp(-this.moves * decay));
     }
 
     /**
