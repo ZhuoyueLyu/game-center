@@ -1,6 +1,7 @@
 package group_0617.csc207.gamecentre.gameSlidingTiles;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +33,7 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import group_0617.csc207.gamecentre.GenericBoardManagerSaveLoader;
 import group_0617.csc207.gamecentre.activities.CustomAdapter;
 import group_0617.csc207.gamecentre.activities.GameChoiceActivity;
 import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
@@ -58,6 +60,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The number of loaded image.
      */
     private static int RESULT_LOAD_IMAGE = 1;
+
+    private GameActivityController controller;
+
+    private GenericBoardManagerSaveLoader saveLoader;
 
     /**
      * Constants for swiping directions. Should be an enum, probably.
@@ -146,14 +152,17 @@ public class GameActivity extends AppCompatActivity implements Observer {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
                         counts++;
                         TextView score = (TextView) findViewById(R.id.Score);
                         score.setText("Time: " + counts + " s");
                         boardManager.setLastTime(counts);
-                        saveToFile("save_file_" + GameChoiceActivity.currentGame + "_" +
-                                boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
+                        saveLoader.saveGenericBoardManager(boardManager,"save_file_" +
+                                GameChoiceActivity.currentGame + "_" +
+                                boardManager.getBoard().getComplexity() + "_" +
+                                LoginActivity.currentUser,getApplicationContext() );
                     }
                 });
             }
