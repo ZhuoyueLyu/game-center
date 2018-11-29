@@ -11,6 +11,9 @@ import group_0617.csc207.gamecentre.GenericBoard;
 /**
  * The sliding tiles board.
  * Which implement Iterable<Tile> and Serializable.
+ * The theory behind how to make a board solvable is taken from
+ * http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+ * Date of retrieval: Nov 17, 2018
  */
 public class Board extends GenericBoard implements Iterable<Tile> {
 
