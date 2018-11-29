@@ -35,6 +35,7 @@ public class BoardManager extends GenericBoardManager {
 
     /**
      * Manage a new shuffled board specifying desired complexity
+     *
      * @param complexity the complexity of board to manage
      */
     public BoardManager(int complexity) {
@@ -55,13 +56,13 @@ public class BoardManager extends GenericBoardManager {
 
         for (int row = 0; row != getBoard().getComplexity(); row++) {
             for (int col = 0; col != getBoard().getComplexity(); col++) {
-                int correct_older_id = 4 * row + col + 1;
+                int correct_older_id = getBoard().getComplexity() * row + col + 1;
                 if (getId(row, col) != correct_older_id) {
                     return false;
                 }
             }
         }
-        score = 10000 / lastTime / (moveStack.size() + 2*timesOfUndo);
+        score = 10000 / lastTime / (moveStack.size() + 2 * timesOfUndo);
         lastTime = 0;
         timesOfUndo = 0;
         return true;
@@ -125,7 +126,7 @@ public class BoardManager extends GenericBoardManager {
                 && row >= 0
                 && col <= board.getComplexity() - 1
                 && col >= 0) {
-            Tile curTile = (Tile)board.getGenericTile(row, col);
+            Tile curTile = (Tile) board.getGenericTile(row, col);
             return curTile.getId();
         }
 //        this -1 means the row and col is out of bound;
@@ -182,6 +183,7 @@ public class BoardManager extends GenericBoardManager {
 
     /**
      * The method which return the abbreviation of the SlidingTiles game, i.e., "ST"
+     *
      * @return "ST"
      */
     @Override
