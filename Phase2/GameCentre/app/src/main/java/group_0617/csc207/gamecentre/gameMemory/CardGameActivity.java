@@ -1,23 +1,30 @@
 package group_0617.csc207.gamecentre.gameMemory;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import group_0617.csc207.gamecentre.activities.CustomAdapter;
 import group_0617.csc207.gamecentre.GenericBoard;
 import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
 import group_0617.csc207.gamecentre.R;
+import group_0617.csc207.gamecentre.activities.LoginActivity;
+import group_0617.csc207.gamecentre.gameSlidingTiles.StartingActivity;
 
 /**
  * The Activity in Memory Game
@@ -42,18 +49,16 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
     private int complexity;
 
     /**
+     * The timer stuffs for the game.
+     */
+    private Timer timer = new Timer("GameActivityTimer");
+    public int counts = 0;
+    private TimerTask timerTask = null;
+
+    /**
      * The name of the game
      */
     private static final String GAME_NAME = "MemoryGame";
-
-
-    /**
-     * Update the buttons and set adapter
-     */
-    public void display() {
-        updateTileButtons();
-        gridView.setAdapter(new CustomAdapter(cardButtons, columnWidth, columnHeight));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,73 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_memory_game);
         cardBoardManager.getBoard().addObserver(this);
         initializeGridView();
+    }
+
+    /**
+     * Update the buttons and set adapter
+     */
+    public void display() {
+        updateTileButtons();
+        gridView.setAdapter(new CustomAdapter(cardButtons, columnWidth, columnHeight));
+        TextView realScore = findViewById(R.id.RealScore);
+        realScore.setText("Score: " + cardBoardManager.getScore());
+    }
+
+    /**
+     * Start the game timer at startValue.
+     *
+     * @param startValue the start value to set the counts of timer
+     */
+    private void startTimer(int startValue) {
+        counts = startValue;
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void run() {
+                        counts++;
+                        TextView score = findViewById(R.id.Score);
+                        score.setText("Time: " + counts + " s");
+                        cardBoardManager.setLastTime(counts);
+                        saveToFile("save_file_" +
+                                cardBoardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
+                    }
+                });
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, new Date(), 1000);
+    }
+
+    /**
+     * Stop the timer and return counts (the stop time).
+     *
+     * @return the stop time counts.
+     */
+    public int stopTimer() {
+        timerTask.cancel();
+        timerTask = null;
+        return counts;
+    }
+
+    /**
+     * Dispatch onPause() to fragments.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        cardBoardManager.setLastTime(stopTimer());
+    }
+
+    /**
+     * Dispatch onResumee() to fragments.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTimer(cardBoardManager.getLastTime());
     }
 
     /**

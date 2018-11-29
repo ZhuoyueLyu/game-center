@@ -22,6 +22,11 @@ public class CardBoardManager extends GenericBoardManager {
     private List<Card> chosenCards;
 
     /**
+     * The time of last game's timer counts.
+     */
+    private int lastTime = 0;
+
+    /**
      * Create a CardBoardManager given a new CardBoard with specified complexity
      *
      * @param complexity the complexity desired
@@ -152,6 +157,20 @@ public class CardBoardManager extends GenericBoardManager {
     }
 
     /**
+     * Return the last timer counts.
+     */
+    public int getLastTime() {
+        return lastTime;
+    }
+
+    /**
+     * Set lastTime at lastTime.
+     */
+    public void setLastTime(int lastTime) {
+        this.lastTime = lastTime;
+    }
+
+    /**
      * The method which return the abbreviation of the Card Memory game, i.e., "card"
      *
      * @return "card"
@@ -160,4 +179,6 @@ public class CardBoardManager extends GenericBoardManager {
     public String getCurrentGame() {
         return "card";
     }
+
+
 }
