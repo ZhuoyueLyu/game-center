@@ -132,6 +132,16 @@ public class CardBoardManagerTest {
     }
 
     /**
+     * Test whether getLastTime works
+     */
+    @Test
+    public void testGetLastTime() {
+        setUpSpecificBoard();
+        cardBoardManager.setLastTime(100);
+        assertEquals(100, cardBoardManager.getLastTime());
+    }
+
+    /**
      * Test the getCurrentGame method
      */
     @Test

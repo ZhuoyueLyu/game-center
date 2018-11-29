@@ -86,17 +86,13 @@ public class BoardManager2048Test {
                 512, 1024, 2, 8,
                 2, 2, 8, 2};
         setUpBoardManager2048(numTiles1);
-        boardManager2048.setLastTime(100);
-        boardManager2048.touchMove(Game2048Activity.LEFT);
         assertFalse(boardManager2048.puzzleSolved());
 
         int[] numTiles2 = {2, 4, 8, 16,
                 32, 64, 128, 256,
-                512, 1024, 1024, 8,
+                512, 1024, 4096, 8,
                 4, 16, 2, 1};
         setUpBoardManager2048(numTiles2);
-        boardManager2048.setLastTime(100);
-        boardManager2048.touchMove(Game2048Activity.RIGHT);
         assertTrue(boardManager2048.puzzleSolved());
     }
 
@@ -180,7 +176,8 @@ public class BoardManager2048Test {
                 0, 0, 0, 0,
                 0, 0, 0, 0};
         setUpBoardManager2048(numTiles);
-        assertEquals(0, boardManager2048.getLastTime());
+        boardManager2048.setLastTime(100);
+        assertEquals(100, boardManager2048.getLastTime());
     }
 
     /**
