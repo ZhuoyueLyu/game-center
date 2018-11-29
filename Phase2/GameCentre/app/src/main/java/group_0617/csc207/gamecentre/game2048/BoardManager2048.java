@@ -62,30 +62,15 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
 
     @Override
     public boolean puzzleSolved() {
-        int biggestNum = 0;
-
         int[] moves = {Game2048Activity.UP, Game2048Activity.DOWN, Game2048Activity.LEFT, Game2048Activity.RIGHT};
         for (int move : moves) {
             if (isValidTap(move)) {
                 return false;
             }
         }
-
-        for (int i = 0; i < board2048.getComplexity(); i++) {
-            for (int j = 0; j < board2048.getComplexity(); j++) {
-                if (board2048.getTile(i, j).getId() > biggestNum) {
-                    try {
-                        score = biggestNum / (timesOfUndo + boardStack.size() + timesOfUndo) / lastTime;
-                    } catch (ArithmeticException e) {
-                        lastTime = 1;
-                        System.out.println("Zero as dividend. ");
-                    }
-                    lastTime = 0;
-                    timesOfUndo = 0;
-                    boardStack = new Stack<>();
-                }
-            }
-        }
+        lastTime = 0;
+        timesOfUndo = 0;
+        boardStack = new Stack<>();
         return true;
     }
 
@@ -175,6 +160,15 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
         boardStack.add(newBoard);
 
         board2048.swipeMove(move);
+
+        int sum = 0;
+        for (int i = 0; i < board2048.getComplexity(); i++) {
+            for (int j = 0; j < board2048.getComplexity(); j++) {
+                sum += board2048.getTile(i, j).getId();
+            }
+        }
+        score = sum - timesOfUndo*board2048.getComplexity();
+
         board2048.addRandomTile();
     }
 
@@ -188,8 +182,17 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
             return false;
         } else {
             Board2048 newBoard2048 = boardStack.pop();
-            board2048.applyBoard(newBoard2048);
             timesOfUndo++;
+
+            int sum = 0;
+            for (int i = 0; i < newBoard2048.getComplexity(); i++) {
+                for (int j = 0; j < newBoard2048.getComplexity(); j++) {
+                    sum += newBoard2048.getTile(i, j).getId();
+                }
+            }
+            score = sum - timesOfUndo*board2048.getComplexity();
+
+            board2048.applyBoard(newBoard2048);
             return true;
         }
     }

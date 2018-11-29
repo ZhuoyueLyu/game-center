@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,68 +57,11 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
     private static int columnWidth, columnHeight;
 
     /**
-     * The timer for the game.
+     * The timer stuffs for the game.
      */
     private Timer timer = new Timer("GameActivityTimer");
-
-    /**
-     * The timer counts for the timer.
-     */
     public int counts = 0;
-
-    /**
-     * The timer task for the timer.
-     */
     private TimerTask timerTask = null;
-
-
-    /**
-     * Start the game timer at startValue.
-     *
-     * @param startValue the start value to set the counts of timer
-     */
-    private void startTimer(int startValue) {
-        counts = startValue;
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void run() {
-                        counts++;
-                        TextView score = findViewById(R.id.Score);
-                        score.setText("Time: "+counts);
-                        boardManager2048.setLastTime(counts);
-                        saveToFile("save_file_" +
-                                boardManager2048.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
-                    }
-                });
-            }
-        };
-        timer.scheduleAtFixedRate(timerTask, new Date(), 1000);
-    }
-
-    /**
-     * Stop the timer and return counts (the stop time).
-     *
-     * @return the stop time counts.
-     */
-    public int stopTimer() {
-        timerTask.cancel();
-        timerTask = null;
-        return counts;
-    }
-
-    /**
-     * Set up the background image for each button based on the master list
-     * of positions, and then call the adapter to set the view.
-     */
-    // Display
-    public void display() {
-        updateTileButtons();
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +92,55 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
                         display();
                     }
                 });
+    }
+
+    /**
+     * Set up the background image for each button based on the master list
+     * of positions, and then call the adapter to set the view.
+     */
+    public void display() {
+        updateTileButtons();
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+        TextView realScore = findViewById(R.id.RealScore);
+        realScore.setText("Score: " + boardManager2048.getScore());
+    }
+
+    /**
+     * Start the game timer at startValue.
+     *
+     * @param startValue the start value to set the counts of timer
+     */
+    private void startTimer(int startValue) {
+        counts = startValue;
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void run() {
+                        counts++;
+                        TextView score = findViewById(R.id.Score);
+                        score.setText("Time: " + counts + " s");
+                        boardManager2048.setLastTime(counts);
+                        saveToFile("save_file_" +
+                                boardManager2048.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
+                    }
+                });
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, new Date(), 1000);
+    }
+
+    /**
+     * Stop the timer and return counts (the stop time).
+     *
+     * @return the stop time counts.
+     */
+    public int stopTimer() {
+        timerTask.cancel();
+        timerTask = null;
+        return counts;
     }
 
     /**
