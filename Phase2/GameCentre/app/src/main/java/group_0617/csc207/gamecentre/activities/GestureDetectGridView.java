@@ -16,6 +16,7 @@ import group_0617.csc207.gamecentre.game2048.Game2048Activity;
  * https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
  * <p>
  * This extension of GridView contains built in logic for handling swipes between buttons
+ * excluded from tests because it's a /class
  */
 public class GestureDetectGridView extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
