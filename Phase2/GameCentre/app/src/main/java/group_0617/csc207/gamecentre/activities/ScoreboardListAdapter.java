@@ -17,6 +17,7 @@ http://www.worldbestlearningcenter.com/tips/Android-ListView-Header.htm
 Zhuoyue Lyu Nov 4 2018
 
 This is an adapter which is responsible for adapting the game data to the user scoreboard
+ Excluded from tests because it's a view class.
 
 */
 public class ScoreboardListAdapter extends ArrayAdapter<String> {

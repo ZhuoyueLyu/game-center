@@ -17,7 +17,8 @@ Table code design adapted from
 http://www.worldbestlearningcenter.com/tips/Android-ListView-Header.htm
 Zhuoyue Lyu Nov 4 2018
 
-This is an adapter which is responsible for adapting the game data to the leaderboard
+This is an adapter which is responsible for adapting the game data to the leaderboardE
+ Excluded from tests because it's a model lass.
 */
 
 public class LeaderboardListViewAdapter extends ArrayAdapter<String> {
