@@ -27,7 +27,6 @@ public class CardBoardManagerTest {
      */
     private CardBoard cardBoard;
 
-
     /**
      * Set up a Board specifying it's complexity
      */
@@ -37,6 +36,7 @@ public class CardBoardManagerTest {
 
     /**
      * Set up specific cardBoard and cardBoardManager to test
+     * This board has complexity 4
      */
     private void setUpSpecificBoard() {
         List<Card> cards = new ArrayList<>();
@@ -129,5 +129,14 @@ public class CardBoardManagerTest {
             cardBoardManager.touchMove(i*2);
         }
         assertEquals((int)(1000*Math.exp(-4*0.01)), cardBoardManager.getScore());
+    }
+
+    /**
+     * Test the getCurrentGame method
+     */
+    @Test
+    public void testGetCurrentGame() {
+        setUpSpecificBoard();
+        assertEquals("card", cardBoardManager.getCurrentGame());
     }
 }
