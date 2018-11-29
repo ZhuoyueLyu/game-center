@@ -36,10 +36,9 @@ public class BoardTest {
      *
      * @return a set of tiles that are in order
      */
-    private List<Tile> makeTiles() {
+    private List<Tile> makeTiles(int inComplexity) {
         tiles = new ArrayList<>();
-        int complexity = 4;
-        int numTiles = complexity * complexity;
+        int numTiles = inComplexity * inComplexity;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum + 1, tileNum));
         }
@@ -70,8 +69,8 @@ public class BoardTest {
     /**
      * Make a solved Board.
      */
-    private void setUpCorrect() {
-        List<Tile> tiles = makeTiles();
+    private void setUpCorrect(int inComplexity) {
+        List<Tile> tiles = makeTiles(inComplexity);
         board = new Board(tiles);
     }
 
@@ -80,7 +79,11 @@ public class BoardTest {
      */
     @Test
     public void testNumTiles() {
-        setUpCorrect();
+        setUpCorrect(4);
+        assertEquals(board.getComplexity() * board.getComplexity(), board.numTiles());
+        setUpCorrect(5);
+        assertEquals(board.getComplexity() * board.getComplexity(), board.numTiles());
+        setUpCorrect(10);
         assertEquals(board.getComplexity() * board.getComplexity(), board.numTiles());
     }
 
@@ -89,7 +92,7 @@ public class BoardTest {
      */
     @Test
     public void testGetTile() {
-        setUpCorrect();
+        setUpCorrect(4);
         assertEquals(1, board.getTile(0, 0).getId());
         assertEquals(board.getComplexity() + 2, board.getTile(1, 1).getId());
     }
@@ -99,7 +102,7 @@ public class BoardTest {
      */
     @Test
     public void testSwapTiles() {
-        setUpCorrect();
+        setUpCorrect(4);
         assertEquals(1, board.getTile(0, 0).getId());
         assertEquals(board.getComplexity() + 2, board.getTile(1, 1).getId());
         board.swapTiles(0, 0, 1, 1);
@@ -112,9 +115,40 @@ public class BoardTest {
      */
     @Test
     public void testMakeSolvable() {
-        setUpCorrect();
+        boolean isSolved;
+
+        // Test make solvable when complexity is 4
+        setUpCorrect(4);
+        // Make Board Unsolvable
         board.swapTiles(0, 0, 0, 1);
-        boolean isSolved = reflectIsSolvable();
+        isSolved = reflectIsSolvable();
+        assertFalse(isSolved);
+        board.makeSolvable();
+        isSolved = reflectIsSolvable();
+        assertTrue(isSolved);
+
+        // When complexity is 3
+        setUpCorrect(3);
+        board.swapTiles(0, 0, 0, 1);
+        isSolved = reflectIsSolvable();
+        assertFalse(isSolved);
+        board.makeSolvable();
+        isSolved = reflectIsSolvable();
+        assertTrue(isSolved);
+
+        // When complexity is 2
+        setUpCorrect(2);
+        board.swapTiles(0, 0, 0, 1);
+        isSolved = reflectIsSolvable();
+        assertFalse(isSolved);
+        board.makeSolvable();
+        isSolved = reflectIsSolvable();
+        assertTrue(isSolved);
+
+        // When complexity is 6
+        setUpCorrect(6);
+        board.swapTiles(0, 0, 0, 1);
+        isSolved = reflectIsSolvable();
         assertFalse(isSolved);
         board.makeSolvable();
         isSolved = reflectIsSolvable();
@@ -126,7 +160,7 @@ public class BoardTest {
      */
     @Test
     public void testMakeSolvableForSpecialCase() {
-        setUpCorrect();
+        setUpCorrect(4);
         int complexity = board.getComplexity();
         board.swapTiles(0, 0, complexity - 1,
                 complexity - 1);
@@ -143,7 +177,7 @@ public class BoardTest {
      */
     @Test
     public void testBoardIterableSimple() {
-        setUpCorrect();
+        setUpCorrect(4);
         assertTrue(board instanceof Iterable);
         if (board instanceof Iterable) {
             Iterable<Tile> it = (Iterable<Tile>) board;

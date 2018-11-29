@@ -178,16 +178,21 @@ public class BoardManagerTest {
      */
     @Test
     public void testMakeSolvable() {
+        // Test whether makeSolvable works when board has complexity 4
         setUpCorrect(4);
         board.swapTiles(0, 0, 0, 1);
         assertFalse(reflectIsSolvable());
         boardManager.makeSolvable();
         assertTrue(reflectIsSolvable());
+
+        // When board has complexity 3
         setUpCorrect(3);
         board.swapTiles(0, 0, 0, 1);
         assertFalse(reflectIsSolvable());
         boardManager.makeSolvable();
         assertTrue(reflectIsSolvable());
+
+        // When board has complexity 5
         setUpCorrect(5);
         board.swapTiles(0, 0, 0, 1);
         assertFalse(reflectIsSolvable());
