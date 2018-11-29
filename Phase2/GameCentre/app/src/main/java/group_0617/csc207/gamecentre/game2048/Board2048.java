@@ -22,6 +22,7 @@ public class Board2048 extends GenericBoard implements Serializable {
     public Board2048(List<Tile2048> tiles) {
         int complexity = (int) Math.sqrt((double) tiles.size());
         setComplexity(complexity);
+
         Tile2048[][] newTiles = new Tile2048[complexity][complexity];
         for (int row = 0; row != complexity; row++) {
             for (int col = 0; col != complexity; col++) {
@@ -66,22 +67,6 @@ public class Board2048 extends GenericBoard implements Serializable {
         }
     }
 
-//    /**
-//     * Modify line to concatenate "adjacent" same tiles towards the right.
-//     *
-//     * @param line the array of Tile2048 to be modified.
-//     */
-//    void rightCombine(Tile2048[] line) {
-//        Tile2048[] reverseLine = new Tile2048[line.length];
-//        for (int j = 0; j < line.length; j++) {
-//            reverseLine[j] = line[line.length - 1 - j];
-//        }
-//        leftCombine(reverseLine);
-//        for (int k = 0; k < line.length; k++) {
-//            line[k] = reverseLine[line.length - 1 - k];
-//        }
-//    }
-
     /**
      * Modify generidTiles by concatenate Tile2048s with same values in the dir direction(swipe).
      *
@@ -95,6 +80,7 @@ public class Board2048 extends GenericBoard implements Serializable {
                 columnTiles[row][col] = tiles[col][row];
             }
         }
+
         switch (dir) {
             case Game2048Activity.UP:
                 for (int i = 0; i < getComplexity(); i++) {
@@ -141,8 +127,7 @@ public class Board2048 extends GenericBoard implements Serializable {
                 }
                 break;
         }
-//        setChanged();
-//        notifyObservers();
+
         setGenericTiles(tiles);
     }
 
@@ -193,7 +178,7 @@ public class Board2048 extends GenericBoard implements Serializable {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    public Tile2048 getTile(int row,int col) {
+    public Tile2048 getTile(int row, int col) {
         return (Tile2048) getGenericTile(row, col);
     }
 
