@@ -19,26 +19,75 @@ import group_0617.csc207.gamecentre.game2048.GameActivity2048;
  * excluded from tests because it's a /class
  */
 public class GestureDetectGridView extends GridView {
+
+    /**
+     * The minimum swipe distance would be detected.
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
+
+    /**
+     * The minimum swipe velocity would be detected.
+     */
     public static final int SWIPE_THRESHOLD_VELOCITY = 25;
 
+    /**
+     * The detector of gestures.
+     */
     private GestureDetector gDetector;
+
+    /**
+     * The controller of movement.
+     */
     private MovementController mController;
+
+    /**
+     * The sign of whether we did fling gesture.
+     */
     private boolean mFlingConfirmed = false;
+
+    /**
+     * The sign of whether we can do fling gesture.
+     */
     private boolean ableToFling = false;
+
+    /**
+     * The x coordinate of touch point.
+     */
     private float mTouchX;
+
+    /**
+     * The y coordinate of touch point.
+     */
     private float mTouchY;
 
+    /**
+     * Initialize the GestureDetectGridView.
+     *
+     * @param context the current context
+     */
     public GestureDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * Initialize the GestureDetectGridView.
+     *
+     * @param context the current context
+     * @param attrs the attribute set
+     */
     public GestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * Initialize the GestureDetectGridView.
+     *
+     * @param context the current context
+     * @param attrs the attribute set
+     * @param defStyleAttr the definite style attribute
+     */
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
@@ -51,6 +100,11 @@ public class GestureDetectGridView extends GridView {
         init(context);
     }
 
+    /**
+     * Initilize the GestureDetector.
+     *
+     * @param context the current context
+     */
     private void init(final Context context) {
         mController = new MovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -131,10 +185,20 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Set genericBoardManager at inGenericBoardManager.
+     *
+     * @param inGenericBoardManager the given genericBoardManager
+     */
     public void setGenericBoardManager(GenericBoardManager inGenericBoardManager) {
         mController.setGenericBoardManager(inGenericBoardManager);
     }
 
+    /**
+     * Set ableTofling at ableTofling.
+     *
+     * @param ableToFling the given ableToFling
+     */
     public void setAbleToFling(boolean ableToFling) {
         this.ableToFling = ableToFling;
     }
