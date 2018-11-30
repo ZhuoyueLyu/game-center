@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
 
+/**
+ * The controller of result board activity
+ */
 class ResultBoardActivityController {
     /**
      * Comparing the score and show the highest score

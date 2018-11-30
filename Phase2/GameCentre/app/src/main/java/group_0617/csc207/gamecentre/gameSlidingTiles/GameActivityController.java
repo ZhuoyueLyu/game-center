@@ -11,7 +11,7 @@ public class GameActivityController {
      * Cut the picture evenly and return the list of pieces.
      *
      * @param picture a Bitmap picture
-     * @param boardManager
+     * @param boardManager the boardManager to which bitMap will be sent
      * @return the list of Bitmap pieces.
      */
     List<Bitmap> cutImage(Bitmap picture, BoardManager boardManager) {

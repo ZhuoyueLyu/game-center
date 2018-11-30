@@ -34,7 +34,7 @@ public class ScoreboardListAdapter extends ArrayAdapter<String> {
     private Context context;
 
     /**
-     *view adapter
+     * view adapter
      */
     ScoreboardListAdapter(Context context,int vg,int id,String[] item_list){
         super(context,vg, id, item_list);

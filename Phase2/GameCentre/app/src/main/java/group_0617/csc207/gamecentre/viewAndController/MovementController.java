@@ -15,6 +15,10 @@ class MovementController {
      * The boardManager for current game.
      */
     GenericBoardManager genericBoardManager = null;
+
+    /**
+     * The result to go to
+     */
     Intent result;
 
     /**
