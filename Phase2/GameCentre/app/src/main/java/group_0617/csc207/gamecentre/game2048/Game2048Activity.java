@@ -2,16 +2,9 @@ package group_0617.csc207.gamecentre.game2048;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Observer;
 
 import group_0617.csc207.gamecentre.GenericGameActivity;
 import group_0617.csc207.gamecentre.R;
