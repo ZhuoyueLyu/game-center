@@ -1,5 +1,8 @@
 package group_0617.csc207.gamecentre.viewAndController;
 
+/**
+ * Controller to LeaderboardActivity
+ */
 class LeaderboardActivityController {
     /**
      * Rank the score of a given game (descending)

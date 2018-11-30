@@ -20,10 +20,22 @@ This is an adapter which is responsible for adapting the game data to the user s
 
 */
 public class ScoreboardListAdapter extends ArrayAdapter<String> {
+    /**
+     * groupid of this list
+     */
     private int groupid;
+    /**
+     * the string[] that contains game data
+     */
     private String[] item_list;
+    /**
+     * context
+     */
     private Context context;
 
+    /**
+     *view adapter
+     */
     ScoreboardListAdapter(Context context,int vg,int id,String[] item_list){
         super(context,vg, id, item_list);
         this.context=context;

@@ -16,10 +16,21 @@ The activity which is responsible for displaying the leaderBoard
  Excluded from tests because it's a view class.
  */
 public class LeaderboardActivity extends Activity {
-
+    /**
+     * DatabaseHelper
+     */
     DatabaseHelper db;
+    /**
+     * The String[] that contains Game data
+     */
     String[] listItem;
+    /**
+     * list of leaderBoardData
+     */
     List<Tuple<String, Integer>> leaderBoardData;
+    /**
+     * LeaderboardActivityController
+     */
     LeaderboardActivityController controller;
 
     protected void onCreate(Bundle savedInstanceState) {

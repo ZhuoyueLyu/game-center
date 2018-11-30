@@ -22,10 +22,18 @@ This is an adapter which is responsible for adapting the game data to the leader
 */
 
 public class LeaderboardListViewAdapter extends ArrayAdapter<String> {
+    /**
+     * id of this list view
+     */
     private int groupid;
+    /**
+     * The String[] that contains Game data
+     */
     private String[] item_list;
-    ArrayList<String> desc;
-    Context context;
+    /**
+     * The context
+     */
+    private Context context;
 
     public LeaderboardListViewAdapter(Context context,int vg,int id,String[] item_list) {
         super(context,vg,id,item_list);

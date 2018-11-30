@@ -13,12 +13,23 @@ import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
  * for all three games.
  */
 public class ScoreboardActivity extends Activity {
-
+    /**
+     * Database helper
+     */
     DatabaseHelper db;
+    /**
+     * the string[] that contains game data
+     */
     String[] listItem;
+    /**
+     * ScoreboardActivityController
+     */
     ScoreboardActivityController controller;
 
-
+    /**
+     * onCreat
+     * @param savedInstanceState Bundle
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         controller = new ScoreboardActivityController();
