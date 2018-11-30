@@ -8,8 +8,12 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +52,8 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
     private int columnHeight, columnWidth;
     private int complexity;
 
+    private String tempSaveFileName;
+
     /**
      * The timer stuffs for the game.
      */
@@ -55,18 +61,14 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
     public int counts = 0;
     private TimerTask timerTask = null;
 
-    /**
-     * The name of the game
-     */
-    private static final String GAME_NAME = "MemoryGame";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         complexity = bundle.getInt("complexity");
-        this.cardBoardManager = new CardBoardManager(complexity);
+        tempSaveFileName = bundle.getString("tempSaveFileName");
+        super.onCreate(savedInstanceState);
+        loadFromFile(tempSaveFileName);
         createTileButtons(this);
         setContentView(R.layout.activity_memory_game);
         cardBoardManager.getBoard().addObserver(this);
@@ -127,7 +129,7 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(tempSaveFileName);
         cardBoardManager.setLastTime(stopTimer());
     }
 
@@ -198,7 +200,6 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
      */
     private void saveToFile(String nameToSave) {
         try {
-
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(nameToSave, MODE_PRIVATE));
             outputStream.writeObject(cardBoardManager);
@@ -208,10 +209,32 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Load the board manager from fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void loadFromFile(String fileName) {
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                cardBoardManager = (CardBoardManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("CardGameActivity","File not found: " + e.toString());
+            Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Log.e("CardGameActivity","Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("CardGameActivity","File contained unexpected data type: " + e.toString());
+        }
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         display();
-        String nameToSave = GAME_NAME + complexity;
-        saveToFile(nameToSave);
+        saveToFile(tempSaveFileName);
     }
 }

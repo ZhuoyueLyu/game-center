@@ -24,15 +24,19 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     private int currentComplexity = 4;
 
     /**
+     * The name of the game
+     */
+    private String gameName;
+
+    /**
      * The main save file.
      */
-    private String SAVE_FILENAME = "save_file_" + GameChoiceActivity.currentGame + "_" +
-            currentComplexity + "_" + LoginActivity.currentUser;
+    private String saveFileName;
 
     /**
      * A temporary save file.
      */
-    public static String TEMP_SAVE_FILENAME = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" + "_" + LoginActivity.currentUser;
+    private String tempSaveFileName;
 
     /**
      * The board manager.
@@ -43,7 +47,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        saveToFile(TEMP_SAVE_FILENAME);
+        saveToFile(tempSaveFileName);
         setContentView(R.layout.activity_starting_);
 
         addStartButtonListener();
@@ -53,6 +57,27 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         addRulesButtonListener();
         addLeftArrowButtonListener();
         addRightArrowButtonListener();
+    }
+
+    public String getTempSaveFileName() {
+        return tempSaveFileName;
+    }
+
+    private void setSavePath() {
+        this.saveFileName = "save_file_" + gameName + "_" + currentComplexity
+                + "_" + LoginActivity.currentUser;
+        this.tempSaveFileName = "save_file_tmp_" + gameName + "_" + currentComplexity
+                + "_" + LoginActivity.currentUser;
+    }
+
+    protected void setCurrentComplexity(int currentComplexity) {
+        this.currentComplexity = currentComplexity;
+        setSavePath();
+    }
+
+    protected void setGameName(String gameName) {
+        this.gameName = gameName;
+        setSavePath();
     }
 
     /**
@@ -67,10 +92,8 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView complexity = (TextView) findViewById(R.id.Complexity);
                 if (currentComplexity > 3) {
-                    currentComplexity--;
+                    setCurrentComplexity(currentComplexity - 1);
                     showComplexity(complexity);
-                    setSaveFileName("save_file_" + GameChoiceActivity.currentGame + "_" +
-                            currentComplexity + "_" + LoginActivity.currentUser);
                 }
             }
         });
@@ -88,10 +111,8 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView complexity = (TextView) findViewById(R.id.Complexity);
                 if (currentComplexity < 5) {
-                    currentComplexity++;
+                    setCurrentComplexity(currentComplexity + 1);
                     showComplexity(complexity);
-                    setSaveFileName("save_file_" + GameChoiceActivity.currentGame + "_" +
-                            currentComplexity + "_" + LoginActivity.currentUser);
                 }
             }
         });
@@ -131,8 +152,8 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (loadFromFile(SAVE_FILENAME)) {
-                    saveToFile(TEMP_SAVE_FILENAME);
+                if (loadFromFile(saveFileName)) {
+                    saveToFile(tempSaveFileName);
                     makeToastLoadedText();
                     switchToGame();
                 }
@@ -155,8 +176,8 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToFile(SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
+                saveToFile(saveFileName);
+                saveToFile(tempSaveFileName);
                 makeToastSavedText();
             }
         });
@@ -193,7 +214,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadFromFile(TEMP_SAVE_FILENAME);
+        loadFromFile(tempSaveFileName);
     }
 
     /**
@@ -240,14 +261,5 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      */
     public int getCurrentComplexity() {
         return currentComplexity;
-    }
-
-    /**
-     * Set the name of the save_file
-     *
-     * @param SAVE_FILENAME the name of save_file
-     */
-    public void setSaveFileName(String SAVE_FILENAME) {
-        this.SAVE_FILENAME = SAVE_FILENAME;
     }
 }
