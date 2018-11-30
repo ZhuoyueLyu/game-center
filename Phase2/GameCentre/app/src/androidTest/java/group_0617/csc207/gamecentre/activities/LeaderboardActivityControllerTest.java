@@ -17,12 +17,12 @@ import org.mockito.Mock;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+
+
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
 import group_0617.csc207.gamecentre.dataBase.Tuple;
-import group_0617.csc207.gamecentre.gameSlidingTiles.Board;
-import group_0617.csc207.gamecentre.gameSlidingTiles.BoardManager;
-import group_0617.csc207.gamecentre.gameSlidingTiles.Tile;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
@@ -93,6 +93,8 @@ public class LeaderboardActivityControllerTest {
         //We will get the data for the game under hard and easy mode respectively
         controller.getDataFromDatabase("st",3,leaderboardActivity);
         assertEquals(leaderboardActivity.leaderBoardData,testGameDataForEasy);
+        controller.getDataFromDatabase("st",4,leaderboardActivity);
+        assertThat(leaderboardActivity.leaderBoardData,not(testGameDataForEasy));
         controller.getDataFromDatabase("st",5,leaderboardActivity);
         assertEquals(leaderboardActivity.leaderBoardData,testGameDataForHard);
 
