@@ -14,8 +14,6 @@
     <string name="GameRuleOfSlidingTiles">A Puzzle Game where you must arrange the numbers in the correct order.   You can earn a higher socre by choosing harder level of difficulty, moving faster and \'Undo\' less.</string>
     <string name="sliding_tiles">Sliding Tiles</string>
     <string name="_2048">2048</string>
-    <string name="memory">Memory</string>
-    <string name="_2048">2048</string>
     <string name="log_out">Log out</string>
     <string name="games">Games</string>
 </resources>
