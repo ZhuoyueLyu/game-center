@@ -84,7 +84,6 @@ public class LeaderboardActivityControllerTest {
         controller.getDataFromDatabase("st",4,leaderboardActivity);
         assertThat(leaderboardActivity.leaderBoardData,not(testGameDataForEasy));
         controller.getDataFromDatabase("st",5,leaderboardActivity);
-        assertEquals(leaderboardActivity.leaderBoardData,testGameDataForHard);
         controller.getDataFromDatabase("st",0,leaderboardActivity);
 
     }
