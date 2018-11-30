@@ -66,9 +66,10 @@ public class CardBoardManager extends GenericBoardManager {
     public void touchMove(int pos) {
         getBoardStack().add(null);
 
-        ((CardBoard) getBoard()).flipCard(pos);
+        CardBoard cardBoard = (CardBoard) getBoard();
+        cardBoard.flipCard(pos);
         chosenCards.add(getCardAtPos(pos));
-        setScore((int) (10000 * Math.exp(-getBoardStack().size() * 0.01)));
+        setScore((int) (10000 * Math.exp(-getBoardStack().size() * 0.01/cardBoard.getComplexity())));
 
         updateChosenCards();
     }
