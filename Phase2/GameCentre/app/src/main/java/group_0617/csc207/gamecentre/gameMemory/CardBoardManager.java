@@ -68,7 +68,7 @@ public class CardBoardManager extends GenericBoardManager {
 
         ((CardBoard) getBoard()).flipCard(pos);
         chosenCards.add(getCardAtPos(pos));
-        setScore((int) (1000 * Math.exp(-getBoardStack().size() * 0.01)));
+        setScore((int) (10000 * Math.exp(-getBoardStack().size() * 0.01)));
 
         updateChosenCards();
     }
