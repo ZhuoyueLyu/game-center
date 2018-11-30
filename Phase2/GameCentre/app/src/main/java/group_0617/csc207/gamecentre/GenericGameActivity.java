@@ -4,15 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
@@ -22,17 +19,30 @@ import java.util.TimerTask;
 
 import group_0617.csc207.gamecentre.activities.CustomAdapter;
 import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
-import group_0617.csc207.gamecentre.activities.LoginActivity;
-import group_0617.csc207.gamecentre.game2048.StartingActivity2048;
-import group_0617.csc207.gamecentre.gameSlidingTiles.StartingActivity;
 
+/**
+ * A generic game activity
+ */
 public abstract class GenericGameActivity extends AppCompatActivity implements Observer {
 
+    /**
+     * The board manager of this game activity
+     */
     private GenericBoardManager genericBoardManager;
 
-    private GenericBoardManagerSaveLoader saveLoader;
+    /**
+     * The singleton that save and load board manager
+     */
+    private GenericBoardManagerSaveLoader saveLoader = GenericBoardManagerSaveLoader.getInstance();
 
+    /**
+     * The file path to save to
+     */
     private String saveFileName;
+
+    /**
+     * The temporary path to get initial board manager from
+     */
     private String tempSaveFileName;
 
     /**
@@ -40,7 +50,9 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
      */
     private ArrayList<Button> tileButtons;
 
-    // Grid View and calculated column height and width based on device size
+    /**
+     * Grid View that calculated column height and width based on device size
+     */
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
@@ -48,13 +60,13 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
      * The timer stuffs for the game.
      */
     private Timer timer = new Timer("GameActivityTimer");
-    public int counts = 0;
+    private int counts = 0;
     private TimerTask timerTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(StartingActivity2048.TEMP_SAVE_FILENAME);
+        loadFromFile(tempSaveFileName);
         createTileButtons(this);
 
         gridView = findViewById(R.id.grid);
@@ -88,7 +100,7 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    public void display() {
+    private void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         TextView realScore = findViewById(R.id.RealScore);
@@ -128,7 +140,7 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
      *
      * @return the stop time counts.
      */
-    public int stopTimer() {
+    private int stopTimer() {
         timerTask.cancel();
         timerTask = null;
         return counts;
@@ -140,7 +152,7 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(saveFileName);
         genericBoardManager.setLastTime(stopTimer());
     }
 
@@ -170,15 +182,9 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
      *
      * @param fileName the name of the file
      */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(genericBoardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
+    private void saveToFile(String fileName) {
+        saveLoader.saveGenericBoardManager(genericBoardManager,
+                fileName, this);
     }
 
     /**
@@ -186,7 +192,9 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
      *
      * @param fileName the name of the file
      */
-    public abstract void loadFromFile(String fileName);
+    private void loadFromFile(String fileName) {
+        genericBoardManager = saveLoader.loadGenericBoardManager(fileName, this);
+    }
 
     /**
      * Activate the Undo button.
@@ -198,18 +206,17 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
             public void onClick(View v) {
                 boolean undoAvailable = getGenericBoardManager().undo();
                 if (undoAvailable) {
-                    Toast.makeText(getApplicationContext(), "Undo successfully! You have made " + getGenericBoardManager().getTimesOfUndo() + " times of undo.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Undo successfully! You have made "
+                            + getGenericBoardManager().getTimesOfUndo() +
+                            " times of undo.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Undo failed! This is the original board.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Undo failed! This is the original board.",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
-//    public GenericBoardManagerSaveLoader getSaveLoader() {
-//        return saveLoader;
-//    }
-
 
     public GestureDetectGridView getGridView() {
         return gridView;
@@ -219,7 +226,7 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
         return genericBoardManager;
     }
 
-    public void setGenericBoardManager(GenericBoardManager genericBoardManager) {
+    protected void setGenericBoardManager(GenericBoardManager genericBoardManager) {
         this.genericBoardManager = genericBoardManager;
     }
 
