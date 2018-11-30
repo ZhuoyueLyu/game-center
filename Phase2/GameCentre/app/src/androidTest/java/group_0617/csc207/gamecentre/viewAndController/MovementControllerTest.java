@@ -16,7 +16,14 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * The unit test for MovementController
+ */
 public class MovementControllerTest {
+
+    /**
+     * The movementController to test
+     */
     private MovementController movementController;
 
     /**
@@ -25,7 +32,7 @@ public class MovementControllerTest {
      */
     @Test
     public void testProcessTapMovementAndSetter() {
-        System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
+        System.setProperty("dexmaker.dexcache", getTargetContext().getCacheDir().toString());
         BoardManager boardManager = mock(BoardManager.class);
         Context context = InstrumentationRegistry.getTargetContext();
         Intent result = mock(Intent.class);
@@ -48,12 +55,12 @@ public class MovementControllerTest {
         doNothing().when(boardManager).touchMove(validPosition);
         when(movementController.genericBoardManager.puzzleSolved()).thenReturn(true);
         //call the "if" branch
-        movementController.processTapMovement(context,validPosition);
+        movementController.processTapMovement(context, validPosition);
         when(movementController.genericBoardManager.puzzleSolved()).thenReturn(false);
         //call the "if" branch
-        movementController.processTapMovement(context,validPosition);
+        movementController.processTapMovement(context, validPosition);
         //call the "else" branch
-        movementController.processTapMovement(context,invalidPosition);
+        movementController.processTapMovement(context, invalidPosition);
     }
 
 

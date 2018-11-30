@@ -15,11 +15,15 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit test for LeaderBoardActivityController
+ */
 public class LeaderboardActivityControllerTest {
+
+    /**
+     * The controller to test
+     */
     private LeaderboardActivityController controller;
-    private List<Tuple<String, Integer>> leaderBoardData;
-    private String[] listItem;
-    private DatabaseHelper db;
 
     /**
      * make sure that the score can be ranked in ascending order
@@ -29,19 +33,19 @@ public class LeaderboardActivityControllerTest {
 
         List<Tuple<String, Integer>> leaderBoardData = new ArrayList<Tuple<String, Integer>>();
         String[] listItem = new String[10];
-        leaderBoardData.add(new Tuple<>("user1",100));
-        leaderBoardData.add(new Tuple<>("user2",300));
-        leaderBoardData.add(new Tuple<>("user3",200));
+        leaderBoardData.add(new Tuple<>("user1", 100));
+        leaderBoardData.add(new Tuple<>("user2", 300));
+        leaderBoardData.add(new Tuple<>("user3", 200));
         controller = new LeaderboardActivityController();
-        System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
+        System.setProperty("dexmaker.dexcache", getTargetContext().getCacheDir().toString());
         LeaderboardActivity leaderboardActivity = mock(LeaderboardActivity.class);
         leaderboardActivity.leaderBoardData = leaderBoardData;
         leaderboardActivity.listItem = listItem;
 
         controller.RankTheScore(leaderboardActivity);
-        assertEquals(leaderboardActivity.listItem[0],"1__user2__300");
-        assertEquals(leaderboardActivity.listItem[1],"2__user3__200");
-        assertEquals(leaderboardActivity.listItem[2],"3__user1__100");
+        assertEquals(leaderboardActivity.listItem[0], "1__user2__300");
+        assertEquals(leaderboardActivity.listItem[1], "2__user3__200");
+        assertEquals(leaderboardActivity.listItem[2], "3__user1__100");
 
     }
 
@@ -55,23 +59,19 @@ public class LeaderboardActivityControllerTest {
         List<Tuple<String, Integer>> testGameDataForHard = new ArrayList<Tuple<String, Integer>>();
         String[] listItem = new String[10];
         controller = new LeaderboardActivityController();
-        System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
+        System.setProperty("dexmaker.dexcache", getTargetContext().getCacheDir().toString());
 
-        testGameDataForEasy.add(new Tuple<>("user1",100));
-        testGameDataForEasy.add(new Tuple<>("user2",300));
-        testGameDataForEasy.add(new Tuple<>("user3",200));
+        testGameDataForEasy.add(new Tuple<>("user1", 100));
+        testGameDataForEasy.add(new Tuple<>("user2", 300));
+        testGameDataForEasy.add(new Tuple<>("user3", 200));
 
-        testGameDataForHard.add(new Tuple<>("user1",50));
-        testGameDataForHard.add(new Tuple<>("user2",90));
-        testGameDataForHard.add(new Tuple<>("user3",80));
+        testGameDataForHard.add(new Tuple<>("user1", 50));
+        testGameDataForHard.add(new Tuple<>("user2", 90));
+        testGameDataForHard.add(new Tuple<>("user3", 80));
 
         LeaderboardActivity leaderboardActivity = mock(LeaderboardActivity.class);
         leaderboardActivity.leaderBoardData = leaderBoardData;
         leaderboardActivity.listItem = listItem;
-
-//        DatabaseHelper db = mock(DatabaseHelper.class);
-//        when(db.getLeaderboardData("st" + "easy")).thenReturn(testGameDataForEasy);
-//        when(db.getLeaderboardData("st" + "hard")).thenReturn(testGameDataForHard);
 
         DatabaseHelper db = mock(DatabaseHelper.class);
         when(db.getLeaderboardData("st" + "easy")).thenReturn(testGameDataForEasy);
@@ -79,12 +79,12 @@ public class LeaderboardActivityControllerTest {
         leaderboardActivity.db = db;
 
         //We will get the data for the game under hard and easy mode respectively
-        controller.getDataFromDatabase("st",3,leaderboardActivity);
-        assertEquals(leaderboardActivity.leaderBoardData,testGameDataForEasy);
-        controller.getDataFromDatabase("st",4,leaderboardActivity);
-        assertThat(leaderboardActivity.leaderBoardData,not(testGameDataForEasy));
-        controller.getDataFromDatabase("st",5,leaderboardActivity);
-        controller.getDataFromDatabase("st",0,leaderboardActivity);
+        controller.getDataFromDatabase("st", 3, leaderboardActivity);
+        assertEquals(leaderboardActivity.leaderBoardData, testGameDataForEasy);
+        controller.getDataFromDatabase("st", 4, leaderboardActivity);
+        assertThat(leaderboardActivity.leaderBoardData, not(testGameDataForEasy));
+        controller.getDataFromDatabase("st", 5, leaderboardActivity);
+        controller.getDataFromDatabase("st", 0, leaderboardActivity);
 
     }
 }
