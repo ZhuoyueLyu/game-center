@@ -68,7 +68,7 @@ public class Board2048 extends GenericBoard implements Serializable {
     }
 
     /**
-     * Modify generidTiles by concatenate Tile2048s with same values in the dir direction(swipe).
+     * Modify Tile2048s by concatenate Tile2048s with same values in the dir direction(swipe).
      *
      * @param dir the direction of swipe.
      */
