@@ -36,7 +36,7 @@ public class ResultBoardActivityControllerTest {
         resultBoardActivity.db = db;
         //We will get the data for the game under hard and easy mode respectively
         controller.writeData(100,"st",4,db);
-        controller.writeData(200,"st",7,db);
+        controller.writeData(200,"st",5,db);
         controller.writeData(20,"st",3,db);
         controller.writeData(20,"st",0,db);
 
