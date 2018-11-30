@@ -2,20 +2,18 @@ package group_0617.csc207.gamecentre.activities;
 
 import org.junit.Test;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
-
-
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
 import group_0617.csc207.gamecentre.dataBase.Tuple;
+
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class LeaderboardActivityControllerTest {
     private LeaderboardActivityController controller;
@@ -87,6 +85,7 @@ public class LeaderboardActivityControllerTest {
         assertThat(leaderboardActivity.leaderBoardData,not(testGameDataForEasy));
         controller.getDataFromDatabase("st",5,leaderboardActivity);
         assertEquals(leaderboardActivity.leaderBoardData,testGameDataForHard);
+        controller.getDataFromDatabase("st",0,leaderboardActivity);
 
     }
 }
