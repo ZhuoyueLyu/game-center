@@ -27,7 +27,7 @@ public class BoardManager2048Test {
     private int complexity = 4;
 
     /**
-     * Set up a Board specifying it's complexity
+     * Set up a Board specifying numTiles.
      */
     private void setUpBoardManager2048(int[] numTiles) {
         List<Tile2048> tiles = new ArrayList<>();
@@ -42,9 +42,9 @@ public class BoardManager2048Test {
      *
      * @return an array of IDs.
      */
-    private int[] getNumTiles() {
+    private int[] getNumTiles(Board2048 board2048) {
         int[] resultTiles = new int[complexity * complexity];
-        Tile2048[][] tiles = ((Board2048) boardManager2048.getBoard()).getTiles();
+        Tile2048[][] tiles = board2048.getTiles();
         for (int row = 0; row != complexity; row++) {
             for (int col = 0; col != complexity; col++) {
                 resultTiles[row * complexity + col] = tiles[row][col].getId();
@@ -58,8 +58,12 @@ public class BoardManager2048Test {
      */
     @Test
     public void testConstructor() {
-        boardManager2048 = new BoardManager2048(complexity);
+        boardManager2048 = new BoardManager2048(3);
+        assertEquals(3, boardManager2048.getBoard().getComplexity());
+        boardManager2048 = new BoardManager2048(4);
         assertEquals(4, boardManager2048.getBoard().getComplexity());
+        boardManager2048 = new BoardManager2048(5);
+        assertEquals(5, boardManager2048.getBoard().getComplexity());
     }
 
     /**
@@ -67,13 +71,29 @@ public class BoardManager2048Test {
      */
     @Test
     public void testGetBoard() {
-        int[] numTiles = {2, 4, 8, 16,
+        this.complexity = 3;
+        int[] numTiles3 = {2, 4, 8,
+                32, 64, 128,
+                512, 1024, 2048};
+        setUpBoardManager2048(numTiles3);
+        Assert.assertArrayEquals(numTiles3, getNumTiles((Board2048) boardManager2048.getBoard()));
+
+        this.complexity = 4;
+        int[] numTiles4 = {2, 4, 8, 16,
                 32, 64, 128, 256,
                 512, 1024, 2048, 4096,
                 8192, 16384, 32768, 65536};
-        setUpBoardManager2048(numTiles);
-        Board2048 boardFromMethod = (Board2048) boardManager2048.getBoard();
-        assertEquals(boardManager2048.getBoard(), boardFromMethod);
+        setUpBoardManager2048(numTiles4);
+        Assert.assertArrayEquals(numTiles4, getNumTiles((Board2048) boardManager2048.getBoard()));
+
+        this.complexity = 5;
+        int[] numTiles5 = {2, 4, 8, 16, 2,
+                32, 64, 128, 256, 2,
+                512, 1024, 2048, 4096, 4,
+                8192, 16384, 32768, 65536, 8,
+                2, 4, 8, 2, 4};
+        setUpBoardManager2048(numTiles5);
+        Assert.assertArrayEquals(numTiles5, getNumTiles((Board2048) boardManager2048.getBoard()));
     }
 
     /**
@@ -81,19 +101,50 @@ public class BoardManager2048Test {
      */
     @Test
     public void testPuzzleSolved() {
-        int[] numTiles1 = {2, 8, 16, 256,
+        this.complexity = 3;
+        int[] numTiles3f = {2, 8, 16,
+                512, 1024, 2,
+                2, 2, 8};
+        setUpBoardManager2048(numTiles3f);
+        assertFalse(boardManager2048.puzzleSolved());
+        int[] numTiles3t = {2, 8, 16,
+                512, 1024, 2,
+                2, 16, 8};
+        setUpBoardManager2048(numTiles3t);
+        assertTrue(boardManager2048.puzzleSolved());
+
+        this.complexity = 4;
+        int[] numTiles4f = {2, 8, 16, 256,
                 32, 64, 128, 256,
                 512, 1024, 2, 8,
                 2, 2, 8, 2};
-        setUpBoardManager2048(numTiles1);
+        setUpBoardManager2048(numTiles4f);
         assertFalse(boardManager2048.puzzleSolved());
 
-        int[] numTiles2 = {2, 4, 8, 16,
+        int[] numTiles4t = {2, 4, 8, 16,
                 32, 64, 128, 256,
                 512, 1024, 4096, 8,
                 4, 16, 2, 1};
-        setUpBoardManager2048(numTiles2);
+        setUpBoardManager2048(numTiles4t);
         assertTrue(boardManager2048.puzzleSolved());
+
+        this.complexity = 5;
+        int[] numTiles5f = {2, 4, 8, 16, 2,
+                32, 64, 128, 256, 2,
+                512, 1024, 2048, 4096, 4,
+                8192, 16384, 32768, 65536, 8,
+                2, 4, 8, 2, 4};
+        setUpBoardManager2048(numTiles5f);
+        assertFalse(boardManager2048.puzzleSolved());
+
+        int[] numTiles5t = {2, 4, 8, 16, 2,
+                32, 64, 128, 256, 32,
+                512, 1024, 2048, 4096, 4,
+                8192, 16384, 32768, 65536, 8,
+                2, 4, 8, 2, 4};
+        setUpBoardManager2048(numTiles5t);
+        assertTrue(boardManager2048.puzzleSolved());
+
     }
 
     /**
@@ -101,21 +152,64 @@ public class BoardManager2048Test {
      */
     @Test
     public void testIsValidTap() {
-        int[] numTiles1 = {1, 0, 0, 0,
-                1, 0, 0, 0,
-                1, 0, 0, 0,
-                3, 0, 0, 0};
-        setUpBoardManager2048(numTiles1);
+        this.complexity = 3;
+        int[] numTiles3 = {1, 0, 0,
+                1, 0, 0,
+                1, 0, 0,};
+        setUpBoardManager2048(numTiles3);
         assertFalse(boardManager2048.isValidTap(Game2048Activity.LEFT));
         assertTrue(boardManager2048.isValidTap(Game2048Activity.UP));
         assertTrue(boardManager2048.isValidTap(Game2048Activity.RIGHT));
         assertTrue(boardManager2048.isValidTap(Game2048Activity.DOWN));
 
-        int[] numTiles2 = {0, 0, 0, 2,
+        int[] numTiles3_ = {0, 0, 2,
+                0, 0, 4,
+                0, 0, 8};
+        setUpBoardManager2048(numTiles3_);
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.UP));
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.RIGHT));
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.DOWN));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.LEFT));
+
+        this.complexity = 4;
+        int[] numTiles4 = {1, 0, 0, 0,
+                1, 0, 0, 0,
+                1, 0, 0, 0,
+                3, 0, 0, 0};
+        setUpBoardManager2048(numTiles4);
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.LEFT));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.UP));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.RIGHT));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.DOWN));
+
+        int[] numTiles4_ = {0, 0, 0, 2,
                 0, 0, 0, 4,
                 0, 0, 0, 8,
                 0, 0, 0, 16};
-        setUpBoardManager2048(numTiles2);
+        setUpBoardManager2048(numTiles4_);
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.UP));
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.RIGHT));
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.DOWN));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.LEFT));
+
+        this.complexity = 5;
+        int[] numTiles5 = {1, 0, 0, 0, 0,
+                1, 0, 0, 0, 0,
+                1, 0, 0, 0, 0,
+                4, 0, 0, 0, 0,
+                4, 0, 0, 0, 0};
+        setUpBoardManager2048(numTiles5);
+        assertFalse(boardManager2048.isValidTap(Game2048Activity.LEFT));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.UP));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.RIGHT));
+        assertTrue(boardManager2048.isValidTap(Game2048Activity.DOWN));
+
+        int[] numTiles5_ = {0, 0, 0, 0, 2,
+                0, 0, 0, 0, 4,
+                0, 0, 0, 0, 8,
+                0, 0, 0, 0, 16,
+                0, 0, 0, 0, 2};
+        setUpBoardManager2048(numTiles5_);
         assertFalse(boardManager2048.isValidTap(Game2048Activity.UP));
         assertFalse(boardManager2048.isValidTap(Game2048Activity.RIGHT));
         assertFalse(boardManager2048.isValidTap(Game2048Activity.DOWN));
@@ -127,30 +221,44 @@ public class BoardManager2048Test {
      */
     @Test
     public void testTouchMove() {
-        int[] numTiles = {4, 2, 2, 2,
-                16, 32, 64, 128,
-                128, 64, 32, 16,
-                2, 4, 8, 1024};
-        setUpBoardManager2048(numTiles);
-        boardManager2048.touchMove(Game2048Activity.RIGHT);
-        int[] expectedTiles = {2, 4, 2, 4,
-                16, 32, 64, 128,
-                128, 64, 32, 16,
-                2, 4, 8, 1024};
-        Assert.assertArrayEquals(expectedTiles, getNumTiles());
-    }
+        this.complexity = 3;
+        int[] numTiles3 = {4, 2, 2,
+                16, 32, 64,
+                128, 64, 32,};
+        setUpBoardManager2048(numTiles3);
+        boardManager2048.touchMove(Game2048Activity.LEFT);
+        int[] expectedTiles3 = {4, 4, 2,
+                16, 32, 64,
+                128, 64, 32,};
+        Assert.assertArrayEquals(expectedTiles3, getNumTiles((Board2048) boardManager2048.getBoard()));
 
-    /**
-     * Test whether getScore works
-     */
-    @Test
-    public void testGetScore() {
-        int[] numTiles = {2, 2, 2, 2,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0};
-        setUpBoardManager2048(numTiles);
-        assertEquals(0, boardManager2048.getScore());
+        this.complexity = 4;
+        int[] numTiles4 = {4, 2, 2, 2,
+                16, 32, 64, 128,
+                128, 64, 32, 16,
+                2, 4, 8, 1024};
+        setUpBoardManager2048(numTiles4);
+        boardManager2048.touchMove(Game2048Activity.RIGHT);
+        int[] expectedTiles4 = {2, 4, 2, 4,
+                16, 32, 64, 128,
+                128, 64, 32, 16,
+                2, 4, 8, 1024};
+        Assert.assertArrayEquals(expectedTiles4, getNumTiles((Board2048) boardManager2048.getBoard()));
+
+        this.complexity = 5;
+        int[] numTiles5 = {4, 2, 2, 2, 4,
+                16, 32, 64, 128, 4,
+                128, 64, 32, 16, 2,
+                2, 4, 8, 1024, 4,
+                4, 8, 128, 256, 8};
+        setUpBoardManager2048(numTiles5);
+        boardManager2048.touchMove(Game2048Activity.UP);
+        int[] expectedTiles5 = {4, 2, 2, 2, 8,
+                16, 32, 64, 128, 2,
+                128, 64, 32, 16, 4,
+                2, 4, 8, 1024, 8,
+                4, 8, 128, 256, 2};
+        Assert.assertArrayEquals(expectedTiles5, getNumTiles((Board2048) boardManager2048.getBoard()));
     }
 
     /**
@@ -185,20 +293,63 @@ public class BoardManager2048Test {
      */
     @Test
     public void testUndo() {
-        int[] numTiles = {2, 2, 2, 2,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0};
-        setUpBoardManager2048(numTiles);
+        this.complexity = 3;
+        int[] numTiles3 = {2, 2, 2,
+                0, 0, 0,
+                0, 0, 0};
+        setUpBoardManager2048(numTiles3);
         assertFalse(boardManager2048.undo());
 
         boardManager2048.touchMove(Game2048Activity.RIGHT);
         boardManager2048.undo();
-        int[] expectedTiles = {2, 2, 2, 2,
+        int[] expectedTiles3 = {2, 2, 2,
+                0, 0, 0,
+                0, 0, 0};
+        Assert.assertArrayEquals(expectedTiles3, getNumTiles((Board2048) boardManager2048.getBoard()));
+        assertEquals(1, boardManager2048.getTimesOfUndo());
+
+        this.complexity = 4;
+        int[] numTiles4 = {2, 2, 2, 2,
                 0, 0, 0, 0,
                 0, 0, 0, 0,
                 0, 0, 0, 0};
-        Assert.assertArrayEquals(expectedTiles, getNumTiles());
-        assertEquals(1, boardManager2048.getTimesOfUndo());
+        setUpBoardManager2048(numTiles4);
+        assertFalse(boardManager2048.undo());
+
+        boardManager2048.touchMove(Game2048Activity.RIGHT);
+        boardManager2048.touchMove(Game2048Activity.RIGHT);
+        boardManager2048.undo();
+        boardManager2048.undo();
+        int[] expectedTiles4 = {2, 2, 2, 2,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0};
+        Assert.assertArrayEquals(expectedTiles4, getNumTiles((Board2048) boardManager2048.getBoard()));
+        assertEquals(2, boardManager2048.getTimesOfUndo());
+
+        this.complexity = 5;
+        int[] numTiles5 = {0, 0, 0, 0, 2,
+                0, 0, 0, 0, 4,
+                0, 0, 0, 0, 8,
+                0, 0, 0, 0, 16,
+                0, 0, 0, 0, 2};
+        setUpBoardManager2048(numTiles5);
+        assertFalse(boardManager2048.undo());
+
+        boardManager2048.touchMove(Game2048Activity.RIGHT);
+        boardManager2048.touchMove(Game2048Activity.LEFT);
+        boardManager2048.touchMove(Game2048Activity.RIGHT);
+        boardManager2048.undo();
+        boardManager2048.undo();
+        boardManager2048.undo();
+        int[] expectedTiles5 = {0, 0, 0, 0, 2,
+                0, 0, 0, 0, 4,
+                0, 0, 0, 0, 8,
+                0, 0, 0, 0, 16,
+                0, 0, 0, 0, 2};
+        Assert.assertArrayEquals(expectedTiles5, getNumTiles((Board2048) boardManager2048.getBoard()));
+        assertEquals(3, boardManager2048.getTimesOfUndo());
+
     }
+
 }
