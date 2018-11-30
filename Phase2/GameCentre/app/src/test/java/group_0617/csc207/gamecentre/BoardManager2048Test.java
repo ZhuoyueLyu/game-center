@@ -44,7 +44,7 @@ public class BoardManager2048Test {
      */
     private int[] getNumTiles() {
         int[] resultTiles = new int[complexity * complexity];
-        Tile2048[][] tiles = boardManager2048.getBoard().getTiles();
+        Tile2048[][] tiles = ((Board2048) boardManager2048.getBoard()).getTiles();
         for (int row = 0; row != complexity; row++) {
             for (int col = 0; col != complexity; col++) {
                 resultTiles[row * complexity + col] = tiles[row][col].getId();
@@ -72,7 +72,7 @@ public class BoardManager2048Test {
                 512, 1024, 2048, 4096,
                 8192, 16384, 32768, 65536};
         setUpBoardManager2048(numTiles);
-        Board2048 boardFromMethod = boardManager2048.getBoard();
+        Board2048 boardFromMethod = (Board2048) boardManager2048.getBoard();
         assertEquals(boardManager2048.getBoard(), boardFromMethod);
     }
 
