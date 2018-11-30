@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -19,7 +19,6 @@ import java.util.TimerTask;
 
 import group_0617.csc207.gamecentre.activities.CustomAdapter;
 import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
-import group_0617.csc207.gamecentre.activities.LoginActivity;
 
 /**
  * A generic game activity
@@ -34,7 +33,7 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
     /**
      * The singleton that save and load board manager
      */
-    private GenericBoardManagerSaveLoader saveLoader = GenericBoardManagerSaveLoader.getInstance();
+    private final GenericBoardManagerSaveLoader saveLoader = GenericBoardManagerSaveLoader.getInstance();
 
     /**
      * The file path to save to
@@ -49,19 +48,31 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
     /**
      * The buttons to display.
      */
-    private ArrayList<Button> tileButtons;
+    private List<Button> tileButtons;
 
     /**
      * Grid View that calculated column height and width based on device size
      */
     private GestureDetectGridView gridView;
+
+    /**
+     * The column height and width
+     */
     private static int columnWidth, columnHeight;
 
     /**
-     * The timer stuffs for the game.
+     * The timer of the game.
      */
-    private Timer timer = new Timer("GameActivityTimer");
+    private final Timer timer = new Timer("GameActivityTimer");
+
+    /**
+     * The counts of seconds passed
+     */
     private int counts = 0;
+
+    /**
+     * The task of the timer
+     */
     private TimerTask timerTask = null;
 
     @Override
@@ -219,30 +230,56 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
         });
     }
 
+    /**
+     * Return the grid view of this game activity
+     *
+     * @return the grid view of this game activity
+     */
     public GestureDetectGridView getGridView() {
         return gridView;
     }
 
+    /**
+     * Return the generic board manager of this game
+     *
+     * @return the generic board manager of this game
+     */
     public GenericBoardManager getGenericBoardManager() {
         return genericBoardManager;
     }
 
-    protected void setGenericBoardManager(GenericBoardManager genericBoardManager) {
-        this.genericBoardManager = genericBoardManager;
-    }
-
-    public ArrayList<Button> getTileButtons() {
+    /**
+     * Return the list of buttons for tiles
+     *
+     * @return the list of buttons for tiles
+     */
+    public List<Button> getTileButtons() {
         return tileButtons;
     }
 
-    public void setTileButtons(ArrayList<Button> tileButtons) {
+    /**
+     * Set the buttons of the tiles
+     *
+     * @param tileButtons list of the buttons of the tiles
+     */
+    public void setTileButtons(List<Button> tileButtons) {
         this.tileButtons = tileButtons;
     }
 
+    /**
+     * Set the path to save file to
+     *
+     * @param saveFileName the path to save file to
+     */
     protected void setSaveFileName(String saveFileName) {
         this.saveFileName = saveFileName;
     }
 
+    /**
+     * Set the path to get temporary board manager from starting activities.
+     *
+     * @param tempSaveFileName the path to get temporary board manager
+     */
     protected void setTempSaveFileName(String tempSaveFileName) {
         this.tempSaveFileName = tempSaveFileName;
     }
