@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".activities.LoginActivity">
+        <activity android:name=".viewAndController.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,13 +22,13 @@
         </activity>
         <activity android:name=".gameSlidingTiles.StartingActivity" />
         <activity android:name=".game2048.StartingActivity2048" />
-        <activity android:name=".gameMemory.StartingActivityOfCard" />
-        <activity android:name=".activities.GameChoiceActivity" />
-        <activity android:name=".activities.ResultBoardActivity" />
-        <activity android:name=".activities.ScoreboardActivity" />
-        <activity android:name=".activities.LeaderboardActivity" />
-        <activity android:name=".activities.GameRulesActivity" />
-        <activity android:name=".game2048.Game2048Activity" />
+        <activity android:name=".gameMemory.CardStartingActivity" />
+        <activity android:name=".viewAndController.GameChoiceActivity" />
+        <activity android:name=".viewAndController.ResultBoardActivity" />
+        <activity android:name=".viewAndController.ScoreboardActivity" />
+        <activity android:name=".viewAndController.LeaderboardActivity" />
+        <activity android:name=".viewAndController.GameRulesActivity" />
+        <activity android:name=".game2048.GameActivity2048" />
         <activity android:name=".gameSlidingTiles.GameActivity" />
         <activity android:name=".gameMemory.CardGameActivity" />
         <uses-library android:name="com.google.android.maps" />

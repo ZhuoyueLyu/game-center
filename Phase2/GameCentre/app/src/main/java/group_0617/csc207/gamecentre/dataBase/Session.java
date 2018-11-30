@@ -8,6 +8,10 @@ import android.content.SharedPreferences;
  * The class that switch/check the mode between login and log out
  */
 public class Session {
+    /**
+     * SharedPreferences which can encrypted the information and store is safely
+     * (We are not quite sure about this, maybe it's not right)
+     */
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
