@@ -1,6 +1,9 @@
 package group_0617.csc207.gamecentre;
 
 import java.io.Serializable;
+import java.util.Stack;
+
+import group_0617.csc207.gamecentre.game2048.Board2048;
 
 /**
  * A Generic BoardManager that manages a Generic Board
@@ -11,6 +14,27 @@ public abstract class GenericBoardManager implements Serializable {
      * The board being managed
      */
     private GenericBoard genericBoard;
+
+    /**
+     * The time of last game's timer counts.
+     */
+    private int lastTime = 0;
+
+    /**
+     * The number of undos.
+     */
+    private int timesOfUndo = 0;
+
+    /**
+     * The score which outputs after solving game.
+     */
+    private int score = 0;
+
+
+    /**
+     * The stack of all previous reversed moves.
+     */
+    private Stack<GenericBoard> boardStack = new Stack<>();
 
     /**
      * Creates an empty BoardManager
@@ -68,11 +92,64 @@ public abstract class GenericBoardManager implements Serializable {
     public abstract void touchMove(int pos);
 
     /**
+     * Undo last move and return true if undo successfully, false if it has been initial states.
+     *
+     * @return whether the current can undo.
+     */
+    public boolean undo() {
+        if (boardStack.isEmpty()) {
+            return false;
+        } else {
+            genericBoard.applyBoard(boardStack.pop());
+            timesOfUndo++;
+            return true;
+        }
+    }
+
+    /**
      * Return the score recorded by this manager
      *
      * @return the score recorded
      */
-    public abstract int getScore();
+    public int getScore(){
+        return score;
+    }
+
+    /**
+     * Set score at score.
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * Return the last timer counts.
+     */
+    public int getLastTime() {
+        return lastTime;
+    }
+
+    /**
+     * Set lastTime at lastTime.
+     */
+    public void setLastTime(int lastTime) {
+        this.lastTime = lastTime;
+    }
+
+    /**
+     * Return the times of undos.
+     */
+    public int getTimesOfUndo() {
+        return this.timesOfUndo;
+    }
+
+    public void setTimesOfUndo(int timesOfUndo) {
+        this.timesOfUndo = timesOfUndo;
+    }
+
+    public Stack<GenericBoard> getBoardStack() {
+        return boardStack;
+    }
 
     /**
      * The method which return the abbreviation of current game.

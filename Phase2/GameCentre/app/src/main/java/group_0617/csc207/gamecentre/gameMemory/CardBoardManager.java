@@ -12,19 +12,9 @@ import group_0617.csc207.gamecentre.GenericBoardManager;
 public class CardBoardManager extends GenericBoardManager {
 
     /**
-     * The moves that has been made
-     */
-    private int moves = 0;
-
-    /**
      * The card chosen
      */
     private List<Card> chosenCards;
-
-    /**
-     * The time of last game's timer counts.
-     */
-    private int lastTime = 0;
 
     /**
      * Create a CardBoardManager given a new CardBoard with specified complexity
@@ -69,11 +59,12 @@ public class CardBoardManager extends GenericBoardManager {
 
     @Override
     public void touchMove(int pos) {
-        if (isValidTap(pos)) {
-            ((CardBoard) getBoard()).flipCard(pos);
-            chosenCards.add(getCardAtPos(pos));
-            this.moves++;
-        }
+        getBoardStack().add(null);
+
+        ((CardBoard) getBoard()).flipCard(pos);
+        chosenCards.add(getCardAtPos(pos));
+        setScore((int) (1000 * Math.exp(getBoardStack().size() * 0.01)));
+
         updateChosenCards();
     }
 
@@ -147,27 +138,6 @@ public class CardBoardManager extends GenericBoardManager {
     public Card getCardAtPos(int pos) {
         int complexity = getBoard().getComplexity();
         return (Card) getBoard().getGenericTile(pos / complexity, pos % complexity);
-    }
-
-    @Override
-    public int getScore() {
-        int Base = 1000;
-        double decay = 0.01;
-        return (int) (Base * Math.exp(-this.moves * decay));
-    }
-
-    /**
-     * Return the last timer counts.
-     */
-    public int getLastTime() {
-        return lastTime;
-    }
-
-    /**
-     * Set lastTime at lastTime.
-     */
-    public void setLastTime(int lastTime) {
-        this.lastTime = lastTime;
     }
 
     /**

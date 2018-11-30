@@ -14,21 +14,6 @@ import group_0617.csc207.gamecentre.dataBase.Tuple;
 public class BoardManager extends GenericBoardManager {
 
     /**
-     * The number of undos.
-     */
-    private int timesOfUndo = 0;
-
-    /**
-     * The time of last game's timer counts.
-     */
-    private int lastTime = 0;
-
-    /**
-     * The score which outputs after solving game.
-     */
-    private int score = 0;
-
-    /**
      * The stack of all previous reversed moves.
      */
     private Stack<Tuple<Integer, Integer>> moveStack = new Stack<>();
@@ -52,7 +37,6 @@ public class BoardManager extends GenericBoardManager {
 
     @Override
     public boolean puzzleSolved() {
-
         for (int row = 0; row != getBoard().getComplexity(); row++) {
             for (int col = 0; col != getBoard().getComplexity(); col++) {
                 int correct_older_id = getBoard().getComplexity() * row + col + 1;
@@ -61,15 +45,7 @@ public class BoardManager extends GenericBoardManager {
                 }
             }
         }
-        score = 100000000 * (getBoard().getComplexity()-2) / lastTime / (moveStack.size() + 2 * timesOfUndo);
-//        try {
-//            score = 100000000 * (getBoard().getComplexity()-2) / (moveStack.size() + 2 * timesOfUndo) / lastTime;
-//        } catch (ArithmeticException e) {
-//            lastTime = 1;
-//            System.out.println("Zero as dividend. ");
-//        }
-        lastTime = 0;
-        timesOfUndo = 0;
+        setScore(100000000 * (getBoard().getComplexity()-2) / getLastTime() / (moveStack.size() + 2 * getTimesOfUndo()));
         return true;
     }
 
@@ -79,7 +55,7 @@ public class BoardManager extends GenericBoardManager {
         int row = position / getBoard().getComplexity();
         int col = position % getBoard().getComplexity();
         int blankId = getBoard().numTiles();
-        // Are any of the 4 the blank tile?
+
         Tile above = row == 0 ? null : (Tile) getBoard().getGenericTile(row - 1, col);
         Tile below = row == getBoard().getComplexity() - 1 ? null : (Tile) getBoard().getGenericTile(row + 1, col);
         Tile left = col == 0 ? null : (Tile) getBoard().getGenericTile(row, col - 1);
@@ -93,26 +69,27 @@ public class BoardManager extends GenericBoardManager {
 
     @Override
     public void touchMove(int position) {
-
         Board board = (Board) getBoard();
+        List<Tile> tiles = new ArrayList<>();
+        for(int i = 0; i < getBoard().getComplexity(); i++){
+            for (int j = 0; j < getBoard().getComplexity(); j++){
+                tiles.add(((Board) getBoard()).getTile(i, j));
+            }
+        }
+        getBoardStack().add(new Board(tiles));
 
         int row = position / board.getComplexity();
         int col = position % board.getComplexity();
         int blankId = board.numTiles();
-        int complexity = board.getComplexity();
 
         if (getId(row + 1, col) == blankId) {
             board.swapTiles(row, col, row + 1, col);
-            moveStack.add(new Tuple<>(position, position + complexity));
         } else if (getId(row, col + 1) == blankId) {
             board.swapTiles(row, col, row, col + 1);
-            moveStack.add(new Tuple<>(position, position + 1));
         } else if (getId(row - 1, col) == blankId) {
             board.swapTiles(row, col, row - 1, col);
-            moveStack.add(new Tuple<>(position, position - complexity));
         } else if (getId(row, col - 1) == blankId) {
             board.swapTiles(row, col, row, col - 1);
-            moveStack.add(new Tuple<>(position, position - 1));
         }
     }
 
@@ -125,7 +102,6 @@ public class BoardManager extends GenericBoardManager {
      * or "-1" if the row number or column number is invalid.
      */
     private int getId(int row, int col) {
-
         Board board = (Board) getBoard();
         if (row <= board.getComplexity() - 1
                 && row >= 0
@@ -134,57 +110,29 @@ public class BoardManager extends GenericBoardManager {
             Tile curTile = (Tile) board.getGenericTile(row, col);
             return curTile.getId();
         }
-//        this -1 means the row and col is out of bound;
         return -1;
     }
 
-    /**
-     * Undo last move and return true if undo successfully, false if it has been initial states.
-     *
-     * @return whether the current can be undoed.
-     */
-    public boolean undo() {
-        if (moveStack.isEmpty()) {
-            return false;
-        } else {
-            Tuple<Integer, Integer> lastMove = moveStack.pop();
-            int pos1 = lastMove.getX();
-            int pos2 = lastMove.getY();
-            Board board = (Board) getBoard();
-            int complexity = board.getComplexity();
-            board.swapTiles(pos1 / complexity, pos1 % complexity,
-                    pos2 / complexity, pos2 % complexity);
-            timesOfUndo++;
-            return true;
-        }
-    }
-
-    /**
-     * Return the last timer counts.
-     */
-    public int getLastTime() {
-        return lastTime;
-    }
-
-    /**
-     * Set lastTime at lastTime.
-     */
-    public void setLastTime(int lastTime) {
-        this.lastTime = lastTime;
-    }
-
-    /**
-     * Return the times of undos.
-     */
-    public int getTimesOfUndo() {
-        return this.timesOfUndo;
-    }
-
-    @Override
-    public int getScore() {
-        return score;
-    }
-
+//    /**
+//     * Undo last move and return true if undo successfully, false if it has been initial states.
+//     *
+//     * @return whether the current can be undoed.
+//     */
+//    public boolean undo() {
+//        if (moveStack.isEmpty()) {
+//            return false;
+//        } else {
+//            Tuple<Integer, Integer> lastMove = moveStack.pop();
+//            int pos1 = lastMove.getX();
+//            int pos2 = lastMove.getY();
+//            Board board = (Board) getBoard();
+//            int complexity = board.getComplexity();
+//            board.swapTiles(pos1 / complexity, pos1 % complexity,
+//                    pos2 / complexity, pos2 % complexity);
+//            //timesOfUndo++;
+//            return true;
+//        }
+//    }
 
     /**
      * The method which return the abbreviation of the SlidingTiles game, i.e., "ST"
@@ -194,13 +142,6 @@ public class BoardManager extends GenericBoardManager {
     @Override
     public String getCurrentGame() {
         return "st";
-    }
-
-    /**
-     * Set the times of undos. (for the sake of testing)
-     */
-    public void setTimesOfUndo(int times) {
-        this.timesOfUndo = times;
     }
 
     /**
