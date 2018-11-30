@@ -1,13 +1,18 @@
 package group_0617.csc207.gamecentre.gameSlidingTiles;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.test.InstrumentationRegistry;
 
 import org.junit.Test;
 
 import java.util.List;
 
+import group_0617.csc207.gamecentre.R;
+
 import static android.support.test.InstrumentationRegistry.getTargetContext;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -16,14 +21,15 @@ public class GameActivityControllerTest {
     @Test
     public void testCutImage() {
         GameActivityController controller = new GameActivityController();
+        Context context = InstrumentationRegistry.getTargetContext();
         System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
-        Bitmap bitmap = mock(Bitmap.class);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile2048_0);
         BoardManager boardManager = mock(BoardManager.class);
-        when(bitmap.getWidth()).thenReturn(100);
-        when(bitmap.getHeight()).thenReturn(100);
-        when(boardManager.getBoard().getComplexity()).thenReturn(4);
+        Board board = mock(Board.class);
+        when(boardManager.getBoard()).thenReturn(board);
+        when(board.getComplexity()).thenReturn(4);
         List<Bitmap> result = controller.cutImage(bitmap, boardManager);
-        assertEquals(result.get(0).getWidth(),25);
+        assertEquals(result.get(0).getWidth(),335);
     }
 
 }
