@@ -18,6 +18,7 @@ public class ScoreboardActivity extends Activity {
     String[] listItem;
     ScoreboardActivityController controller;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.avtivity_user_scoreboard);

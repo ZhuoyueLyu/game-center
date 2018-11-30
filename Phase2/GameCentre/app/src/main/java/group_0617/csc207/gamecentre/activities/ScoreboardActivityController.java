@@ -2,7 +2,7 @@ package group_0617.csc207.gamecentre.activities;
 
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
 
-public class ScoreboardActivityController {
+class ScoreboardActivityController {
 
     void AddGameData(StringBuilder slidingTilesData,StringBuilder twentyFortyEightData,
                      StringBuilder memoryGameData,DatabaseHelper db,
@@ -32,7 +32,7 @@ public class ScoreboardActivityController {
      * @param medium        the string that represent this game under medium mode
      * @param hard          the string that represent this game under hard mode
      */
-    void buildDataString(StringBuilder stringBuilder,String game,String easy,String medium,String hard, DatabaseHelper db) {
+    private void buildDataString(StringBuilder stringBuilder,String game,String easy,String medium,String hard,DatabaseHelper db) {
         stringBuilder.append(game).append("__");
         stringBuilder.append(Integer.toString(db.getGameData
                 (LoginActivity.currentUser, easy))).append("__");

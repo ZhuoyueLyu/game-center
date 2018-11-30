@@ -47,5 +47,27 @@ public class LeaderboardActivity extends Activity {
 
     }
 
+    /**
+     * Getter, no need for testing
+     * @return databasehelper
+     */
+    public DatabaseHelper getDb() {
+        return db;
+    }
 
+    /**
+     *  Getter
+     * @return  listItem
+     */
+    public String[] getListItem() {
+        return listItem;
+    }
+
+    /**
+     *  Getter
+     * @return leaderBoardData
+     */
+    public List<Tuple<String, Integer>> getLeaderBoardData() {
+        return leaderBoardData;
+    }
 }

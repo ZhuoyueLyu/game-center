@@ -85,6 +85,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * Initialize login method
+     * The following methods can't be move to controller, because it says "unsupported
+     * references founded in xml file.
      */
 
     public void login(View view) {

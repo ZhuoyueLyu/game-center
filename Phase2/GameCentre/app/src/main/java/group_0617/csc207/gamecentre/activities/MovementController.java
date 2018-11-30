@@ -14,7 +14,8 @@ class MovementController {
     /**
      * The boardManager for current game.
      */
-    private GenericBoardManager genericBoardManager = null;
+    GenericBoardManager genericBoardManager = null;
+    Intent result;
 
     /**
      * A constructor for MovementController.
@@ -33,8 +34,7 @@ class MovementController {
             genericBoardManager.touchMove(position);
             if (genericBoardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-
-                Intent result = new Intent(context.getApplicationContext(), ResultBoardActivity.class);
+                result = new Intent(context.getApplicationContext(), ResultBoardActivity.class);
                 result.putExtra("SCORE", genericBoardManager.getScore());
                 result.putExtra("currentGame", genericBoardManager.getCurrentGame());
                 result.putExtra("complexity", genericBoardManager.getBoard().getComplexity());

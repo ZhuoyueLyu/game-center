@@ -27,7 +27,7 @@ public class ResultBoardActivity extends AppCompatActivity {
      * The database to save high score
      */
     DatabaseHelper db;
-    RresultBoardActivityController controller;
+    ResultBoardActivityController controller;
 
     @SuppressLint("SetTextI18n")
     @Override
