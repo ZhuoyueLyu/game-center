@@ -16,7 +16,7 @@ public class BoardManager extends GenericBoardManager {
     /**
      * The name of the game
      */
-    static final String GAME_NAME = "st";
+    public static final String GAME_NAME = "st";
 
     /**
      * The stack of all previous reversed moves.

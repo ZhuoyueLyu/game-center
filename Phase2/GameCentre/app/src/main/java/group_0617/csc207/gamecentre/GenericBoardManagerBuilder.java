@@ -40,13 +40,13 @@ public class GenericBoardManagerBuilder {
     public GenericBoardManager getGenericBoardManager(String game, int complexity) {
         GenericBoardManager re;
         switch (game) {
-            case "2048":
+            case BoardManager2048.GAME_NAME:
                 re = new BoardManager2048(complexity);
                 break;
-            case "st":
+            case BoardManager.GAME_NAME:
                 re = new BoardManager(complexity);
                 break;
-            case "memory":
+            case CardBoardManager.GAME_NAME:
                 re = new CardBoardManager(complexity);
                 break;
             default:

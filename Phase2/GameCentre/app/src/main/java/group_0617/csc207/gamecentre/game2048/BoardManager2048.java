@@ -14,7 +14,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
     /**
      * Name of 2048 game
      */
-    static final String GAME_NAME = "tf";
+    public static final String GAME_NAME = "tf";
 
     /**
      * Manage a board that has been pre-populated.
