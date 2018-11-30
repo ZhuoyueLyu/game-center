@@ -17,8 +17,6 @@ import group_0617.csc207.gamecentre.R;
  */
 public class CardStartingActivity extends GenericStartingActivity {
 
-    //private  StartingActivityOfCardController controller;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setGenericBoardManager(new CardBoardManager((getCurrentComplexity() - 2) * 2));

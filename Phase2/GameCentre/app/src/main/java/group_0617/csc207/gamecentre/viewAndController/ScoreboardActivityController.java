@@ -2,6 +2,9 @@ package group_0617.csc207.gamecentre.viewAndController;
 
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
 
+/**
+ * The activity controller of scoreboard
+ */
 class ScoreboardActivityController {
 
     /**

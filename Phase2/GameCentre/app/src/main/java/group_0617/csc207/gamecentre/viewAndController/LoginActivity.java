@@ -43,6 +43,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private DatabaseHelper db;
 
+    /**
+     * The session
+     */
     private Session session;
 
     /**

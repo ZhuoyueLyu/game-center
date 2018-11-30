@@ -1,6 +1,7 @@
 package group_0617.csc207.gamecentre.viewAndController;
 
 import android.content.SharedPreferences;
+import android.os.Looper;
 import android.widget.TextView;
 
 import org.junit.Test;
@@ -15,10 +16,20 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * The unit test for ResultBoardActivityController
+ */
 public class ResultBoardActivityControllerTest {
-    private ResultBoardActivity resultBoardActivity;
-    private DatabaseHelper db;
 
+    /**
+     * the result board activity to test
+     */
+    private ResultBoardActivity resultBoardActivity;
+
+    /**
+     * The database used
+     */
+    private DatabaseHelper db;
 
     /**
      * make sure that we can write data from database properly
@@ -27,7 +38,7 @@ public class ResultBoardActivityControllerTest {
     public void testWriteData() {
         ResultBoardActivityController controller = new ResultBoardActivityController();
         System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
-
+        Looper.prepare();
         resultBoardActivity = new ResultBoardActivity();
         DatabaseHelper db = mock(DatabaseHelper.class);
         doNothing().when(db).addGameData(LoginActivity.currentUser,"st" + "medium",100);
