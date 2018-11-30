@@ -29,7 +29,7 @@ public class GameActivityControllerTest {
         when(boardManager.getBoard()).thenReturn(board);
         when(board.getComplexity()).thenReturn(4);
         List<Bitmap> result = controller.cutImage(bitmap, boardManager);
-        assertEquals(result.get(0).getWidth(),335);
+        assertEquals(result.get(0).getWidth(),bitmap.getWidth()/4);
     }
 
 }

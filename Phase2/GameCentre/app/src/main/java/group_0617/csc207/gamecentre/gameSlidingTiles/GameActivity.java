@@ -44,6 +44,7 @@ public class GameActivity extends GenericGameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         Bundle bundle = getIntent().getExtras();
+        controller = new GameActivityController();
         assert bundle != null;
         setSaveFileName(bundle.getString("saveFileName"));
         setTempSaveFileName(bundle.getString("tempSaveFileName"));
