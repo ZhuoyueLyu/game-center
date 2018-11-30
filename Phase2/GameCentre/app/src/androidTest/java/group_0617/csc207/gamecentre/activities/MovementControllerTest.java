@@ -1,13 +1,5 @@
 package group_0617.csc207.gamecentre.activities;
 
-import org.junit.Test;
-
-import org.junit.Test;
-
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
-import static android.support.test.InstrumentationRegistry.getTargetContext;
-import static org.junit.Assert.*;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Looper;
@@ -15,20 +7,14 @@ import android.support.test.InstrumentationRegistry;
 import android.widget.Toast;
 
 import org.junit.Test;
-import org.mockito.Mock;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
-import group_0617.csc207.gamecentre.GenericBoardManager;
 import group_0617.csc207.gamecentre.gameSlidingTiles.Board;
 import group_0617.csc207.gamecentre.gameSlidingTiles.BoardManager;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MovementControllerTest {
     private MovementController movementController;
@@ -59,14 +45,16 @@ public class MovementControllerTest {
         when(movementController.genericBoardManager.getCurrentGame()).thenReturn("st");
         when(movementController.genericBoardManager.getBoard().getComplexity()).thenReturn(4);
         Looper.prepare();
-        doNothing().when(boardManager).touchMove(validPosition);
 
+        doNothing().when(boardManager).touchMove(validPosition);
+        when(movementController.genericBoardManager.puzzleSolved()).thenReturn(true);
+        //call the "if" branch
+        movementController.processTapMovement(context,validPosition);
+        when(movementController.genericBoardManager.puzzleSolved()).thenReturn(false);
         //call the "if" branch
         movementController.processTapMovement(context,validPosition);
         //call the "else" branch
         movementController.processTapMovement(context,invalidPosition);
-        verify(toast,times(1));
-        Toast.makeText(context,"YOU WIN!",anyInt()).show();
     }
 
 
