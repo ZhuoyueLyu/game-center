@@ -28,10 +28,6 @@ public class ResultBoardActivityControllerTest {
      */
     @Test
     public void testWriteData() {
-        List<Tuple<String, Integer>> leaderBoardData = new ArrayList<Tuple<String, Integer>>();
-        List<Tuple<String, Integer>> testGameDataForEasy = new ArrayList<Tuple<String, Integer>>();
-        List<Tuple<String, Integer>> testGameDataForHard = new ArrayList<Tuple<String, Integer>>();
-        String[] listItem = new String[10];
         ResultBoardActivityController controller = new ResultBoardActivityController();
         System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
 
@@ -49,7 +45,30 @@ public class ResultBoardActivityControllerTest {
         verify(db,times(1)).addGameData(LoginActivity.currentUser,"st" + "medium",100);
         verify(db,times(1)).addGameData(LoginActivity.currentUser,"st" + "hard",200);
         verify(db,times(1)).addGameData(LoginActivity.currentUser,"st" + "easy",20);
+    }
+    @Test
+    public void testCompareTheScore() {
+        ResultBoardActivityController controller = new ResultBoardActivityController();
+        controller = new ResultBoardActivityController();
+        System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
 
+        TextView highScoreLabel = mock(TextView.class);
+        SharedPreferences settings = mock(SharedPreferences.class);
+        SharedPreferences.Editor editor = mock(SharedPreferences.Editor.class);
+        doReturn(editor).when(settings).edit();
+
+        when(editor.putInt("HIGH_SCORE",10)).thenReturn(editor);
+        when(editor.putInt("HIGH_SCORE",30)).thenReturn(editor);
+        doNothing().when(editor).apply();
+
+        controller.compareGameScore(highScoreLabel,10,settings,30);
+        controller.compareGameScore(highScoreLabel,10,settings,5);
+
+
+
+        verify(highScoreLabel,times(1)).setText("High Score: " + 30);
+        verify(highScoreLabel,times(1)).setText("High Score: " + 10);
 
     }
-}
+
+    }
