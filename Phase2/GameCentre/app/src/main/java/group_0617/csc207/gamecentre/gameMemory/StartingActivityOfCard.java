@@ -27,15 +27,11 @@ import group_0617.csc207.gamecentre.R;
  */
 public class StartingActivityOfCard extends GenericStartingActivity {
 
-    /**
-     * A temporary save file.
-     */
-    private String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" + LoginActivity.currentUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setGenericBoardManager(new CardBoardManager((getCurrentComplexity() - 2) * 2));
+        setGameName(CardBoardManager.GAME_NAME);
+        super.onCreate(savedInstanceState);
         TextView view = findViewById(R.id.GameText);
         String greeting = "Welcome To Memory Game!  \n " +
                 "Where you must identify the two cards that have the same face " +
@@ -81,62 +77,16 @@ public class StartingActivityOfCard extends GenericStartingActivity {
         }
     }
 
-
     /**
      * Switch to the GameActivity view to play the game.
      */
     public void switchToGame() {
-        Intent tmp = new Intent(this,CardGameActivity.class);
-        tmp.putExtra("tempSaveFileName",tempSaveFileName);
+        Intent tmp = new Intent(this, CardGameActivity.class);
+        tmp.putExtra("tempSaveFileName", getTempSaveFileName());
+        tmp.putExtra("saveFileName", getSaveFileName());
         tmp.putExtra("complexity",(getCurrentComplexity() - 2) * 2);
-        saveToFile(tempSaveFileName);
+        saveToFile(getTempSaveFileName());
         startActivity(tmp);
-    }
-
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public boolean loadFromFile(String fileName) {
-        boolean re = true;
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                CardBoardManager cardBoardManager = (CardBoardManager) input.readObject();
-                if (cardBoardManager != null) {
-                    setGenericBoardManager((CardBoardManager) input.readObject());
-                } else {
-                    re = false;
-                }
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity","File not found: " + e.toString());
-            Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Log.e("login activity","Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity","File contained unexpected data type: " + e.toString());
-        }
-        return re;
-    }
-
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName,MODE_PRIVATE));
-            outputStream.writeObject(getGenericBoardManager());
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception","File write failed: " + e.toString());
-        }
     }
 
     /**
@@ -149,9 +99,9 @@ public class StartingActivityOfCard extends GenericStartingActivity {
             @Override
             public void onClick(View v) {
                 Intent gameScoreboardScreen =
-                        new Intent(StartingActivityOfCard.this,LeaderboardActivity.class);
+                        new Intent(StartingActivityOfCard.this, LeaderboardActivity.class);
                 gameScoreboardScreen.putExtra("currentGame","card");
-                gameScoreboardScreen.putExtra("complexity",getCurrentComplexity());
+                gameScoreboardScreen.putExtra("complexity", getCurrentComplexity());
                 startActivity(gameScoreboardScreen);
             }
         });
