@@ -106,6 +106,7 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
     @Override
     public void update(Observable o, Object arg) {
         display();
+        saveToFile(saveFileName);
     }
 
     /**
@@ -115,11 +116,6 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-        TextView realScore = findViewById(R.id.RealScore);
-        realScore.setText("Score: " + genericBoardManager.getScore());
-        //TODO: save stuff.
-        saveToFile("save_file_" +
-                genericBoardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
     }
 
     /**
