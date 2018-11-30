@@ -1,7 +1,6 @@
 package group_0617.csc207.gamecentre.gameSlidingTiles;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,29 +10,17 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import group_0617.csc207.gamecentre.GenericBoardManagerSaveLoader;
 import group_0617.csc207.gamecentre.GenericGameActivity;
-import group_0617.csc207.gamecentre.activities.CustomAdapter;
-import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
 import group_0617.csc207.gamecentre.R;
-import group_0617.csc207.gamecentre.activities.LoginActivity;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -50,6 +37,8 @@ public class GameActivity extends GenericGameActivity {
      * A list containing Bitmap.
      */
     List<Bitmap> bitmapList;
+
+    private GameActivityController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +112,7 @@ public class GameActivity extends GenericGameActivity {
     }
 
     /**
-     * http://viralpatel.net/blogs/pick-image-from-galary-android-app/
+     * Cite from  http://viralpatel.net/blogs/pick-image-from-galary-android-app/
      * 12:11 05/11/2018 Jiahe Lyu
      */
     @Override
@@ -144,10 +133,10 @@ public class GameActivity extends GenericGameActivity {
                     String picturePath = cursor.getString(columnIndex);
                     cursor.close();
 
-                    ImageView imgView = (ImageView) findViewById(R.id.imgView);
+                    ImageView imgView = findViewById(R.id.imgView);
                     Bitmap pic = BitmapFactory.decodeFile(picturePath);
                     imgView.setImageBitmap(pic);
-                    bitmapList = cutImage(pic, (BoardManager) getGenericBoardManager());
+                    bitmapList = controller.cutImage(pic, (BoardManager) getGenericBoardManager());
                     updateTileButtons();
                     Toast.makeText(getApplicationContext(), "Upload picture successfully!", Toast.LENGTH_SHORT).show();
                 }
@@ -158,28 +147,7 @@ public class GameActivity extends GenericGameActivity {
         }
     }
 
-    /**
-     * Cut the picture evenly and return the list of pieces.
-     *
-     * @param picture a Bitmap picture
-     * @return the list of Bitmap pieces.
-     */
-    List<Bitmap> cutImage(Bitmap picture, BoardManager boardManager) {
-        List<Bitmap> newPieces = new ArrayList<>();
-        int w = picture.getWidth();
-        int h = picture.getHeight();
-        int boxWidth = w / boardManager.getBoard().getComplexity();
-        int boxHeight = h / boardManager.getBoard().getComplexity();
-        for (int i = 0; i < boardManager.getBoard().getComplexity(); i++) {
-            for (int j = 0; j < boardManager.getBoard().getComplexity(); j++) {
-                Bitmap pictureFragment = Bitmap.createBitmap(picture, j * boxWidth, i * boxHeight, boxWidth, boxHeight);
-                newPieces.add(pictureFragment);
-            }
-        }
-        return newPieces;
-    }
-
-    // https://github.com/googlesamples/easypermissions
+    // Cite from  https://github.com/googlesamples/easypermissions
     // 14:20 05/11/2018 Jiahe Lyu
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
