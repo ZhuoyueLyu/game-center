@@ -19,6 +19,7 @@ import java.util.TimerTask;
 
 import group_0617.csc207.gamecentre.activities.CustomAdapter;
 import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
+import group_0617.csc207.gamecentre.activities.LoginActivity;
 
 /**
  * A generic game activity

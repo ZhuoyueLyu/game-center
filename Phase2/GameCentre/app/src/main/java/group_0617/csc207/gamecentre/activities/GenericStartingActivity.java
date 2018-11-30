@@ -104,7 +104,6 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     /**
@@ -132,17 +131,16 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     public void showComplexity(TextView complexity) {
         switch (currentComplexity) {
             case 3:
-                complexity.setText("Easy (3x3)");
+                complexity.setText("Tiny (3x3)");
                 break;
             case 4:
-                complexity.setText("Medium (4x4)");
+                complexity.setText("Classic (4x4)");
                 break;
             case 5:
-                complexity.setText("Hard (5x5)");
+                complexity.setText("Big (5x5)");
                 break;
             default:
-                complexity.setText("Medium (4x4)");
-
+                complexity.setText("Classic (4x4)");
         }
     }
 
@@ -161,18 +159,11 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (loadFromFile(saveFileName)) {
                     saveToFile(tempSaveFileName);
-                    makeToastLoadedText();
+                    makeToastText("Loaded Game");
                     switchToGame();
                 }
             }
         });
-    }
-
-    /**
-     * Display that a game was loaded successfully.
-     */
-    private void makeToastLoadedText() {
-        Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -185,7 +176,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 saveToFile(saveFileName);
                 saveToFile(tempSaveFileName);
-                makeToastSavedText();
+                makeToastText("Game Saved");
             }
         });
     }
@@ -209,10 +200,10 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
 
 
     /**
-     * Display that a game was saved successfully.
+     * Display messege with a toast.
      */
-    private void makeToastSavedText() {
-        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
+    private void makeToastText(String messege) {
+        Toast.makeText(this, messege, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -238,6 +229,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         GenericBoardManager loadedBoardManager =
                 saveLoader.loadGenericBoardManager(fileName, this);
         if (loadedBoardManager == null) {
+            makeToastText("No Saved Game!");
             return false;
         }
         genericBoardManager = loadedBoardManager;
