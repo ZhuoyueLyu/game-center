@@ -85,10 +85,10 @@ public class DatabaseHelperInstrumentedTest {
     public void testAddAndGetGameData() {
         databaseHelper.addUser("testName","testPassword");
         databaseHelper.addUser("testName2","testPassword2");
-        databaseHelper.addGameData("testName","steasy",123);
+        databaseHelper.addGameData("testName","steasy",12300000);
         databaseHelper.addGameData("testName","tfmedium",454);
         databaseHelper.addGameData("testName","sthard",290);
-        assertThat(databaseHelper.getGameData("testName","steasy"),is(123));
+        assertThat(databaseHelper.getGameData("testName","steasy"),is(12300000));
         assertThat(databaseHelper.getGameData("testName","stmedium"),is(0));
         assertThat(databaseHelper.getGameData("testName","sthard"),is(290));
         assertThat(databaseHelper.getGameData("testName","tfeasy"),is(0));
@@ -103,13 +103,13 @@ public class DatabaseHelperInstrumentedTest {
 
 
     @Test
-    public void getSTLeaderboardData() {
+    public void getLeaderboardData() {
         databaseHelper.addUser("testName","testPassword");
         databaseHelper.addUser("testName2","testPassword2");
-        databaseHelper.addGameData("testName","steasy",123);
+        databaseHelper.addGameData("testName","steasy",12300000);
         databaseHelper.addGameData("testName2","steasy",300);
         databaseHelper.addGameData("testName2","tfeasy",300);
-        assertEquals(databaseHelper.getLeaderboardData("steasy").get(0).getY(),(Integer)123);
+        assertEquals(databaseHelper.getLeaderboardData("steasy").get(0).getY(),(Integer)12300000);
         assertThat(databaseHelper.getLeaderboardData("steasy"),
                 not(databaseHelper.getLeaderboardData("tfeasy")));
     }
