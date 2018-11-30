@@ -9,7 +9,7 @@
 
 
     <Button
-        android:id="@+id/therGame2Button"
+        android:id="@+id/theMemoryGameButton"
         android:layout_width="488dp"
         android:layout_height="60dp"
         android:layout_marginStart="135dp"
@@ -19,17 +19,17 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
-        android:text="Memory"
+        android:text="@string/memory"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/therGame1Button" />
+        app:layout_constraintTop_toBottomOf="@+id/the2048Button" />
 
     <Button
-        android:id="@+id/therGame1Button"
+        android:id="@+id/the2048Button"
         android:layout_width="488dp"
         android:layout_height="60dp"
         android:layout_marginStart="135dp"
@@ -40,7 +40,7 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
-        android:text="2048"
+        android:text="@string/_2048"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/slidingtilesButton"
+        android:id="@+id/slidingTilesButton"
         android:layout_width="488dp"
         android:layout_height="60dp"
         android:layout_marginStart="135dp"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/therGame2Button" />
+        app:layout_constraintTop_toBottomOf="@+id/theMemoryGameButton" />
 
     <Button
         android:id="@+id/btnLogout"
@@ -81,7 +81,7 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
-        android:text="Log out"
+        android:text="@string/log_out"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,9 +96,9 @@
         android:layout_marginTop="42dp"
         android:layout_marginEnd="127dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Games"
+        android:text="@string/games"
         android:textColor="@color/white"
-        android:textSize="50dp"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -129,7 +129,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/scroll" />
+        app:srcCompat="@drawable/scroll"
+        tools:ignore="ContentDescription" />
 
 
 

@@ -17,10 +17,6 @@ class ResultBoardActivityController {
      * @param highScore highest score
      */
     @SuppressLint("SetTextI18n")
-
-    /*
-      Compare the current score with the highest score and reture the higher one
-     */
     void compareGameScore(TextView highScoreLabel,int score,SharedPreferences settings,int highScore) {
         //Display the score
         if (score > highScore) {

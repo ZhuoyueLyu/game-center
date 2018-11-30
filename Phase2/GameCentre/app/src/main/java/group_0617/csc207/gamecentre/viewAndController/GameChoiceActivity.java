@@ -32,7 +32,7 @@ public class GameChoiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_choice);
 
         session = new Session(this);
-        if (!session.loggedin()) {
+        if (!session.loggedIn()) {
             logout();
         }
 
@@ -48,7 +48,7 @@ public class GameChoiceActivity extends AppCompatActivity {
      * Activate the Slidingtiles Button.
      */
     private void addSlidingtilesButtonListener() {
-        Button slidingtilesButton = findViewById(R.id.slidingtilesButton);
+        Button slidingtilesButton = findViewById(R.id.slidingTilesButton);
         slidingtilesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +62,7 @@ public class GameChoiceActivity extends AppCompatActivity {
      * Activate the other game 1 Button.
      */
     private void addOtherGame1ButtonListener() {
-        Button otherGame1Button = findViewById(R.id.therGame1Button);
+        Button otherGame1Button = findViewById(R.id.the2048Button);
         otherGame1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,7 @@ public class GameChoiceActivity extends AppCompatActivity {
      * Activate the other game 2 Button.
      */
     private void addOtherGame2ButtonListener() {
-        Button otherGame2Button = findViewById(R.id.therGame2Button);
+        Button otherGame2Button = findViewById(R.id.theMemoryGameButton);
         otherGame2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +141,7 @@ public class GameChoiceActivity extends AppCompatActivity {
      */
 
     private void logout() {
-        session.setLoggedin(false);
+        session.setLoggedIn(false);
         finish();
         startActivity(new Intent(GameChoiceActivity.this, LoginActivity.class));
         LoginActivity.currentUser = "";

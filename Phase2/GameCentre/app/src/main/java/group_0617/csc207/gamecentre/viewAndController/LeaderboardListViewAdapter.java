@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import group_0617.csc207.gamecentre.R;
 
 /**
@@ -25,7 +23,7 @@ public class LeaderboardListViewAdapter extends ArrayAdapter<String> {
     /**
      * id of this list view
      */
-    private int groupid;
+    private int groupId;
     /**
      * The String[] that contains Game data
      */
@@ -38,7 +36,7 @@ public class LeaderboardListViewAdapter extends ArrayAdapter<String> {
     public LeaderboardListViewAdapter(Context context,int vg,int id,String[] item_list) {
         super(context,vg,id,item_list);
         this.context = context;
-        groupid = vg;
+        groupId = vg;
         this.item_list = item_list;
 
     }
@@ -60,7 +58,7 @@ public class LeaderboardListViewAdapter extends ArrayAdapter<String> {
         if (rowView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             assert inflater != null;
-            rowView = inflater.inflate(groupid,parent,false);
+            rowView = inflater.inflate(groupId,parent,false);
             ViewHolder viewHolder = new ViewHolder();
 
             viewHolder.txtRank = (TextView) rowView.findViewById(R.id.txtLeaderRank);

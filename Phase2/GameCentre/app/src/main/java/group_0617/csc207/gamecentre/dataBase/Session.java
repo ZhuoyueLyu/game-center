@@ -26,7 +26,7 @@ public class Session {
      *
      * @param isLoggedIn whether we've logged in or not
      */
-    public void setLoggedin(boolean isLoggedIn) {
+    public void setLoggedIn(boolean isLoggedIn) {
         editor.putBoolean("loggedInmode", isLoggedIn);
         editor.commit();
     }
@@ -36,7 +36,7 @@ public class Session {
      *
      * @return whether we've logged in or not
      */
-    public boolean loggedin() {
+    public boolean loggedIn() {
         return prefs.getBoolean("loggedInmode",false);
     }
 }

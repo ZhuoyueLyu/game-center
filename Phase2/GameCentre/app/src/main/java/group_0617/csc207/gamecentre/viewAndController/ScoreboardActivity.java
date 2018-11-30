@@ -26,10 +26,7 @@ public class ScoreboardActivity extends Activity {
      */
     ScoreboardActivityController controller;
 
-    /**
-     * onCreat
-     * @param savedInstanceState Bundle
-     */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         controller = new ScoreboardActivityController();
@@ -41,17 +38,17 @@ public class ScoreboardActivity extends Activity {
         StringBuilder twentyFortyEightData = new StringBuilder();
         StringBuilder memoryGameData = new StringBuilder();
 
-        ListView lstview = findViewById(R.id.listview);
+        ListView listview = findViewById(R.id.listview);
         // Inflate header view
         ViewGroup headerView = (ViewGroup) getLayoutInflater().
-                inflate(R.layout.header, lstview, false);
+                inflate(R.layout.header,listview,false);
         // Add header view to the ListView
-        lstview.addHeaderView(headerView);
-        controller.AddGameData(slidingTilesData,twentyFortyEightData,memoryGameData, db, this);
+        listview.addHeaderView(headerView);
+        controller.AddGameData(slidingTilesData,twentyFortyEightData,memoryGameData,db,this);
         // Bind data to the ListView
-        ScoreboardListAdapter adapter = new ScoreboardListAdapter(this, R.layout.rowlayout, R.id.txtUsername, listItem);
+        ScoreboardListAdapter adapter = new ScoreboardListAdapter(this,R.layout.rowlayout,R.id.txtUsername,listItem);
         // Bind data to the ListView
-        lstview.setAdapter(adapter);
+        listview.setAdapter(adapter);
     }
 
 }

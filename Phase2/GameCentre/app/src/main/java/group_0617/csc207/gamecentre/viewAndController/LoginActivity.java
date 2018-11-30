@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             displayToast("User doesn't exist, please register!");
         } else {
             if (db.getUser(usernameString, passwordString)) {
-                session.setLoggedin(true);
+                session.setLoggedIn(true);
                 displayToast("Login successfully");
                 finish();
                 startActivity(new Intent(this, GameChoiceActivity.class));
