@@ -4,8 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Taken from:
@@ -16,10 +15,17 @@ import java.util.ArrayList;
  */
 public class CustomAdapter extends BaseAdapter {
 
-    private ArrayList<Button> mButtons = null;
+    /**
+     * The List of buttons.
+     */
+    private List<Button> mButtons;
+
+    /**
+     * The width and height of grid column.
+     */
     private int mColumnWidth, mColumnHeight;
 
-    public CustomAdapter(ArrayList<Button> buttons,int columnWidth,int columnHeight) {
+    public CustomAdapter(List<Button> buttons,int columnWidth,int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;

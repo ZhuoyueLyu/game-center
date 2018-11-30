@@ -49,7 +49,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
      * @param col the specified col
      * @return the Tile at specified row and column
      */
-    public GenericTile getGenericTile(int row,int col) {
+    public GenericTile getGenericTile(int row, int col) {
         return genericTiles[row][col];
     }
 
@@ -67,7 +67,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
      *
      * @param genericBoard the board as a mould.
      */
-    void applyBoard(GenericBoard genericBoard){
+    void applyBoard(GenericBoard genericBoard) {
         setGenericTiles(genericBoard.getGenericTiles());
         setChanged();
         notifyObservers();
@@ -98,7 +98,7 @@ public abstract class GenericBoard extends Observable implements Serializable {
      * @param row            the row of tile to replace
      * @param col            the col of tile to replace
      */
-    protected void setGenericTile(GenericTile inGenericTiles,int row,int col) {
+    protected void setGenericTile(GenericTile inGenericTiles, int row, int col) {
         this.genericTiles[row][col] = inGenericTiles;
     }
 

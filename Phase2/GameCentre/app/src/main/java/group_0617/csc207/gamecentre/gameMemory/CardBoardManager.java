@@ -11,6 +11,9 @@ import group_0617.csc207.gamecentre.GenericBoardManager;
  */
 public class CardBoardManager extends GenericBoardManager {
 
+    /**
+     * The name of the memory game
+     */
     static final String GAME_NAME = "card";
 
     /**
@@ -42,10 +45,10 @@ public class CardBoardManager extends GenericBoardManager {
 
     @Override
     public boolean puzzleSolved() {
-        Iterator<Card> iter = ((CardBoard) getBoard()).iterator();
+        Iterator<Card> iterator = ((CardBoard) getBoard()).iterator();
         boolean re = true;
-        while (iter.hasNext()) {
-            Card curCard = iter.next();
+        while (iterator.hasNext()) {
+            Card curCard = iterator.next();
             if (curCard.getIsCovered()) {
                 re = false;
             }

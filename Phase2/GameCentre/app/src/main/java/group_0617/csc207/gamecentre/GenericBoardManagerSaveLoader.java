@@ -1,14 +1,11 @@
 package group_0617.csc207.gamecentre;
 
-
 import android.util.Log;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import android.content.Context;
 
 /**
@@ -29,6 +26,7 @@ public class GenericBoardManagerSaveLoader {
 
     /**
      * Return the only instance of this class, if does not exist create a new one
+     *
      * @return the only instance of this class
      */
     public static GenericBoardManagerSaveLoader getInstance() {
@@ -41,27 +39,29 @@ public class GenericBoardManagerSaveLoader {
 
     /**
      * Save the given GenericBoardManager and save it in the specified path under given context
+     *
      * @param inGenericBoardManager the GenericBoardManager to save
-     * @param inSavePath the path to save the GenericBoardManager to
-     * @param context the context
+     * @param inSavePath            the path to save the GenericBoardManager to
+     * @param context               the context
      */
     public void saveGenericBoardManager(GenericBoardManager inGenericBoardManager, String inSavePath,
                                         Context context) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput(inSavePath, context.MODE_PRIVATE));
+                    context.openFileOutput(inSavePath, Context.MODE_PRIVATE));
             outputStream.writeObject(inGenericBoardManager);
             outputStream.close();
         } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
+            Log.e("Save Loader", "File write failed: " + e.toString());
         }
     }
 
     /**
      * Return the GenericBoardManager stored in the given path under given context.
      * Return null if errors occurred in reading or if no object is found.
+     *
      * @param inLoadPath the path to load GenericBoardManager from
-     * @param context the context
+     * @param context    the context
      * @return the GenericBoardManager stored. null if not found or error occurred
      */
     public GenericBoardManager loadGenericBoardManager(String inLoadPath, Context context) {
@@ -74,11 +74,11 @@ public class GenericBoardManagerSaveLoader {
                 return myBoardManager;
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Save Loader", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Save Loader", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Save Loader", "File contained unexpected data type: " + e.toString());
         }
         return null;
     }

@@ -2,15 +2,10 @@ package group_0617.csc207.gamecentre.game2048;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Observer;
 
 import group_0617.csc207.gamecentre.GenericGameActivity;
 import group_0617.csc207.gamecentre.R;
@@ -31,9 +26,21 @@ public class Game2048Activity extends GenericGameActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_2048);
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        setSaveFileName(bundle.getString("saveFileName"));
+        setTempSaveFileName(bundle.getString("tempSaveFileName"));
         super.onCreate(savedInstanceState);
         getGridView().setAbleToFling(true);
         addUndoButtonListener();
+    }
+
+    @Override
+    public void display() {
+        super.display();
+        TextView realScore = findViewById(R.id.RealScore);
+        String text = "Score: " + getGenericBoardManager().getScore();
+        realScore.setText(text);
     }
 
     @Override
@@ -61,24 +68,4 @@ public class Game2048Activity extends GenericGameActivity {
             nextPos++;
         }
     }
-
-//    @Override
-//     public void loadFromFile(String fileName) {
-//        try {
-//            InputStream inputStream = this.openFileInput(fileName);
-//            if (inputStream != null) {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                setGenericBoardManager((BoardManager2048) input.readObject());
-//                inputStream.close();
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e("Game2048 activity", "File not found: " + e.toString());
-//        } catch (IOException e) {
-//            Log.e("Game2048 activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("Game2048 activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
-
-
 }

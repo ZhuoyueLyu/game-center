@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @param <X> the X class stored
  * @param <Y> the Y class stored
  */
-public class Tuple<X,Y> implements Serializable {
+public class Tuple<X, Y> implements Serializable {
 
     /**
      * The x stored by the tuple
@@ -26,7 +26,7 @@ public class Tuple<X,Y> implements Serializable {
      * @param x the x to store
      * @param y the y to stored
      */
-    public Tuple(X x,Y y) {
+    public Tuple(X x, Y y) {
         this.x = x;
         this.y = y;
     }

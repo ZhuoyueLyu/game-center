@@ -178,16 +178,12 @@ public class BoardTest {
     @Test
     public void testBoardIterableSimple() {
         setUpCorrect(4);
-        assertTrue(board instanceof Iterable);
-        if (board instanceof Iterable) {
-            Iterable<Tile> it = (Iterable<Tile>) board;
-            Iterator<Tile> i = it.iterator();
-            assert (i.hasNext());
-            assertEquals(i.next(), tiles.get(0));
+        Iterator<Tile> i = board.iterator();
+        assertTrue(i.hasNext());
+        assertEquals(i.next(), tiles.get(0));
 
-            i = it.iterator();
-            assertEquals(i.next(), tiles.get(0));
-        }
+        i = board.iterator();
+        assertEquals(i.next(), tiles.get(0));
     }
 
 

@@ -3,8 +3,6 @@ package group_0617.csc207.gamecentre;
 import java.io.Serializable;
 import java.util.Stack;
 
-import group_0617.csc207.gamecentre.game2048.Board2048;
-
 /**
  * A Generic BoardManager that manages a Generic Board
  */
@@ -30,11 +28,10 @@ public abstract class GenericBoardManager implements Serializable {
      */
     private int score = 0;
 
-
     /**
      * The stack of all previous reversed moves.
      */
-    private Stack<GenericBoard> boardStack = new Stack<>();
+    private final Stack<GenericBoard> boardStack = new Stack<>();
 
     /**
      * Creates an empty BoardManager
@@ -111,7 +108,7 @@ public abstract class GenericBoardManager implements Serializable {
      *
      * @return the score recorded
      */
-    public int getScore(){
+    public int getScore() {
         return score;
     }
 
@@ -143,11 +140,12 @@ public abstract class GenericBoardManager implements Serializable {
         return this.timesOfUndo;
     }
 
-    public void setTimesOfUndo(int timesOfUndo) {
-        this.timesOfUndo = timesOfUndo;
-    }
-
-    public Stack<GenericBoard> getBoardStack() {
+    /**
+     * Return the stack that contains state of previous boards.
+     *
+     * @return the stack that contains state of previous boards.
+     */
+    protected Stack<GenericBoard> getBoardStack() {
         return boardStack;
     }
 

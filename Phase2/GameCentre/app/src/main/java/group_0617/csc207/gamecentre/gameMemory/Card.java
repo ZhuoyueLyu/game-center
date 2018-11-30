@@ -110,7 +110,7 @@ public class Card extends GenericTile {
      * @param inBackground the input that specify the card's image
      * @param inIsCovered  specify whether cards is covered
      */
-    public Card(int inBackground,boolean inIsCovered) {
+    public Card(int inBackground, boolean inIsCovered) {
         super(inBackground);
         this.isCovered = inIsCovered;
     }
