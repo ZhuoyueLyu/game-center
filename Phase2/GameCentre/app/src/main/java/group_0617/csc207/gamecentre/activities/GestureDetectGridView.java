@@ -74,10 +74,8 @@ public class GestureDetectGridView extends GridView {
                             return false;
                         }
                         if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
-                            System.out.println("Up!");
                             direction = Game2048Activity.UP;
                         } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
-                            System.out.println("Down!");
                             direction = Game2048Activity.DOWN;
                         }
                     } else {
@@ -85,10 +83,8 @@ public class GestureDetectGridView extends GridView {
                             return false;
                         }
                         if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-                            System.out.println("Left!");
                             direction = Game2048Activity.LEFT;
                         } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
-                            System.out.println("Right!");
                             direction = Game2048Activity.RIGHT;
                         }
                     }
