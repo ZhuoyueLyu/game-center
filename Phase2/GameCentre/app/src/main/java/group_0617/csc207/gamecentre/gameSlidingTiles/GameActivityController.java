@@ -46,7 +46,7 @@ public class GameActivityController {
 
     /**
      * Update the backgrounds on the buttons to match the tiles.
-     * @param gameActivity
+     * @param gameActivity the gameActivity
      */
     void updateTileButtons(GameActivity gameActivity) {
         Board board = (Board) gameActivity.boardManager.getBoard();
@@ -103,7 +103,7 @@ public class GameActivityController {
         gameActivity.timerTask = new TimerTask() {
             @Override
             public void run() {
-                activity.runOnUiThread(new Runnable() {
+                gameActivity.runOnUiThread(new Runnable() {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
