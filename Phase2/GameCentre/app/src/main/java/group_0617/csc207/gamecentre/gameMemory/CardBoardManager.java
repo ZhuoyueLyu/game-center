@@ -11,6 +11,8 @@ import group_0617.csc207.gamecentre.GenericBoardManager;
  */
 public class CardBoardManager extends GenericBoardManager {
 
+    static final String GAME_NAME = "card";
+
     /**
      * The card chosen
      */
@@ -147,7 +149,7 @@ public class CardBoardManager extends GenericBoardManager {
      */
     @Override
     public String getCurrentGame() {
-        return "card";
+        return GAME_NAME;
     }
 
 
