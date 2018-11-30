@@ -55,17 +55,17 @@ public class CardStartingActivity extends GenericStartingActivity {
     public void showComplexity(TextView complexity) {
         switch (getCurrentComplexity()) {
             case 3:
-                complexity.setText("Easy (2x2)");
+                complexity.setText("Tiny (2x2)");
                 break;
 
             case 4:
-                complexity.setText("Medium (4x4)");
+                complexity.setText("Classic (4x4)");
                 break;
             case 5:
-                complexity.setText("Hard (6x6)");
+                complexity.setText("Big (6x6)");
                 break;
             default:
-                complexity.setText("Medium (4x4)");
+                complexity.setText("Classic (4x4)");
 
         }
     }
