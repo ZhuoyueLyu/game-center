@@ -70,7 +70,7 @@ public class TileTest {
 
         // Give something undefined
         tile = new Tile(1000, 7);
-        assertEquals(R.drawable.tile_0, tile.getBackground());
+        assertEquals(R.drawable.tile_grey, tile.getBackground());
 
     }
 
