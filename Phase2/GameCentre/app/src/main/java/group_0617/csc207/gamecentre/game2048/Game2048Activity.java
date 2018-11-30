@@ -3,9 +3,7 @@ package group_0617.csc207.gamecentre.game2048;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,7 +21,7 @@ import group_0617.csc207.gamecentre.R;
 public class Game2048Activity extends GenericGameActivity implements Observer {
 
     /**
-     * Constants for swiping directions. Should be an enum, probably.
+     * Constants for swiping directions.
      */
     public static final int UP = 101;
     public static final int DOWN = 102;
@@ -61,7 +59,7 @@ public class Game2048Activity extends GenericGameActivity implements Observer {
             int col = nextPos % getGenericBoardManager().getBoard().getComplexity();
             b.setBackgroundResource(board2048.getTile(row, col).getBackground());
             nextPos++;
-        };
+        }
     }
 
     @Override
@@ -74,11 +72,11 @@ public class Game2048Activity extends GenericGameActivity implements Observer {
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Game2048 activity", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Game2048 activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Game2048 activity", "File contained unexpected data type: " + e.toString());
         }
     }
 
