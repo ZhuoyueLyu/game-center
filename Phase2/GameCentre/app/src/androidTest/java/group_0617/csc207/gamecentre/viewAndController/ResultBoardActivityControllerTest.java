@@ -38,7 +38,9 @@ public class ResultBoardActivityControllerTest {
     public void testWriteData() {
         ResultBoardActivityController controller = new ResultBoardActivityController();
         System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
-        Looper.prepare();
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
         resultBoardActivity = new ResultBoardActivity();
         DatabaseHelper db = mock(DatabaseHelper.class);
         doNothing().when(db).addGameData(LoginActivity.currentUser,"st" + "medium",100);
@@ -55,6 +57,7 @@ public class ResultBoardActivityControllerTest {
         verify(db,times(1)).addGameData(LoginActivity.currentUser,"st" + "hard",200);
         verify(db,times(1)).addGameData(LoginActivity.currentUser,"st" + "easy",20);
     }
+
     @Test
     public void testCompareTheScore() {
         ResultBoardActivityController controller = new ResultBoardActivityController();
@@ -74,10 +77,9 @@ public class ResultBoardActivityControllerTest {
         controller.compareGameScore(highScoreLabel,10,settings,5);
 
 
-
         verify(highScoreLabel,times(1)).setText("High Score: " + 30);
         verify(highScoreLabel,times(1)).setText("High Score: " + 10);
 
     }
 
-    }
+}

@@ -32,7 +32,7 @@ public class MovementControllerTest {
      */
     @Test
     public void testProcessTapMovementAndSetter() {
-        System.setProperty("dexmaker.dexcache", getTargetContext().getCacheDir().toString());
+        System.setProperty("dexmaker.dexcache",getTargetContext().getCacheDir().toString());
         BoardManager boardManager = mock(BoardManager.class);
         Context context = InstrumentationRegistry.getTargetContext();
         Intent result = mock(Intent.class);
@@ -51,16 +51,18 @@ public class MovementControllerTest {
         when(movementController.genericBoardManager.getScore()).thenReturn(6);
         when(movementController.genericBoardManager.getCurrentGame()).thenReturn("st");
         when(movementController.genericBoardManager.getBoard().getComplexity()).thenReturn(4);
-        Looper.prepare();
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
         doNothing().when(boardManager).touchMove(validPosition);
         when(movementController.genericBoardManager.puzzleSolved()).thenReturn(true);
         //call the "if" branch
-        movementController.processTapMovement(context, validPosition);
+        movementController.processTapMovement(context,validPosition);
         when(movementController.genericBoardManager.puzzleSolved()).thenReturn(false);
         //call the "if" branch
-        movementController.processTapMovement(context, validPosition);
+        movementController.processTapMovement(context,validPosition);
         //call the "else" branch
-        movementController.processTapMovement(context, invalidPosition);
+        movementController.processTapMovement(context,invalidPosition);
     }
 
 
