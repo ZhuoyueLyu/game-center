@@ -79,7 +79,6 @@ public class BoardManagerTest {
         board = new Board(tiles);
         boardManager = new BoardManager(complexity);
         boardManager.setLastTime(1);
-        boardManager.setTimesOfUndo(1);
         boardManager.setBoard(board);
     }
 
@@ -140,9 +139,7 @@ public class BoardManagerTest {
         boardManager.undo();
         boardManager.undo();
         boardManager.undo();
-        //We initialize the times of undo to be 1 (for the sake of testing),
-        // and we undo 4 times, so it's 5
-        assertEquals(4 + 1, boardManager.getTimesOfUndo());
+        assertEquals(4, boardManager.getTimesOfUndo());
         assertEquals(16, board.getTile(3, 3).getId());
     }
 
