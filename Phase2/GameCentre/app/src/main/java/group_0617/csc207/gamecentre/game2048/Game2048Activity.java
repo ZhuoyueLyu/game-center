@@ -16,9 +16,9 @@ import group_0617.csc207.gamecentre.GenericGameActivity;
 import group_0617.csc207.gamecentre.R;
 
 /**
- * The game activity
+ * The game activity for 2048.
  */
-public class Game2048Activity extends GenericGameActivity implements Observer {
+public class Game2048Activity extends GenericGameActivity {
 
     /**
      * Constants for swiping directions.
@@ -62,23 +62,23 @@ public class Game2048Activity extends GenericGameActivity implements Observer {
         }
     }
 
-    @Override
-     public void loadFromFile(String fileName) {
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                setGenericBoardManager((BoardManager2048) input.readObject());
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("Game2048 activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("Game2048 activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("Game2048 activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
+//    @Override
+//     public void loadFromFile(String fileName) {
+//        try {
+//            InputStream inputStream = this.openFileInput(fileName);
+//            if (inputStream != null) {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                setGenericBoardManager((BoardManager2048) input.readObject());
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            Log.e("Game2048 activity", "File not found: " + e.toString());
+//        } catch (IOException e) {
+//            Log.e("Game2048 activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("Game2048 activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
 
 
 }
