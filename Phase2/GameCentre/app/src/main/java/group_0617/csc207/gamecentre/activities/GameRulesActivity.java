@@ -7,6 +7,7 @@ import group_0617.csc207.gamecentre.R;
 
 /**
  * The initial activity for the login interface.
+ * Excluded from tests because it's a view class.
  */
 public class GameRulesActivity extends AppCompatActivity {
 

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import group_0617.csc207.gamecentre.R;
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
@@ -17,6 +16,7 @@ public class ScoreboardActivity extends Activity {
 
     DatabaseHelper db;
     String[] listItem;
+    ScoreboardActivityController controller;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,20 +34,7 @@ public class ScoreboardActivity extends Activity {
                 inflate(R.layout.header, lstview, false);
         // Add header view to the ListView
         lstview.addHeaderView(headerView);
-        buildDataString(slidingTilesData,
-                "Sliding Tiles ", "steasy", "stmedium", "sthard");
-
-        //Add the data of 2048 game
-        buildDataString(twentyFortyEightData,
-                "2048", "tfeasy", "tfmedium", "tfhard");
-
-        //Add the data of Memory game
-        buildDataString(memoryGameData,
-                "Memory", "cardeasy", "cardmedium", "cardhard");
-
-        listItem[0] = slidingTilesData.toString();
-        listItem[1] = twentyFortyEightData.toString();
-        listItem[2] = memoryGameData.toString();
+        controller.AddGameData(slidingTilesData,twentyFortyEightData,memoryGameData, db, this);
 
         // Bind data to the ListView
         ScoreboardListAdapter adapter = new ScoreboardListAdapter(this, R.layout.rowlayout, R.id.txtUsername, listItem);
@@ -55,24 +42,4 @@ public class ScoreboardActivity extends Activity {
         lstview.setAdapter(adapter);
     }
 
-    /**
-     * A method which is used to build a string that transfer the data of the specific game
-     *
-     * @param stringBuilder a string builder which carry the game data
-     * @param game          the name of the game
-     * @param easy          the string that represent this game under easy mode
-     * @param medium        the string that represent this game under medium mode
-     * @param hard          the string that represent this game under hard mode
-     */
-    private void buildDataString(StringBuilder stringBuilder, String game, String easy, String medium, String hard) {
-        stringBuilder.append(game).append("__");
-        stringBuilder.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser, easy))).append("__");
-        //Add the score for 4 by 4 sliding tiles game
-        stringBuilder.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser, medium))).append("__");
-        //Add the score for 5 by 5 sliding tiles game
-        stringBuilder.append(Integer.toString(db.getGameData
-                (LoginActivity.currentUser, hard)));
-    }
 }

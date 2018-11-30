@@ -1,6 +1,7 @@
 package group_0617.csc207.gamecentre.gameSlidingTiles;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +33,7 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import group_0617.csc207.gamecentre.GenericBoardManagerSaveLoader;
 import group_0617.csc207.gamecentre.activities.CustomAdapter;
 import group_0617.csc207.gamecentre.activities.GameChoiceActivity;
 import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
@@ -58,6 +60,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The number of loaded image.
      */
     private static int RESULT_LOAD_IMAGE = 1;
+
+    private GameActivityController controller;
+
+    private GenericBoardManagerSaveLoader saveLoader;
 
     /**
      * Constants for swiping directions. Should be an enum, probably.
@@ -96,7 +102,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         String saveFileName = bundle.getString("tempSaveFileName");
-        loadFromFile(saveFileName);
+        saveLoader.loadGenericBoardManager(saveFileName, this);
         boardManager.makeSolvable();
         createTileButtons(this);
         setContentView(R.layout.activity_main);
@@ -146,14 +152,17 @@ public class GameActivity extends AppCompatActivity implements Observer {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
                         counts++;
                         TextView score = (TextView) findViewById(R.id.Score);
                         score.setText("Time: " + counts + " s");
                         boardManager.setLastTime(counts);
-                        saveToFile("save_file_" + GameChoiceActivity.currentGame + "_" +
-                                boardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
+                        saveLoader.saveGenericBoardManager(boardManager,"save_file_" +
+                                GameChoiceActivity.currentGame + "_" +
+                                boardManager.getBoard().getComplexity() + "_" +
+                                LoginActivity.currentUser,getApplicationContext() );
                     }
                 });
             }
@@ -225,7 +234,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveLoader.saveGenericBoardManager(boardManager,StartingActivity.TEMP_SAVE_FILENAME,this );
         boardManager.setLastTime(stopTimer());
     }
 
@@ -236,44 +245,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onResume() {
         super.onResume();
         startTimer(boardManager.getLastTime());
-    }
-
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    private void loadFromFile(String fileName) {
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
     }
 
     /**

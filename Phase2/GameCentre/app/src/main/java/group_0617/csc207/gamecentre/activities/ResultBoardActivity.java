@@ -1,5 +1,6 @@
 package group_0617.csc207.gamecentre.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,7 +27,9 @@ public class ResultBoardActivity extends AppCompatActivity {
      * The database to save high score
      */
     DatabaseHelper db;
+    RresultBoardActivityController controller;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,44 +45,9 @@ public class ResultBoardActivity extends AppCompatActivity {
         scoreLabel.setText(score + "");
         SharedPreferences settings = getSharedPreferences("GAME_DATA",Context.MODE_PRIVATE);
         int highScore = settings.getInt("HIGH_SCORE",0);
-
-        //Display the score
-        if (score > highScore) {
-            highScoreLabel.setText("High Score: " + score);
-
-            // Save
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putInt("HIGH_SCORE",score);
-            editor.commit();
-        } else {
-            highScoreLabel.setText("High Score: " + highScore);
-        }
-
+        controller.compareGameScore(highScoreLabel,score,settings,highScore);
         //Write the data into the Database
-        writeData(score,currentGame,gameComplexity);
-    }
-
-    /**
-     * Write the data into the Database
-     * @param score the score that the user earned in this game
-     * @param currentGame the name of the current game
-     * @param gameComplexity the complexity of the current game 3(easy), 4(medium), 5(hard)
-     */
-    private void writeData(int score,String currentGame,int gameComplexity) {
-        switch (gameComplexity) {
-            case 3:
-                db.addGameData(LoginActivity.currentUser,currentGame+"easy",score);
-                break;
-            case 4:
-                db.addGameData(LoginActivity.currentUser,currentGame+"medium",score);
-                break;
-            case 5:
-                db.addGameData(LoginActivity.currentUser,currentGame+"hard",score);
-                break;
-            default:
-                break;
-
-        }
+        controller.writeData(score,currentGame,gameComplexity, db);
     }
 
     /**

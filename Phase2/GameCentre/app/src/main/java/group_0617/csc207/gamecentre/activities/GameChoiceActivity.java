@@ -17,6 +17,7 @@ import group_0617.csc207.gamecentre.gameSlidingTiles.StartingActivity;
 
 /**
  * The game choice activity
+ * Excluded from tests because it's a view class.
  */
 public class GameChoiceActivity extends AppCompatActivity {
 
