@@ -32,8 +32,9 @@ public class BoardTest {
     private List<Tile> tiles;
 
     /**
-     * Make a set of tiles that are in order.
+     * Make a set of tiles that are in order. Complexity is specified
      *
+     * @param inComplexity the complexity desired
      * @return a set of tiles that are in order
      */
     private List<Tile> makeTiles(int inComplexity) {
@@ -48,6 +49,8 @@ public class BoardTest {
 
     /**
      * Does the reflection to access private method isSolvable of board
+     *
+     * @return whether current board is solvable
      */
     private boolean reflectIsSolvable() {
         boolean re = false;

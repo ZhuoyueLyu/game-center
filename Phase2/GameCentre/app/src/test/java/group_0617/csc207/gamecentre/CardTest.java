@@ -20,6 +20,11 @@ public class CardTest {
     private Card card;
 
     /**
+     * The anticipated cover of card
+     */
+    private final int cover = R.drawable.question;
+
+    /**
      * Set up the card to test
      */
     private void setUpCard() {
@@ -34,7 +39,7 @@ public class CardTest {
     }
 
     /**
-     * Test whether constructor workss
+     * Test whether constructor works
      */
     @Test
     public void testCard() {
@@ -67,14 +72,15 @@ public class CardTest {
         backgrounds.add(R.drawable.tile_22);
         backgrounds.add(R.drawable.tile_23);
         backgrounds.add(R.drawable.tile_24);
+        // Test all constructors
         for (int i = 0; i < 24; i++) {
             card = new Card(i);
-            assertEquals((long)backgrounds.get(i), card.getBackground());
+            assertEquals((long) backgrounds.get(i), card.getBackground());
         }
 
         // executes default that set background to tile0
         card = new Card(1000);
-        assertEquals(R.drawable.questionblank, card.getBackground());
+        assertEquals(cover, card.getBackground());
     }
 
 
@@ -113,7 +119,7 @@ public class CardTest {
     @Test
     public void testGetDisplay() {
         setUpCard();
-        assertEquals(R.drawable.questionblank, card.getDisplay());
+        assertEquals(cover, card.getDisplay());
         card.flip();
         assertEquals(card.getBackground(), card.getDisplay());
     }

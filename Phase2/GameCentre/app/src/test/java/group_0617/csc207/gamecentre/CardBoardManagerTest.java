@@ -28,7 +28,7 @@ public class CardBoardManagerTest {
     private CardBoard cardBoard;
 
     /**
-     * Set up a Board specifying it's complexity
+     * Set up a Board specifying its complexity
      */
     private void setUpBoardWithComplexity() {
         this.cardBoardManager = new CardBoardManager(3);
@@ -145,6 +145,6 @@ public class CardBoardManagerTest {
     @Test
     public void testGetCurrentGame() {
         setUpSpecificBoard();
-        assertEquals("card", cardBoardManager.getCurrentGame());
+        assertEquals(CardBoardManager.GAME_NAME, cardBoardManager.getCurrentGame());
     }
 }

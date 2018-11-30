@@ -14,7 +14,7 @@ public class TupleTest {
     /**
      * The tuple used to test
      */
-    Tuple tuple;
+    private Tuple tuple;
 
     /**
      * Setting up the tuple with string
