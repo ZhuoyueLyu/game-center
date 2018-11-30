@@ -4,6 +4,14 @@ import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
 
 class ScoreboardActivityController {
 
+    /**
+     * Load game data and build dataString
+     * @param slidingTilesData game data for slidingTiles
+     * @param twentyFortyEightData game data for 2048
+     * @param memoryGameData game data for memory game
+     * @param db databasehelper
+     * @param scoreboardActivity this scoreboardActivity
+     */
     void AddGameData(StringBuilder slidingTilesData,StringBuilder twentyFortyEightData,
                      StringBuilder memoryGameData,DatabaseHelper db,
                      ScoreboardActivity scoreboardActivity) {

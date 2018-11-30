@@ -1,6 +1,5 @@
 package group_0617.csc207.gamecentre.viewAndController;
 
-import java.util.ArrayList;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -23,10 +22,9 @@ This is an adapter which is responsible for adapting the game data to the user s
 public class ScoreboardListAdapter extends ArrayAdapter<String> {
     private int groupid;
     private String[] item_list;
-    ArrayList<String> desc;
-    Context context;
+    private Context context;
 
-    public ScoreboardListAdapter(Context context,int vg,int id,String[] item_list){
+    ScoreboardListAdapter(Context context,int vg,int id,String[] item_list){
         super(context,vg, id, item_list);
         this.context=context;
         groupid=vg;

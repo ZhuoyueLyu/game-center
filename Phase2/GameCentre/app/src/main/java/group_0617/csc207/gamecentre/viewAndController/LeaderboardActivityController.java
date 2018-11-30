@@ -29,6 +29,12 @@ class LeaderboardActivityController {
         }
     }
 
+    /**
+     * get the game data from database
+     * @param currentGame the name of the current game
+     * @param gameComplexity the complexity of the current game
+     * @param leaderboardActivity the leaderboardActivity
+     */
     void getDataFromDatabase(String currentGame,int gameComplexity,LeaderboardActivity leaderboardActivity) {
         switch (gameComplexity) {
             case 3:

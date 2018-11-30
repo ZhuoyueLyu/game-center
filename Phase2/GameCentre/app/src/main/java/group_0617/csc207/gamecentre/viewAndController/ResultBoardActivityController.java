@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
 
-public class ResultBoardActivityController {
+class ResultBoardActivityController {
     /**
      * Comparing the score and show the highest score
      * View and model class, no need for testing
@@ -16,6 +16,10 @@ public class ResultBoardActivityController {
      * @param highScore highest score
      */
     @SuppressLint("SetTextI18n")
+
+    /*
+      Compare the current score with the highest score and reture the higher one
+     */
     void compareGameScore(TextView highScoreLabel,int score,SharedPreferences settings,int highScore) {
         //Display the score
         if (score > highScore) {
@@ -35,7 +39,7 @@ public class ResultBoardActivityController {
      * @param score the score that the user earned in this game
      * @param currentGame the name of the current game
      * @param gameComplexity the complexity of the current game 3(easy), 4(medium), 5(hard)
-     * @param db
+     * @param db database
      */
     void writeData(int score,String currentGame,int gameComplexity,DatabaseHelper db) {
         switch (gameComplexity) {
