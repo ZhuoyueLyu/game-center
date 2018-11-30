@@ -37,6 +37,8 @@ public class BoardManagerTest {
 
     /**
      * Does the reflection to access private method isSolvable of board
+     *
+     * @return whether current board is solvable
      */
     private boolean reflectIsSolvable() {
         boolean re = false;
@@ -71,7 +73,9 @@ public class BoardManagerTest {
     }
 
     /**
-     * Make a solved Board.
+     * Make a solved Board specifying complexity
+     *
+     * @param inComplexity the complexity desired
      */
     private void setUpCorrect(int inComplexity) {
         List<Tile> tiles = makeTiles();

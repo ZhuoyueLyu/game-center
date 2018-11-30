@@ -14,7 +14,7 @@ public class CardBoardManager extends GenericBoardManager {
     /**
      * The name of the memory game
      */
-    static final String GAME_NAME = "card";
+    public static final String GAME_NAME = "card";
 
     /**
      * The card chosen

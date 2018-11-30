@@ -27,6 +27,11 @@ public class CardBoardTest {
     private int complexity = 4;
 
     /**
+     * The anticipated cover of Card
+     */
+    private final int cover = R.drawable.question;
+
+    /**
      * Set up a card board like a normal game
      */
     private void setUpCardBoard(){
@@ -68,7 +73,7 @@ public class CardBoardTest {
         setUpSpecificCardBoard();
         assertEquals(3, cardBoard.getComplexity());
         // Card should have cover as default background even if it is not given
-        assertEquals(R.drawable.questionblank, cardBoard.getCard(2, 2).getBackground());
+        assertEquals(cover, cardBoard.getCard(2, 2).getBackground());
         setUpCardBoard();
         assertEquals(4, cardBoard.getComplexity());
     }
@@ -111,11 +116,11 @@ public class CardBoardTest {
     @Test
     public void testIterator() {
         setUpSpecificCardBoard();
-        Iterator<Card> iter = cardBoard.iterator();
-        assertEquals(R.drawable.tile_2, iter.next().getBackground());
+        Iterator<Card> iterator = cardBoard.iterator();
+        assertEquals(R.drawable.tile_2, iterator.next().getBackground());
         for (int i = 0; i < 8; i++) {
-            iter.next();
+            iterator.next();
         }
-        assertFalse(iter.hasNext());
+        assertFalse(iterator.hasNext());
     }
 }
