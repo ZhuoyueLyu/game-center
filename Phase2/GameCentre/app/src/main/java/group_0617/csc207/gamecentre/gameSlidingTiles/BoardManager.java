@@ -50,7 +50,8 @@ public class BoardManager extends GenericBoardManager {
                 }
             }
         }
-        setScore(100000000 * (getBoard().getComplexity()-2) / getLastTime() / (moveStack.size() + 2 * getTimesOfUndo()));
+        setScore(100000000 * (getBoard().getComplexity() - 2) / (1 + getLastTime())
+                / (1 + moveStack.size() + 2 * getTimesOfUndo()));
         return true;
     }
 
@@ -76,8 +77,8 @@ public class BoardManager extends GenericBoardManager {
     public void touchMove(int position) {
         Board board = (Board) getBoard();
         List<Tile> tiles = new ArrayList<>();
-        for(int i = 0; i < getBoard().getComplexity(); i++){
-            for (int j = 0; j < getBoard().getComplexity(); j++){
+        for (int i = 0; i < getBoard().getComplexity(); i++) {
+            for (int j = 0; j < getBoard().getComplexity(); j++) {
                 tiles.add(((Board) getBoard()).getTile(i, j));
             }
         }
