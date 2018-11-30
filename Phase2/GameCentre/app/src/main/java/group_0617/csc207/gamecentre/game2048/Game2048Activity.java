@@ -137,7 +137,7 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
      *
      * @return the stop time counts.
      */
-    public int stopTimer() {
+    private int stopTimer() {
         timerTask.cancel();
         timerTask = null;
         return counts;
@@ -168,7 +168,7 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board2048 board2048 = boardManager2048.getBoard();
+        Board2048 board2048 = (Board2048) boardManager2048.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != boardManager2048.getBoard().getComplexity(); row++) {
             for (int col = 0; col != boardManager2048.getBoard().getComplexity(); col++) {
@@ -183,8 +183,7 @@ public class Game2048Activity extends AppCompatActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        //System.out.println("1: " + boardManager2048.getHa());
-        Board2048 board2048 = boardManager2048.getBoard();
+        Board2048 board2048 = (Board2048) boardManager2048.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / boardManager2048.getBoard().getComplexity();

@@ -235,7 +235,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("start: " + boardManager.getLastTime());
         startTimer(boardManager.getLastTime());
     }
 
