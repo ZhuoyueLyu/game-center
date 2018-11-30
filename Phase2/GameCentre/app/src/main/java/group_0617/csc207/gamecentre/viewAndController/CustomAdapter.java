@@ -25,6 +25,12 @@ public class CustomAdapter extends BaseAdapter {
      */
     private int mColumnWidth, mColumnHeight;
 
+    /**
+     * The constructor for customAdapter
+     * @param buttons the list of buttons
+     * @param columnWidth the width of column
+     * @param columnHeight the height of column
+     */
     public CustomAdapter(List<Button> buttons,int columnWidth,int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
