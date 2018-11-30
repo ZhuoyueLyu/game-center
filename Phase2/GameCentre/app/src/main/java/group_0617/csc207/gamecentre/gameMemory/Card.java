@@ -16,7 +16,7 @@ public class Card extends GenericTile {
     /**
      * The cover of all cards
      */
-    private final static int cover = R.drawable.questionblank;
+    private final static int cover = R.drawable.question;
 
     /**
      * Create the card with corresponding image specified by inBackground
