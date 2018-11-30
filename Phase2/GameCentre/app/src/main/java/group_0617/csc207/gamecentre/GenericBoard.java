@@ -1,9 +1,6 @@
 package group_0617.csc207.gamecentre;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Observable;
 
 /**
@@ -63,6 +60,17 @@ public abstract class GenericBoard extends Observable implements Serializable {
      */
     protected GenericTile[][] getGenericTiles() {
         return genericTiles;
+    }
+
+    /**
+     * Set the current board the given board and notify the observer.
+     *
+     * @param genericBoard the board as a mould.
+     */
+    void applyBoard(GenericBoard genericBoard){
+        setGenericTiles(genericBoard.getGenericTiles());
+        setChanged();
+        notifyObservers();
     }
 
     /**

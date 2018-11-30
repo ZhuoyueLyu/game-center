@@ -152,17 +152,6 @@ public class Board2048 extends GenericBoard implements Serializable {
     }
 
     /**
-     * Set the current board the given board2048 and notify the observer.
-     *
-     * @param board2048 the board as a mould.
-     */
-    void applyBoard(Board2048 board2048) {
-        setGenericTiles(board2048.getTiles());
-        setChanged();
-        notifyObservers();
-    }
-
-    /**
      * Return the tiles of Board2048.
      *
      * @return the current tiles.
