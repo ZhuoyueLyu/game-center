@@ -66,6 +66,7 @@ public class StartingActivity2048 extends GenericStartingActivity {
             public void onClick(View v) {
                 Intent gameScoreboardScreen =
                         new Intent(StartingActivity2048.this, LeaderboardActivity.class);
+                gameScoreboardScreen.putExtra("currentGame", "tf");
                 gameScoreboardScreen.putExtra("complexity", getCurrentComplexity());
                 startActivity(gameScoreboardScreen);
             }
