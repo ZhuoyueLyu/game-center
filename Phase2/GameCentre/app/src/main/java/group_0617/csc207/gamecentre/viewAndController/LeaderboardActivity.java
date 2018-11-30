@@ -32,7 +32,7 @@ public class LeaderboardActivity extends Activity {
      * LeaderboardActivityController
      */
     LeaderboardActivityController controller;
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         controller = new LeaderboardActivityController();
@@ -44,7 +44,7 @@ public class LeaderboardActivity extends Activity {
         //Retrieve the game data from database (per game/per difficulty)
         controller.getDataFromDatabase(currentGame,gameComplexity,this);
 
-        ListView listView = (ListView) findViewById(R.id.listview);
+        ListView listView = findViewById(R.id.listview);
         // Inflate header view
         ViewGroup headerView = (ViewGroup) getLayoutInflater().
                 inflate(R.layout.header_leaderboard,listView,false);
@@ -61,18 +61,10 @@ public class LeaderboardActivity extends Activity {
 
     /**
      * Getter, no need for testing
-     * @return databasehelper
+     * @return databaseHelper
      */
     public DatabaseHelper getDb() {
         return db;
-    }
-
-    /**
-     *  Getter
-     * @return  listItem
-     */
-    public String[] getListItem() {
-        return listItem;
     }
 
     /**
