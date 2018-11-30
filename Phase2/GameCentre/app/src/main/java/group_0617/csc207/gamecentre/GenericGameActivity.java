@@ -41,11 +41,6 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
     private String saveFileName;
 
     /**
-     * The temporary path to get initial board manager from
-     */
-    private String tempSaveFileName;
-
-    /**
      * The buttons to display.
      */
     private List<Button> tileButtons;
@@ -78,7 +73,7 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(tempSaveFileName);
+        loadFromFile(saveFileName);
         createTileButtons(this);
 
         gridView = findViewById(R.id.grid);
@@ -271,12 +266,4 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
         this.saveFileName = saveFileName;
     }
 
-    /**
-     * Set the path to get temporary board manager from starting activities.
-     *
-     * @param tempSaveFileName the path to get temporary board manager
-     */
-    protected void setTempSaveFileName(String tempSaveFileName) {
-        this.tempSaveFileName = tempSaveFileName;
-    }
 }

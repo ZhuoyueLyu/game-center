@@ -40,6 +40,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
             @Override
             public void onClick(View v) {
                 setGenericBoardManager(new CardBoardManager((getCurrentComplexity() - 2) * 2));
+                saveToFile(getSaveFileName());
                 switchToGame();
             }
         });
@@ -74,9 +75,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
      */
     public void switchToGame() {
         Intent tmp = new Intent(this, CardGameActivity.class);
-        tmp.putExtra("tempSaveFileName", getTempSaveFileName());
         tmp.putExtra("saveFileName", getSaveFileName());
-        saveToFile(getTempSaveFileName());
         startActivity(tmp);
     }
 

@@ -39,6 +39,7 @@ public class StartingActivity2048 extends GenericStartingActivity {
             @Override
             public void onClick(View v) {
                 setGenericBoardManager(new BoardManager2048(getCurrentComplexity()));
+                saveToFile(getSaveFileName());
                 switchToGame();
             }
         });
@@ -49,9 +50,7 @@ public class StartingActivity2048 extends GenericStartingActivity {
      */
     public void switchToGame() {
         Intent tmp = new Intent(this, Game2048Activity.class);
-        tmp.putExtra("tempSaveFileName", getTempSaveFileName());
         tmp.putExtra("saveFileName", getSaveFileName());
-        saveToFile(getTempSaveFileName());
         startActivity(tmp);
     }
 

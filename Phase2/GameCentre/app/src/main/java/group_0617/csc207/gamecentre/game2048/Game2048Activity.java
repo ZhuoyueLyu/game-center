@@ -29,7 +29,6 @@ public class Game2048Activity extends GenericGameActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         setSaveFileName(bundle.getString("saveFileName"));
-        setTempSaveFileName(bundle.getString("tempSaveFileName"));
         super.onCreate(savedInstanceState);
         getGridView().setAbleToFling(true);
         addUndoButtonListener();

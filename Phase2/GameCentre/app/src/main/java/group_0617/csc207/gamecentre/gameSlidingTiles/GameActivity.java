@@ -47,7 +47,6 @@ public class GameActivity extends GenericGameActivity {
         controller = new GameActivityController();
         assert bundle != null;
         setSaveFileName(bundle.getString("saveFileName"));
-        setTempSaveFileName(bundle.getString("tempSaveFileName"));
         super.onCreate(savedInstanceState);
         getGridView().setAbleToFling(false);
         addUndoButtonListener();

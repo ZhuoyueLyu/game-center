@@ -35,11 +35,6 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     private String saveFileName;
 
     /**
-     * A temporary save file.
-     */
-    private String tempSaveFileName;
-
-    /**
      * The board manager.
      */
     private GenericBoardManager genericBoardManager;
@@ -53,7 +48,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        saveToFile(tempSaveFileName);
+        saveToFile(saveFileName);
         setContentView(R.layout.activity_starting_);
 
         addStartButtonListener();
@@ -75,21 +70,10 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     }
 
     /**
-     * Return the temporary saveFileName between starting activities and game activities
-     *
-     * @return the temporary saveFileName
-     */
-    protected String getTempSaveFileName() {
-        return tempSaveFileName;
-    }
-
-    /**
      * Renew the saving paths based on new configuration
      */
     private void setSavePath() {
         this.saveFileName = "save_file_" + gameName + "_" + currentComplexity
-                + "_" + LoginActivity.currentUser;
-        this.tempSaveFileName = "save_file_tmp_" + gameName + "_" + currentComplexity
                 + "_" + LoginActivity.currentUser;
     }
 
@@ -184,7 +168,6 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (loadFromFile(saveFileName)) {
-                    saveToFile(tempSaveFileName);
                     makeToastText("Loaded Game");
                     switchToGame();
                 }
@@ -201,7 +184,6 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveToFile(saveFileName);
-                saveToFile(tempSaveFileName);
                 makeToastText("Game Saved");
             }
         });
@@ -238,7 +220,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadFromFile(tempSaveFileName);
+        loadFromFile(saveFileName);
     }
 
     /**
