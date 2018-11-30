@@ -24,15 +24,12 @@ import group_0617.csc207.gamecentre.R;
  * The initial activity for the sliding puzzle tile game.
  */
 public class StartingActivity extends GenericStartingActivity {
-    /**
-     * A temporary save file.
-     */
-    public String tempSaveFileName = "save_file_tmp_" + GameChoiceActivity.currentGame + "_" + LoginActivity.currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setGenericBoardManager(new BoardManager(getCurrentComplexity()));
+        setGameName(BoardManager.GAME_NAME);
+        super.onCreate(savedInstanceState);
     }
 
 
@@ -55,55 +52,10 @@ public class StartingActivity extends GenericStartingActivity {
      */
     public void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        tmp.putExtra("tempSaveFileName", tempSaveFileName);
-        saveToFile(tempSaveFileName);
+        tmp.putExtra("tempSaveFileName", getTempSaveFileName());
+        tmp.putExtra("saveFileName", getSaveFileName());
+        saveToFile(getTempSaveFileName());
         startActivity(tmp);
-    }
-
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public boolean loadFromFile(String fileName) {
-        boolean re = true;
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                BoardManager boardManager = (BoardManager) input.readObject();
-                if (boardManager != null) {
-                    setGenericBoardManager((BoardManager) input.readObject());
-                } else {
-                    re = false;
-                }
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-        return re;
-    }
-
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(getGenericBoardManager());
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
     }
 
     /**

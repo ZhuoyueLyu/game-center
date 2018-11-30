@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,8 +46,6 @@ public class GameActivity extends GenericGameActivity {
      */
     private static int RESULT_LOAD_IMAGE = 1;
 
-    GenericBoardManagerSaveLoader saveLoader;
-
     /**
      * A list containing Bitmap.
      */
@@ -55,14 +54,14 @@ public class GameActivity extends GenericGameActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        setSaveFileName(bundle.getString("saveFileName"));
+        setTempSaveFileName(bundle.getString("tempSaveFileName"));
         super.onCreate(savedInstanceState);
         getGridView().setAbleToFling(false);
         addUndoButtonListener();
         addUploadButtonListener();
-
-        Bundle bundle = getIntent().getExtras();
-        String saveFileName = bundle.getString("tempSaveFileName");
-        saveLoader.loadGenericBoardManager(saveFileName, this);
         ((BoardManager) getGenericBoardManager()).makeSolvable();
     }
 
@@ -166,7 +165,7 @@ public class GameActivity extends GenericGameActivity {
      * @return the list of Bitmap pieces.
      */
     List<Bitmap> cutImage(Bitmap picture, BoardManager boardManager) {
-        List<Bitmap> newPieces = new ArrayList<Bitmap>();
+        List<Bitmap> newPieces = new ArrayList<>();
         int w = picture.getWidth();
         int h = picture.getHeight();
         int boxWidth = w / boardManager.getBoard().getComplexity();
@@ -183,8 +182,8 @@ public class GameActivity extends GenericGameActivity {
     // https://github.com/googlesamples/easypermissions
     // 14:20 05/11/2018 Jiahe Lyu
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         // Forward results to EasyPermissions

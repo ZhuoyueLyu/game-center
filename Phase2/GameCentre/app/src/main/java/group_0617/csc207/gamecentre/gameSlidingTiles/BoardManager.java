@@ -14,6 +14,11 @@ import group_0617.csc207.gamecentre.dataBase.Tuple;
 public class BoardManager extends GenericBoardManager {
 
     /**
+     * The name of the game
+     */
+    static final String GAME_NAME = "st";
+
+    /**
      * The stack of all previous reversed moves.
      */
     private Stack<Tuple<Integer, Integer>> moveStack = new Stack<>();
@@ -113,27 +118,6 @@ public class BoardManager extends GenericBoardManager {
         return -1;
     }
 
-//    /**
-//     * Undo last move and return true if undo successfully, false if it has been initial states.
-//     *
-//     * @return whether the current can be undoed.
-//     */
-//    public boolean undo() {
-//        if (moveStack.isEmpty()) {
-//            return false;
-//        } else {
-//            Tuple<Integer, Integer> lastMove = moveStack.pop();
-//            int pos1 = lastMove.getX();
-//            int pos2 = lastMove.getY();
-//            Board board = (Board) getBoard();
-//            int complexity = board.getComplexity();
-//            board.swapTiles(pos1 / complexity, pos1 % complexity,
-//                    pos2 / complexity, pos2 % complexity);
-//            //timesOfUndo++;
-//            return true;
-//        }
-//    }
-
     /**
      * The method which return the abbreviation of the SlidingTiles game, i.e., "ST"
      *
@@ -141,7 +125,7 @@ public class BoardManager extends GenericBoardManager {
      */
     @Override
     public String getCurrentGame() {
-        return "st";
+        return GAME_NAME;
     }
 
     /**

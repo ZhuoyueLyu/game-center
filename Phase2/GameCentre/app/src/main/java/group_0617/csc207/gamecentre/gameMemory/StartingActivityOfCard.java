@@ -84,7 +84,6 @@ public class StartingActivityOfCard extends GenericStartingActivity {
         Intent tmp = new Intent(this, CardGameActivity.class);
         tmp.putExtra("tempSaveFileName", getTempSaveFileName());
         tmp.putExtra("saveFileName", getSaveFileName());
-        tmp.putExtra("complexity",(getCurrentComplexity() - 2) * 2);
         saveToFile(getTempSaveFileName());
         startActivity(tmp);
     }

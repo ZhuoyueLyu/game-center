@@ -12,10 +12,10 @@ import group_0617.csc207.gamecentre.GenericBoardManager;
  */
 public class BoardManager2048 extends GenericBoardManager implements Serializable {
 
-//    /**
-//     * The stack of all previous reversed moves.
-//     */
-//    private Stack<Board2048> boardStack = new Stack<>();
+    /**
+     * Name of 2048 game
+     */
+    static final String GAME_NAME = "tf";
 
     /**
      * Manage a board that has been pre-populated.
@@ -151,7 +151,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
 
     @Override
     public String getCurrentGame() {
-        return "tf";
+        return GAME_NAME;
     }
 
 }

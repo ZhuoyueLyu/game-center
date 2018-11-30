@@ -101,7 +101,7 @@ public abstract class GenericGameActivity extends AppCompatActivity implements O
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    private void display() {
+    public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         TextView realScore = findViewById(R.id.RealScore);
