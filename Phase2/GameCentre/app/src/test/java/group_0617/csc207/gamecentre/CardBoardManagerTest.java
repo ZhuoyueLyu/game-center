@@ -30,7 +30,7 @@ public class CardBoardManagerTest {
     /**
      * Set up a Board specifying it's complexity
      */
-    private void setUpBoardWithComplexity(){
+    private void setUpBoardWithComplexity() {
         this.cardBoardManager = new CardBoardManager(3);
     }
 
@@ -54,9 +54,9 @@ public class CardBoardManagerTest {
     @Test
     public void testConstructor() {
         setUpBoardWithComplexity();
-        assertEquals(3, cardBoardManager.getBoard().getComplexity() );
+        assertEquals(3, cardBoardManager.getBoard().getComplexity());
         setUpSpecificBoard();
-        assertEquals(4, cardBoardManager.getBoard().getComplexity() );
+        assertEquals(4, cardBoardManager.getBoard().getComplexity());
     }
 
     /**
@@ -102,8 +102,6 @@ public class CardBoardManagerTest {
         setUpSpecificBoard();
         cardBoardManager.touchMove(0);
         assertFalse(cardBoardManager.getCardAtPos(0).getIsCovered());
-        cardBoardManager.touchMove(0);
-        assertFalse(cardBoardManager.getCardAtPos(0).getIsCovered());
         cardBoardManager.touchMove(2);
         assertTrue(cardBoardManager.getCardAtPos(2).getIsCovered());
     }
@@ -126,9 +124,9 @@ public class CardBoardManagerTest {
     public void getScore() {
         setUpSpecificBoard();
         for (int i = 0; i < 4; i++) {
-            cardBoardManager.touchMove(i*2);
+            cardBoardManager.touchMove(i * 2);
         }
-        assertEquals((int)(1000*Math.exp(-4*0.01)), cardBoardManager.getScore());
+        assertEquals((int) (1000 * Math.exp(-4 * 0.01)), cardBoardManager.getScore());
     }
 
     /**
