@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import group_0617.csc207.gamecentre.R;
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
+import group_0617.csc207.gamecentre.gameMemory.CardBoardManager;
 import group_0617.csc207.gamecentre.gameSlidingTiles.StartingActivity;
 
 /**
@@ -44,7 +45,12 @@ public class ResultBoardActivity extends AppCompatActivity {
 
         int score = getIntent().getIntExtra("SCORE",0);
         String currentGame = getIntent().getStringExtra("currentGame");
-        int gameComplexity = getIntent().getIntExtra("complexity",4);
+        int gameComplexity;
+        if (currentGame.equals(CardBoardManager.GAME_NAME)) {
+            gameComplexity = getIntent().getIntExtra("complexity", 4) / 2 + 2;
+        } else {
+            gameComplexity = getIntent().getIntExtra("complexity", 4);
+        }
 
         scoreLabel.setText(score + "");
         SharedPreferences settings = getSharedPreferences("GAME_DATA",Context.MODE_PRIVATE);
