@@ -24,6 +24,9 @@ public class BoardManager2048Test {
      */
     private BoardManager2048 boardManager2048;
 
+    /**
+     * The current complexity tested
+     */
     private int complexity = 4;
 
     /**

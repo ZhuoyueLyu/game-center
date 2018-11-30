@@ -56,9 +56,10 @@ public class TileTest {
         backgrounds.add(R.drawable.tile_22);
         backgrounds.add(R.drawable.tile_23);
         backgrounds.add(R.drawable.tile_24);
+        // Test all constructors
         for (int i = 0; i < 24; i++) {
-            tile = new Tile(i+1, 5);
-            assertEquals((long)backgrounds.get(i), tile.getBackground());
+            tile = new Tile(i + 1, 5);
+            assertEquals((long) backgrounds.get(i), tile.getBackground());
         }
         tile = new Tile(25, 5);
         assertEquals(R.drawable.tile_0, tile.getBackground());
