@@ -108,7 +108,7 @@ public class Tile extends GenericTile implements Comparable<Tile> {
                 setBackground(R.drawable.tile_0);
                 break;
             default:
-                setBackground(R.drawable.tile_0);
+                setBackground(R.drawable.tile_grey);
         }
     }
 

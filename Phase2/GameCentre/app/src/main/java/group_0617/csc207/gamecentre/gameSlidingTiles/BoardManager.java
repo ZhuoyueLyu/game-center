@@ -50,8 +50,7 @@ public class BoardManager extends GenericBoardManager {
                 }
             }
         }
-        setScore(100000000 * (getBoard().getComplexity() - 2) / (1 + getLastTime())
-                / (1 + moveStack.size() + 2 * getTimesOfUndo()));
+        setScore(1000000 * (getBoard().getComplexity() - 2) / (getLastTime() + 1 + moveStack.size() + 2 * getTimesOfUndo()));
         return true;
     }
 

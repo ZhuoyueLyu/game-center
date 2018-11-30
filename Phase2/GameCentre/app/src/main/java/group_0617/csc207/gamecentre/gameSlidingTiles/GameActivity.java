@@ -80,8 +80,8 @@ public class GameActivity extends GenericGameActivity {
                 Tile curTile = board.getTile(row, col);
                 if (bitmapList == null) {
                     tmp.setBackgroundResource(curTile.getBackground());
-                } else if (curTile.getId() != board.getComplexity() * board.getComplexity()) {
-                    BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(curTile.getId()));
+                } else if (curTile.getId() < board.getComplexity() * board.getComplexity()) {
+                    BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(curTile.getId()-1));
                     tmp.setBackground(d);
                 } else {
                     tmp.setBackgroundResource(R.drawable.tile_grey);
@@ -102,8 +102,8 @@ public class GameActivity extends GenericGameActivity {
             Tile curTile = board.getTile(row, col);
             if (bitmapList == null) {
                 b.setBackgroundResource(curTile.getBackground());
-            } else if (curTile.getId() != board.getComplexity() * board.getComplexity()) {
-                BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(curTile.getId()));
+            } else if (curTile.getId() < board.getComplexity() * board.getComplexity()) {
+                BitmapDrawable d = new BitmapDrawable(getResources(), bitmapList.get(curTile.getId()-1));
                 b.setBackground(d);
             } else {
                 b.setBackgroundResource(R.drawable.tile_grey);
