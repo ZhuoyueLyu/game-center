@@ -2,6 +2,7 @@ package group_0617.csc207.gamecentre.viewAndController;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.TextView;
 
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;

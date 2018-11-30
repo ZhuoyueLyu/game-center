@@ -106,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * This method is used to check whether a given username and passward combination exist or not
+     * This method is used to check whether a given username and password combination exist or not
      *
      * @param username the username
      * @param password the password
@@ -187,10 +187,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //cursor is used to read from the database
         Cursor cursor = db.rawQuery(selectQuery, null);
         int result = 0;
-        int Index;
+        int index;
         if (cursor.moveToFirst()) {
-            Index = cursor.getColumnIndex(column);
-            result = Integer.valueOf(cursor.getString(Index));
+            index = cursor.getColumnIndex(column);
+            result = Integer.valueOf(cursor.getString(index));
         }
         cursor.close();
         return result;
@@ -205,7 +205,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public List<Tuple<String, Integer>> getLeaderboardData(String column) {
 
-        List<Tuple<String, Integer>> leaderBoardData = new ArrayList<Tuple<String, Integer>>();
+        List<Tuple<String, Integer>> leaderBoardData = new ArrayList<>();
         String selectQuery = "select * from  " + USER_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
