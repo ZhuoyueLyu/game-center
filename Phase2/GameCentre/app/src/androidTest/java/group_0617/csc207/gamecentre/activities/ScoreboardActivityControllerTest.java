@@ -28,7 +28,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
 
 public class ScoreboardActivityControllerTest {
-    private List<Tuple<String, Integer>> leaderBoardData;
+    private ScoreboardActivity scoreboardActivity;
     private String[] listItem;
     private DatabaseHelper db;
 
