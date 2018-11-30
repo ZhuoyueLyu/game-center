@@ -33,6 +33,7 @@ public class ResultBoardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        controller = new ResultBoardActivityController();
         setContentView(R.layout.activity_result_board);
         db = new DatabaseHelper(this);
         TextView scoreLabel = findViewById(R.id.scoreLabel);

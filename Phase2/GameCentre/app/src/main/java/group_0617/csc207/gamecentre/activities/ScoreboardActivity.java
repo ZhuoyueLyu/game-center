@@ -21,6 +21,7 @@ public class ScoreboardActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        controller = new ScoreboardActivityController();
         setContentView(R.layout.avtivity_user_scoreboard);
 
         db = new DatabaseHelper(this);
@@ -36,7 +37,6 @@ public class ScoreboardActivity extends Activity {
         // Add header view to the ListView
         lstview.addHeaderView(headerView);
         controller.AddGameData(slidingTilesData,twentyFortyEightData,memoryGameData, db, this);
-
         // Bind data to the ListView
         ScoreboardListAdapter adapter = new ScoreboardListAdapter(this, R.layout.rowlayout, R.id.txtUsername, listItem);
         // Bind data to the ListView

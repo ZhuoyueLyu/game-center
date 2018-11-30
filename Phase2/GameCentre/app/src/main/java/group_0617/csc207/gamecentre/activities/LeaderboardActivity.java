@@ -24,6 +24,7 @@ public class LeaderboardActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        controller = new LeaderboardActivityController();
         setContentView(R.layout.avtivity_game_leaderboard);
         String currentGame = getIntent().getStringExtra("currentGame");
         int gameComplexity = getIntent().getIntExtra("complexity",4);
