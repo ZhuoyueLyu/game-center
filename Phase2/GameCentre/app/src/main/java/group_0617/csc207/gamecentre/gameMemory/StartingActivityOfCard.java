@@ -3,29 +3,21 @@ package group_0617.csc207.gamecentre.gameMemory;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
-import group_0617.csc207.gamecentre.activities.GameChoiceActivity;
 import group_0617.csc207.gamecentre.activities.GenericStartingActivity;
 import group_0617.csc207.gamecentre.activities.LeaderboardActivity;
-import group_0617.csc207.gamecentre.activities.LoginActivity;
 import group_0617.csc207.gamecentre.R;
 
 /**
  * The initial activity for the sliding puzzle tile game.
  */
 public class StartingActivityOfCard extends GenericStartingActivity {
+
+    private  StartingActivityOfCardController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

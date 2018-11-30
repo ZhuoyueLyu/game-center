@@ -1,14 +1,11 @@
 package group_0617.csc207.gamecentre;
 
-
 import android.util.Log;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import android.content.Context;
 
 /**
@@ -49,7 +46,7 @@ public class GenericBoardManagerSaveLoader {
                                         Context context) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput(inSavePath, context.MODE_PRIVATE));
+                    context.openFileOutput(inSavePath, Context.MODE_PRIVATE));
             outputStream.writeObject(inGenericBoardManager);
             outputStream.close();
         } catch (IOException e) {
