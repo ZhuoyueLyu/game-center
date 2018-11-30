@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import group_0617.csc207.gamecentre.GenericBoardManager;
+import group_0617.csc207.gamecentre.GenericBoardManagerSaveLoader;
 import group_0617.csc207.gamecentre.R;
 
 /**
@@ -43,6 +44,8 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      */
     private GenericBoardManager genericBoardManager;
 
+    private GenericBoardManagerSaveLoader saveLoader = GenericBoardManagerSaveLoader.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +62,11 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         addRightArrowButtonListener();
     }
 
-    public String getTempSaveFileName() {
+    protected String getSaveFileName() {
+        return saveFileName;
+    }
+
+    protected String getTempSaveFileName() {
         return tempSaveFileName;
     }
 
@@ -227,14 +234,25 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    abstract public boolean loadFromFile(String fileName);
+    private boolean loadFromFile(String fileName) {
+        GenericBoardManager loadedBoardManager =
+                saveLoader.loadGenericBoardManager(fileName, this);
+        if (loadedBoardManager == null) {
+            return false;
+        }
+        genericBoardManager = loadedBoardManager;
+        return true;
+    }
 
     /**
      * Save the board manager to fileName.
      *
      * @param fileName the name of the file
      */
-    abstract public void saveToFile(String fileName);
+    protected void saveToFile(String fileName) {
+        saveLoader.saveGenericBoardManager(genericBoardManager,
+                fileName, this);
+    }
 
     /**
      * Return this board manager

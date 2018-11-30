@@ -77,62 +77,16 @@ public class StartingActivityOfCard extends GenericStartingActivity {
         }
     }
 
-
     /**
      * Switch to the GameActivity view to play the game.
      */
     public void switchToGame() {
         Intent tmp = new Intent(this, CardGameActivity.class);
         tmp.putExtra("tempSaveFileName", getTempSaveFileName());
+        tmp.putExtra("saveFileName", getSaveFileName());
         tmp.putExtra("complexity",(getCurrentComplexity() - 2) * 2);
         saveToFile(getTempSaveFileName());
         startActivity(tmp);
-    }
-
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public boolean loadFromFile(String fileName) {
-        boolean re = true;
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                CardBoardManager cardBoardManager = (CardBoardManager) input.readObject();
-                if (cardBoardManager != null) {
-                    setGenericBoardManager(cardBoardManager);
-                } else {
-                    re = false;
-                }
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("Card Starting activity","File not found: " + e.toString());
-            Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Log.e("Card Starting activity","Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("Card Stating activity","File contained unexpected data type: " + e.toString());
-        }
-        return re;
-    }
-
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName , MODE_PRIVATE));
-            outputStream.writeObject(getGenericBoardManager());
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception","File write failed: " + e.toString());
-        }
     }
 
     /**
@@ -145,9 +99,9 @@ public class StartingActivityOfCard extends GenericStartingActivity {
             @Override
             public void onClick(View v) {
                 Intent gameScoreboardScreen =
-                        new Intent(StartingActivityOfCard.this,LeaderboardActivity.class);
+                        new Intent(StartingActivityOfCard.this, LeaderboardActivity.class);
                 gameScoreboardScreen.putExtra("currentGame","card");
-                gameScoreboardScreen.putExtra("complexity",getCurrentComplexity());
+                gameScoreboardScreen.putExtra("complexity", getCurrentComplexity());
                 startActivity(gameScoreboardScreen);
             }
         });

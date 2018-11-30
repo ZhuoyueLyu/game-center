@@ -23,6 +23,8 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import group_0617.csc207.gamecentre.GenericBoardManager;
+import group_0617.csc207.gamecentre.GenericBoardManagerSaveLoader;
 import group_0617.csc207.gamecentre.activities.CustomAdapter;
 import group_0617.csc207.gamecentre.GenericBoard;
 import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
@@ -52,7 +54,11 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
     private int columnHeight, columnWidth;
     private int complexity;
 
+    private String saveFileName;
+
     private String tempSaveFileName;
+
+    private GenericBoardManagerSaveLoader saveLoader = GenericBoardManagerSaveLoader.getInstance();
 
     /**
      * The timer stuffs for the game.
@@ -67,6 +73,7 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
         assert bundle != null;
         complexity = bundle.getInt("complexity");
         tempSaveFileName = bundle.getString("tempSaveFileName");
+        saveFileName = bundle.getString("saveFileName");
         super.onCreate(savedInstanceState);
         loadFromFile(tempSaveFileName);
         createTileButtons(this);
@@ -103,8 +110,7 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
                         TextView score = findViewById(R.id.Score);
                         score.setText("Time: " + counts + " s");
                         cardBoardManager.setLastTime(counts);
-                        saveToFile("save_file_" +
-                                cardBoardManager.getBoard().getComplexity() + "_" + LoginActivity.currentUser);
+                        saveToFile(saveFileName);
                     }
                 });
             }
@@ -129,12 +135,12 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(tempSaveFileName);
+        saveToFile(saveFileName);
         cardBoardManager.setLastTime(stopTimer());
     }
 
     /**
-     * Dispatch onResumee() to fragments.
+     * Dispatch onResume() to fragments.
      */
     @Override
     protected void onResume() {
@@ -199,14 +205,8 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
      * Save the current state of the game
      */
     private void saveToFile(String nameToSave) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(nameToSave, MODE_PRIVATE));
-            outputStream.writeObject(cardBoardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
+        saveLoader.saveGenericBoardManager(cardBoardManager,
+                nameToSave, this);
     }
 
     /**
@@ -215,26 +215,13 @@ public class CardGameActivity extends AppCompatActivity implements Observer {
      * @param fileName the name of the file
      */
     public void loadFromFile(String fileName) {
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                cardBoardManager = (CardBoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("CardGameActivity","File not found: " + e.toString());
-            Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Log.e("CardGameActivity","Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("CardGameActivity","File contained unexpected data type: " + e.toString());
-        }
+        cardBoardManager = (CardBoardManager)
+                saveLoader.loadGenericBoardManager(fileName, this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         display();
-        saveToFile(tempSaveFileName);
+        saveToFile(saveFileName);
     }
 }
