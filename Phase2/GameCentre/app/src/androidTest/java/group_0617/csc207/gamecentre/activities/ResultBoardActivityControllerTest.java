@@ -1,22 +1,19 @@
 package group_0617.csc207.gamecentre.activities;
 
-import org.junit.Test;
-
-import static android.support.test.InstrumentationRegistry.getTargetContext;
-
 import android.content.SharedPreferences;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.Test;
 
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
-import group_0617.csc207.gamecentre.dataBase.Tuple;
 
-import static org.junit.Assert.assertEquals;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class ResultBoardActivityControllerTest {
     private ResultBoardActivity resultBoardActivity;
@@ -41,6 +38,7 @@ public class ResultBoardActivityControllerTest {
         controller.writeData(100,"st",4,db);
         controller.writeData(200,"st",5,db);
         controller.writeData(20,"st",3,db);
+        controller.writeData(20,"st",0,db);
 
         verify(db,times(1)).addGameData(LoginActivity.currentUser,"st" + "medium",100);
         verify(db,times(1)).addGameData(LoginActivity.currentUser,"st" + "hard",200);
