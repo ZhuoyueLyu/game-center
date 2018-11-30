@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 import group_0617.csc207.gamecentre.GenericGameActivity;
@@ -35,7 +36,7 @@ public class Game2048Activity extends GenericGameActivity {
     }
 
     @Override
-    public void display(){
+    public void display() {
         super.display();
         TextView realScore = findViewById(R.id.RealScore);
         String text = "Score: " + getGenericBoardManager().getScore();

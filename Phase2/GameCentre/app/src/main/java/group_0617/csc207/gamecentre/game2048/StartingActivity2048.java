@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-
 import group_0617.csc207.gamecentre.activities.GenericStartingActivity;
 import group_0617.csc207.gamecentre.activities.LeaderboardActivity;
 import group_0617.csc207.gamecentre.R;
@@ -66,7 +65,7 @@ public class StartingActivity2048 extends GenericStartingActivity {
             @Override
             public void onClick(View v) {
                 Intent gameScoreboardScreen =
-                        new Intent(StartingActivity2048.this,LeaderboardActivity.class);
+                        new Intent(StartingActivity2048.this, LeaderboardActivity.class);
                 gameScoreboardScreen.putExtra("complexity", getCurrentComplexity());
                 startActivity(gameScoreboardScreen);
             }

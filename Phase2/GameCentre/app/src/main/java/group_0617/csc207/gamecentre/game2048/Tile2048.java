@@ -13,7 +13,7 @@ public class Tile2048 extends GenericTile implements Serializable {
     /**
      * The unique id.
      */
-    private int id;
+    private final int id;
 
     /**
      * A tile with a background id; look up and set the id.

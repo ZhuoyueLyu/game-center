@@ -17,21 +17,45 @@ import group_0617.csc207.gamecentre.dataBase.Session;
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     //initialize buttons and text
+
+    /**
+     * The button for log in
+     */
     private Button login;
+
+    /**
+     * The button for register
+     */
     private Button register;
+
+    /**
+     * The place to write username
+     */
     private EditText username;
+
+    /**
+     * The place to write password
+     */
     private EditText password;
+
+    /**
+     * database to store username, password, and initialize scores
+     */
     private DatabaseHelper db;
+
     private Session session;
 
+    /**
+     * The current user
+     */
     public static String currentUser = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        login = (Button) findViewById(R.id.btnLogin);
-        register = (Button) findViewById(R.id.btnReg);
+        login = findViewById(R.id.btnLogin);
+        register = findViewById(R.id.btnReg);
         username = findViewById(R.id.UsernameText);
         password = findViewById(R.id.PasswordText);
         db = new DatabaseHelper(this);
@@ -51,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnReg:
                 register(v);
-                startActivity(new Intent(this,GameChoiceActivity.class));
+                startActivity(new Intent(this, GameChoiceActivity.class));
                 break;
             default:
 
@@ -66,22 +90,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void login(View view) {
         String usernameString = username.getText().toString();
         String passwordString = password.getText().toString();
-        if(!(db.checkUserExist(usernameString))){
+        if (!(db.checkUserExist(usernameString))) {
             displayToast("User doesn't exist, please register!");
-        }else{
+        } else {
             if (db.getUser(usernameString, passwordString)) {
                 session.setLoggedin(true);
                 displayToast("Login successfully");
                 finish();
-                startActivity(new Intent(this,GameChoiceActivity.class));
+                startActivity(new Intent(this, GameChoiceActivity.class));
                 currentUser = usernameString;
             } else {
                 Toast.makeText(getApplicationContext(), "Wrong username/password", Toast.LENGTH_SHORT).show();
             }
-        }}
+        }
+    }
 
     /**
      * Check the user information and store them into Database
+     *
      * @param view the current view
      */
     public void register(View view) {
@@ -92,21 +118,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (db.checkUserExist(usernameString)) {
             displayToast("Username exist, please login!");
 
-        }
-        else {
+        } else {
 
             if (usernameString.isEmpty() || passwordString.isEmpty()) {
                 displayToast("Username/password field empty");
-            }else{
+            } else {
                 db.addUser(usernameString, passwordString);
                 currentUser = usernameString;
                 displayToast("Registered successfully, please login");
-                finish();}
+                finish();
+            }
         }
     }
 
     /**
      * toasting message
+     *
      * @param message the message that we want to send
      */
     private void displayToast(String message) {

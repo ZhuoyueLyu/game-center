@@ -17,7 +17,7 @@ import group_0617.csc207.gamecentre.R;
  */
 public class StartingActivityOfCard extends GenericStartingActivity {
 
-    private  StartingActivityOfCardController controller;
+    //private  StartingActivityOfCardController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class StartingActivityOfCard extends GenericStartingActivity {
             public void onClick(View v) {
                 Intent gameScoreboardScreen =
                         new Intent(StartingActivityOfCard.this, LeaderboardActivity.class);
-                gameScoreboardScreen.putExtra("currentGame","card");
+                gameScoreboardScreen.putExtra("currentGame", "card");
                 gameScoreboardScreen.putExtra("complexity", getCurrentComplexity());
                 startActivity(gameScoreboardScreen);
             }

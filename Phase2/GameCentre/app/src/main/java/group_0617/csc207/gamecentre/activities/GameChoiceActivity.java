@@ -7,7 +7,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import group_0617.csc207.gamecentre.R;
 import group_0617.csc207.gamecentre.dataBase.Session;
@@ -25,11 +24,6 @@ public class GameChoiceActivity extends AppCompatActivity {
      * The session related to database
      */
     private Session session;
-
-    /**
-     * The current game's name
-     */
-    public static String currentGame = "Slidingtiles";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +53,6 @@ public class GameChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivity.class);
-                currentGame = "Slidingtiles";
                 startActivity(startingScreen);
             }
         });
@@ -74,7 +67,6 @@ public class GameChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivity2048.class);
-                currentGame = "2048";
                 startActivity(startingScreen);
             }
         });

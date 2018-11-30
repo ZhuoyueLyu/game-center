@@ -3,7 +3,6 @@ package group_0617.csc207.gamecentre.game2048;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import group_0617.csc207.gamecentre.GenericBoardManager;
 

@@ -7,14 +7,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Observer;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import group_0617.csc207.gamecentre.GenericBoardManagerSaveLoader;
 import group_0617.csc207.gamecentre.GenericGameActivity;
 import group_0617.csc207.gamecentre.GenericBoard;
-import group_0617.csc207.gamecentre.activities.GestureDetectGridView;
 import group_0617.csc207.gamecentre.R;
 
 /**
@@ -53,15 +48,15 @@ public class CardGameActivity extends GenericGameActivity {
      * Update the image of the buttons
      */
     public void updateTileButtons() {
-        Iterator<Card> iter = ((CardBoard) getGenericBoardManager().getBoard()).iterator();
+        Iterator<Card> iterator = ((CardBoard) getGenericBoardManager().getBoard()).iterator();
         for (Button b : getTileButtons()) {
-            Card curCard = iter.next();
+            Card curCard = iterator.next();
             b.setBackgroundResource(curCard.getDisplay());
         }
     }
 
     @Override
-    public void display(){
+    public void display() {
         super.display();
         TextView realScore = findViewById(R.id.RealScore);
         String text = "Score: " + getGenericBoardManager().getScore();

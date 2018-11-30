@@ -44,7 +44,10 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
      */
     private GenericBoardManager genericBoardManager;
 
-    private GenericBoardManagerSaveLoader saveLoader = GenericBoardManagerSaveLoader.getInstance();
+    /**
+     * The save loader to save and load board manager.
+     */
+    private final GenericBoardManagerSaveLoader saveLoader = GenericBoardManagerSaveLoader.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +65,27 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         addRightArrowButtonListener();
     }
 
+    /**
+     * Return the current saveFileName
+     *
+     * @return the current saveFileName
+     */
     protected String getSaveFileName() {
         return saveFileName;
     }
 
+    /**
+     * Return the temporary saveFileName between starting activities and game activities
+     *
+     * @return the temporary saveFileName
+     */
     protected String getTempSaveFileName() {
         return tempSaveFileName;
     }
 
+    /**
+     * Renew the saving paths based on new configuration
+     */
     private void setSavePath() {
         this.saveFileName = "save_file_" + gameName + "_" + currentComplexity
                 + "_" + LoginActivity.currentUser;
@@ -77,11 +93,21 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
                 + "_" + LoginActivity.currentUser;
     }
 
-    protected void setCurrentComplexity(int currentComplexity) {
+    /**
+     * Set the complexity of the game to start
+     *
+     * @param currentComplexity the complexity of the game to start
+     */
+    private void setCurrentComplexity(int currentComplexity) {
         this.currentComplexity = currentComplexity;
         setSavePath();
     }
 
+    /**
+     * Set the name of the current game
+     *
+     * @param gameName the name of the current game
+     */
     protected void setGameName(String gameName) {
         this.gameName = gameName;
         setSavePath();
@@ -97,7 +123,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView complexity = (TextView) findViewById(R.id.Complexity);
+                TextView complexity = findViewById(R.id.Complexity);
                 if (currentComplexity > 3) {
                     setCurrentComplexity(currentComplexity - 1);
                     showComplexity(complexity);
@@ -115,7 +141,7 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
         Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView complexity = (TextView) findViewById(R.id.Complexity);
+                TextView complexity = findViewById(R.id.Complexity);
                 if (currentComplexity < 5) {
                     setCurrentComplexity(currentComplexity + 1);
                     showComplexity(complexity);
@@ -200,10 +226,10 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
 
 
     /**
-     * Display messege with a toast.
+     * Display message with a toast.
      */
-    private void makeToastText(String messege) {
-        Toast.makeText(this, messege, Toast.LENGTH_SHORT).show();
+    private void makeToastText(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -244,15 +270,6 @@ abstract public class GenericStartingActivity extends AppCompatActivity {
     protected void saveToFile(String fileName) {
         saveLoader.saveGenericBoardManager(genericBoardManager,
                 fileName, this);
-    }
-
-    /**
-     * Return this board manager
-     *
-     * @return this board manager
-     */
-    public GenericBoardManager getGenericBoardManager() {
-        return genericBoardManager;
     }
 
     /**
