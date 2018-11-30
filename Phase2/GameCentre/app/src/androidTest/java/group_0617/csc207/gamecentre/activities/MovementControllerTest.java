@@ -45,7 +45,6 @@ public class MovementControllerTest {
         when(movementController.genericBoardManager.getCurrentGame()).thenReturn("st");
         when(movementController.genericBoardManager.getBoard().getComplexity()).thenReturn(4);
         Looper.prepare();
-
         doNothing().when(boardManager).touchMove(validPosition);
         when(movementController.genericBoardManager.puzzleSolved()).thenReturn(true);
         //call the "if" branch
