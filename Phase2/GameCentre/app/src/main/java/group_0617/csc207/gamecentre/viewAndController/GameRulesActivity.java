@@ -1,4 +1,4 @@
-package group_0617.csc207.gamecentre.activities;
+package group_0617.csc207.gamecentre.viewAndController;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -41,7 +41,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
 
     @Override
     public boolean puzzleSolved() {
-        int[] moves = {Game2048Activity.UP, Game2048Activity.DOWN, Game2048Activity.LEFT, Game2048Activity.RIGHT};
+        int[] moves = {GameActivity2048.UP, GameActivity2048.DOWN, GameActivity2048.LEFT, GameActivity2048.RIGHT};
         for (int move : moves) {
             if (isValidTap(move)) {
                 return false;
@@ -62,7 +62,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
         }
 
         switch (move) {
-            case Game2048Activity.LEFT:
+            case GameActivity2048.LEFT:
                 for (Tile2048[] line : tiles) {
                     Tile2048[] lineCopy = line.clone();
                     board2048.leftCombine(lineCopy);
@@ -73,7 +73,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
                     }
                 }
                 break;
-            case Game2048Activity.RIGHT:
+            case GameActivity2048.RIGHT:
                 for (Tile2048[] line : tiles) {
                     Tile2048[] lineCopy = line.clone();
                     Tile2048[] reverseLine = new Tile2048[line.length];
@@ -91,7 +91,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
                     }
                 }
                 break;
-            case Game2048Activity.UP:
+            case GameActivity2048.UP:
                 for (Tile2048[] line : columnTiles) {
                     Tile2048[] lineCopy = line.clone();
                     board2048.leftCombine(line);
@@ -102,7 +102,7 @@ public class BoardManager2048 extends GenericBoardManager implements Serializabl
                     }
                 }
                 break;
-            case Game2048Activity.DOWN:
+            case GameActivity2048.DOWN:
                 for (Tile2048[] line : columnTiles) {
                     Tile2048[] lineCopy = line.clone();
                     Tile2048[] reverseLine = new Tile2048[line.length];

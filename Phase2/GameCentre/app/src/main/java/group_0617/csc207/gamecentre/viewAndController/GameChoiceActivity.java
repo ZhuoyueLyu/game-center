@@ -1,4 +1,4 @@
-package group_0617.csc207.gamecentre.activities;
+package group_0617.csc207.gamecentre.viewAndController;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import group_0617.csc207.gamecentre.R;
 import group_0617.csc207.gamecentre.dataBase.Session;
 import group_0617.csc207.gamecentre.game2048.StartingActivity2048;
-import group_0617.csc207.gamecentre.gameMemory.StartingActivityOfCard;
+import group_0617.csc207.gamecentre.gameMemory.CardStartingActivity;
 import group_0617.csc207.gamecentre.gameSlidingTiles.StartingActivity;
 
 /**
@@ -80,7 +80,7 @@ public class GameChoiceActivity extends AppCompatActivity {
         otherGame2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startingScreen = new Intent(GameChoiceActivity.this, StartingActivityOfCard.class);
+                Intent startingScreen = new Intent(GameChoiceActivity.this, CardStartingActivity.class);
                 startActivity(startingScreen);
             }
         });

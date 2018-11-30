@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import group_0617.csc207.gamecentre.game2048.Board2048;
-import group_0617.csc207.gamecentre.game2048.Game2048Activity;
+import group_0617.csc207.gamecentre.game2048.GameActivity2048;
 import group_0617.csc207.gamecentre.game2048.Tile2048;
 
 import static org.junit.Assert.*;
@@ -64,28 +64,28 @@ public class Board2048Test {
                 2, 4, 0, 0};
         setUpBoard2048(numTiles);
 
-        board2048.swipeMove(Game2048Activity.LEFT);
+        board2048.swipeMove(GameActivity2048.LEFT);
         int[] expectedTiles1 = {4, 4, 0, 0,
                 4, 0, 0, 0,
                 2, 4, 0, 0,
                 2, 4, 0, 0};
         Assert.assertArrayEquals(expectedTiles1, getNumTiles());
 
-        board2048.swipeMove(Game2048Activity.UP);
+        board2048.swipeMove(GameActivity2048.UP);
         int[] expectedTiles2 = {8, 8, 0, 0,
                 4, 4, 0, 0,
                 0, 0, 0, 0,
                 0, 0, 0, 0};
         Assert.assertArrayEquals(expectedTiles2, getNumTiles());
 
-        board2048.swipeMove(Game2048Activity.RIGHT);
+        board2048.swipeMove(GameActivity2048.RIGHT);
         int[] expectedTiles3 = {0, 0, 0, 16,
                 0, 0, 0, 8,
                 0, 0, 0, 0,
                 0, 0, 0, 0};
         Assert.assertArrayEquals(expectedTiles3, getNumTiles());
 
-        board2048.swipeMove(Game2048Activity.DOWN);
+        board2048.swipeMove(GameActivity2048.DOWN);
         int[] expectedTiles4 = {0, 0, 0, 0,
                 0, 0, 0, 0,
                 0, 0, 0, 16,

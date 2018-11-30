@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import group_0617.csc207.gamecentre.activities.GenericStartingActivity;
-import group_0617.csc207.gamecentre.activities.LeaderboardActivity;
+import group_0617.csc207.gamecentre.GenericStartingActivity;
+import group_0617.csc207.gamecentre.viewAndController.LeaderboardActivity;
 import group_0617.csc207.gamecentre.R;
 
 /**

@@ -82,7 +82,7 @@ public class Board2048 extends GenericBoard implements Serializable {
         }
 
         switch (dir) {
-            case Game2048Activity.UP:
+            case GameActivity2048.UP:
                 for (int i = 0; i < getComplexity(); i++) {
                     leftCombine(columnTiles[i]);
                 }
@@ -92,7 +92,7 @@ public class Board2048 extends GenericBoard implements Serializable {
                     }
                 }
                 break;
-            case Game2048Activity.DOWN:
+            case GameActivity2048.DOWN:
                 for (int i = 0; i < getComplexity(); i++) {
                     Tile2048[] reverseColumn = new Tile2048[getComplexity()];
                     for (int j = 0; j < getComplexity(); j++) {
@@ -109,12 +109,12 @@ public class Board2048 extends GenericBoard implements Serializable {
                     }
                 }
                 break;
-            case Game2048Activity.LEFT:
+            case GameActivity2048.LEFT:
                 for (int i = 0; i < getComplexity(); i++) {
                     leftCombine(tiles[i]);
                 }
                 break;
-            case Game2048Activity.RIGHT:
+            case GameActivity2048.RIGHT:
                 for (int i = 0; i < getComplexity(); i++) {
                     Tile2048[] reverseRow = new Tile2048[getComplexity()];
                     for (int j = 0; j < getComplexity(); j++) {

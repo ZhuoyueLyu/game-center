@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".activities.GestureDetectGridView">
+    tools:context=".viewAndController.GestureDetectGridView">
 
 
     <android.support.constraint.ConstraintLayout
@@ -35,14 +35,14 @@
     </android.support.constraint.ConstraintLayout>
 
 
-    <group_0617.csc207.gamecentre.activities.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <group_0617.csc207.gamecentre.viewAndController.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="572dp"
         android:layout_weight="1"
-        tools:context="group_0617.csc207.gamecentre.game2048.Game2048Activity" />
+        tools:context="group_0617.csc207.gamecentre.game2048.GameActivity2048" />
 
 
     <android.support.constraint.ConstraintLayout

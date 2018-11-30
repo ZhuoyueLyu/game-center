@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import group_0617.csc207.gamecentre.activities.GenericStartingActivity;
-import group_0617.csc207.gamecentre.activities.LeaderboardActivity;
+import group_0617.csc207.gamecentre.GenericStartingActivity;
+import group_0617.csc207.gamecentre.viewAndController.LeaderboardActivity;
 import group_0617.csc207.gamecentre.R;
 
 /**
@@ -49,7 +49,7 @@ public class StartingActivity2048 extends GenericStartingActivity {
      * Switch to the GameActivity view to play the game.
      */
     public void switchToGame() {
-        Intent tmp = new Intent(this, Game2048Activity.class);
+        Intent tmp = new Intent(this, GameActivity2048.class);
         tmp.putExtra("saveFileName", getSaveFileName());
         startActivity(tmp);
     }

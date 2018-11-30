@@ -13,7 +13,7 @@ import group_0617.csc207.gamecentre.R;
 /**
  * The game activity for 2048.
  */
-public class Game2048Activity extends GenericGameActivity {
+public class GameActivity2048 extends GenericGameActivity {
 
     /**
      * Constants for swiping directions.

@@ -1,4 +1,4 @@
-package group_0617.csc207.gamecentre.activities;
+package group_0617.csc207.gamecentre;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,9 +10,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import group_0617.csc207.gamecentre.GenericBoardManager;
-import group_0617.csc207.gamecentre.GenericBoardManagerSaveLoader;
-import group_0617.csc207.gamecentre.R;
+import group_0617.csc207.gamecentre.viewAndController.GameRulesActivity;
+import group_0617.csc207.gamecentre.viewAndController.LoginActivity;
 
 /**
  * The initial activity for the sliding puzzle tile game.

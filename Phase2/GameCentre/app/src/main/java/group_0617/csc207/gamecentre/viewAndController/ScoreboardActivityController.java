@@ -1,4 +1,4 @@
-package group_0617.csc207.gamecentre.activities;
+package group_0617.csc207.gamecentre.viewAndController;
 
 import group_0617.csc207.gamecentre.dataBase.DatabaseHelper;
 

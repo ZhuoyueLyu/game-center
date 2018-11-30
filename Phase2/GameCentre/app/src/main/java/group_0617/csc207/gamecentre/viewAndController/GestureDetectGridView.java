@@ -1,4 +1,4 @@
-package group_0617.csc207.gamecentre.activities;
+package group_0617.csc207.gamecentre.viewAndController;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.widget.GridView;
 
 import group_0617.csc207.gamecentre.GenericBoardManager;
-import group_0617.csc207.gamecentre.game2048.Game2048Activity;
+import group_0617.csc207.gamecentre.game2048.GameActivity2048;
 
 /**
  * Adapted from:
@@ -74,18 +74,18 @@ public class GestureDetectGridView extends GridView {
                             return false;
                         }
                         if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
-                            direction = Game2048Activity.UP;
+                            direction = GameActivity2048.UP;
                         } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
-                            direction = Game2048Activity.DOWN;
+                            direction = GameActivity2048.DOWN;
                         }
                     } else {
                         if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
                             return false;
                         }
                         if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-                            direction = Game2048Activity.LEFT;
+                            direction = GameActivity2048.LEFT;
                         } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
-                            direction = Game2048Activity.RIGHT;
+                            direction = GameActivity2048.RIGHT;
                         }
                     }
                     mController.processTapMovement(context, direction);
