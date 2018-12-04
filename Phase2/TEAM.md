@@ -39,9 +39,9 @@
 * Extract to superclasses including “GenericTile”, “GenericBoard”, “GenericBoardManager”, “GenericStartingActivity” and “GenericGameActivity”
 * Unit tests for all about game “2048”
 ##### Zhuoyue Lyu:
-* Refactor activity classes (Follow MVC pattern) and wrote the Juni tests for the controllers
-* Connect the database and view with 2 new games.
-* Redesign the UI and regroup classes into 5 packages
+* Refactor all activity classes (Follow MVC) to View and Controller
+* Build SQLite databaseHelper, scoreboard/leaderboard (Adapter pattern) 
+* Wrote Instrumented tests for all controllers. Redesign the UI and regroup classes into 5 packages.
 
 
 ## Meeting Minutes
