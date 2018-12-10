@@ -14,8 +14,8 @@
 * Phone: (647) 916-9782
 * Git username: Jiahe Lyu
 
-### Team Member 3
-* Name: Zhuoyue Lyu (me)
+### Team Member 3 (me)
+* Name: Zhuoyue Lyu 
 * Email: zhuoyue.lyu@mail.utoronto.ca
 * Phone: (647) 685-4909
 * Git username: Zhuoyue Lyu
