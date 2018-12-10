@@ -15,7 +15,7 @@
 * Git username: Jiahe Lyu
 
 ### Team Member 3
-* Name: Zhuoyue Lyu
+* Name: Zhuoyue Lyu (me)
 * Email: zhuoyue.lyu@mail.utoronto.ca
 * Phone: (647) 685-4909
 * Git username: Zhuoyue Lyu
@@ -38,7 +38,7 @@
 * Design and implement the game "2048"
 * Extract to superclasses including “GenericTile”, “GenericBoard”, “GenericBoardManager”, “GenericStartingActivity” and “GenericGameActivity”
 * Unit tests for all about game “2048”
-##### Zhuoyue Lyu:
+##### Zhuoyue Lyu (me):
 * Refactor all activity classes (Follow MVC) to View and Controller
 * Build SQLite databaseHelper, scoreboard/leaderboard (Adapter pattern) 
 * Wrote Instrumented tests for all controllers. Redesign the UI and regroup classes into 5 packages.
