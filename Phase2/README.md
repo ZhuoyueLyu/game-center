@@ -68,7 +68,7 @@ o(〃'▽'〃)o
 
 * ! It takes some time (around 25s~1min) to load the sliding tiles game, since the app is running makeSolvable(), we haven't find efficient way to solve this yet. please be patient~
 * you can also upload the image you want.
-![image3](./screenshots/upload.jpg)
+![image3](./screenshots/Upload.jpg)
 ##### Upload twice, since the first time is to get permission and the second time is to upload the image~
 
 
