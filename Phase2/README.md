@@ -4,6 +4,21 @@
 We finished as a group of 3 people, and we worked really hard on this, we hope you enjoy our game! 
 <br>
 o(〃'▽'〃)o
+
+## Major Controbution
+##### Tzu-Ching Yen: 
+* Design and implement the game "Memory"
+* Implemented feature to make “Sliding Tile” game solvable
+* Unit tests for some of “Sliding Tile” and most of “Memory”
+##### Jiahe Lyu:
+* Design and implement the game "2048"
+* Extract to superclasses including “GenericTile”, “GenericBoard”, “GenericBoardManager”, “GenericStartingActivity” and “GenericGameActivity”
+* Unit tests for all about game “2048”
+##### Zhuoyue Lyu (Me):
+* Refactor all activity classes (Follow MVC) to View and Controller
+* Build SQLite databaseHelper, scoreboard/leaderboard (Adapter pattern) 
+* Wrote Instrumented tests for all controllers. Redesign the UI and regroup classes into 5 packages.
+
 ## Design pattern/Cool codes
 * **MVC pattern:** <br>(you can see all those controller and activities in the "viewAndController" folder )Activities, GenericBoardManager, and MovementController employ the MVC pattern. These are View, Model, and Controller respectively. This design pattern greatly reduce the logic needed in activities and leads to better coverage.
 
