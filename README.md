@@ -1,5 +1,5 @@
 # Game Instructions
-*Please also download the screenshots folder to show the image, thank you~
+*Our codes are in the Phase2 folder, please take a look~
 
 We finished as a group of 3 people, and we worked really hard on this, we hope you enjoy our game! 
 <br>
